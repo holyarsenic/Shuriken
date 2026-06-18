@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+html, body{
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-box{
+  @apply w-full bg-gray-100 px-4 py-2 rounded-md focus:outline-none text-sm
+}
