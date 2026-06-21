@@ -1,0 +1,10 @@
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import connectDb from "./db";
+
+dotenv.config({
+  path: './env'
+})
+
+
+connectDb()
