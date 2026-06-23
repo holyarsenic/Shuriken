@@ -56,7 +56,7 @@ const Login = () => {
 
           <div className="w-full flex flex-col gap-4 items-center justify-center">
             
-            <button className="w-full h-10 bg-[#6a99eb] text-white rounded-md cursor-pointer">Log in</button>
+            <button className="w-full h-10 bg-[#111] text-white rounded-md cursor-pointer">Log in</button>
             
             <h5>or</h5>
               
