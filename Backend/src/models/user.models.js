@@ -32,7 +32,7 @@ const userSchema = new Schema(
     },
     watchHistory:[{
       type:Schema.Types.ObjectId,
-      ref:"Picture"
+      ref:"Pictures"
     }],
     password:{
       type:String,

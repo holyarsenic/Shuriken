@@ -87,8 +87,8 @@ const Home = () => {
       <Navbar/>
       <div className="h-full mt-22 ml-17 px-4 py-4">
         <div className="flex gap-3 text-xl ml-5">
-          <h4 className="px-3 py-2 bg-[#111] text-white rounded-3xl">All</h4>
-          <h4 className="px-3 py-2 bg-[#111] text-white rounded-3xl">Your Posts</h4>
+          <h4 className="px-4 py-2 bg-[#111] text-white rounded-3xl">All</h4>
+          <h4 className="px-4 py-2 bg-[#111] text-white rounded-3xl">Your Posts</h4>
         </div>
 
         <div className="h-full w-full columns-2 sm:columns-2 md:columns-3 lg:columns-5 xl:columns-6 gap-1 sm:gap-1 md:gap-2 lg:gap-4 xl:gap-4 pt-4 object-contain">
