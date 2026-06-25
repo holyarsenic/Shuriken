@@ -10,7 +10,7 @@ dns.setServers([
 ])
 
 dotenv.config({
-  path: './env'
+  path: './.env'
 })
 
 

@@ -4,9 +4,9 @@ import {User} from "../models/user.models.js";
 import {uploadOnCloudnary} from "../utils/cloudnary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
-const registerUser = asyncHandler(async (req, res) => {
+const registerUser = asyncHandler( async (req, res) => {
+  
   const {email,userName,fullName, password} = req.body //form data not URL
-  console.log("email:", email);
 
   //validatioon
   if (
@@ -17,7 +17,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   //finding user if its already exist in database
 
-     const existedUser = User.findOne({
+     const existedUser = await User.findOne({
         $or: [{ userName },{ email }]
       })
   
@@ -44,7 +44,7 @@ const registerUser = asyncHandler(async (req, res) => {
       const user = await User.create({
         userName: userName.toLowerCase(),
         fullName,
-        avtar: avatar?.url || "",
+        avtar: avatar.url,
         email,
         password
       })
