@@ -25,7 +25,7 @@ const userSchema = new Schema(
       trim: true,
       index: true
     },
-     avtar:{
+     avatar:{
       type: String,
       required: true
     },
@@ -59,7 +59,7 @@ userSchema.methods.isPasswordCorrect = async function (password) {
 
 //Tokens 
 
-userSchema.methods.generateAccessToken = async function (params) {
+userSchema.methods.generateAccessToken = function (params) {
    return jwt.sign({
     _id: this._id,
     email: this.email,
@@ -73,7 +73,7 @@ userSchema.methods.generateAccessToken = async function (params) {
 )
 }
 
-userSchema.methods.generateRefreshToken = async function (params) {
+userSchema.methods.generateRefreshToken = function (params) {
   return jwt.sign({
     _id: this._id
   },
