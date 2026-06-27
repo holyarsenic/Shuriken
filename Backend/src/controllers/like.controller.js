@@ -1,10 +1,10 @@
 import mongoose, {isValidObjectId} from "mongoose"
-import {Like} from "../models/like.model.js"
+import {Like} from "../models/like.models.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
-import {asyncHandler} from "../utils/asyncHandler.js"
+import {asyncHandler} from "../utils/asynchandler.js"
 
-const toggleVideoLike = asyncHandler(async (req, res) => {
+const togglePostLike = asyncHandler(async (req, res) => {
     const {videoId} = req.params
     //TODO: toggle like on video
 })
@@ -21,13 +21,13 @@ const toggleTweetLike = asyncHandler(async (req, res) => {
 }
 )
 
-const getLikedVideos = asyncHandler(async (req, res) => {
+const getLikedPosts = asyncHandler(async (req, res) => {
     //TODO: get all liked videos
 })
 
 export {
     toggleCommentLike,
     toggleTweetLike,
-    toggleVideoLike,
-    getLikedVideos
+    togglePostLike,
+    getLikedPosts
 }

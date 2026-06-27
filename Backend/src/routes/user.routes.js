@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { 
     loginUser, 
-    logout, 
+    logOut, 
     registerUser, 
     refreshAccessToken, 
     changeCurrentPassword, 
@@ -18,7 +18,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 const router = Router()
 
 router.route("/register").post(
-    upload.field([
+    upload.fields([
         {
             name: "avatar",
             maxCount: 1
@@ -30,7 +30,7 @@ router.route("/register").post(
 router.route("/login").post(loginUser)
 
 //secured routes
-router.route("/logout").post(verifyJWT,  logoutUser)
+router.route("/logout").post(verifyJWT,  logOut)
 router.route("/refresh-token").post(refreshAccessToken)
 router.route("/change-password").post(verifyJWT, changeCurrentPassword)
 router.route("/current-user").get(verifyJWT, getCurrentUser)

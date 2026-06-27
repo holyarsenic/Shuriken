@@ -1,12 +1,12 @@
 import mongoose from "mongoose"
-import {Comment} from "../models/comment.model.js"
+import {Comment} from "../models/comment.models.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
-import {asyncHandler} from "../utils/asyncHandler.js"
+import {asyncHandler} from "../utils/asynchandler.js"
 
-const getVideoComments = asyncHandler(async (req, res) => {
+const getPostComments = asyncHandler(async (req, res) => {
     //TODO: get all comments for a video
-    const {videoId} = req.params
+    const {PostId} = req.params
     const {page = 1, limit = 10} = req.query
 
 })
@@ -24,7 +24,7 @@ const deleteComment = asyncHandler(async (req, res) => {
 })
 
 export {
-    getVideoComments, 
+    getPostComments, 
     addComment, 
     updateComment,
      deleteComment

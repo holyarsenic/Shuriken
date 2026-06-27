@@ -1,10 +1,10 @@
 import mongoose, {Schema} from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
-const picturesSchema = new Schema(
+const postSchema = new Schema(
   {
 
-    pictureFile:{
+    postFile:{
       type: String, //cld
       required: true,
     },
@@ -36,6 +36,6 @@ const picturesSchema = new Schema(
   },{timestamps:true}
 );
 
-picturesSchema.plugin(mongooseAggregatePaginate);
+postSchema.plugin(mongooseAggregatePaginate);
 
-export const Pictures = mongoose.model("Pictures", picturesSchema);
+export const Post = mongoose.model("Post", postSchema);
