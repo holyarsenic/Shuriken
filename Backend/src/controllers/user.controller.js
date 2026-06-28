@@ -243,8 +243,8 @@ const getCurrentUser = asyncHandler(async(req, res) => {
 const updateAccountDetails = asyncHandler(async(req, res) => {
     const {fullName, email} = req.body
 
-    if (!fullName || !email) {
-        throw new ApiError(400, "All fields are required")
+    if (!(fullName || email)) {
+        throw new ApiError(400, "At least one field is required")
     }
 
     const user = await User.findByIdAndUpdate(
@@ -252,7 +252,7 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
         {
             $set: {
                 fullName,
-                email: email
+                email
             }
         },
         {new: true}
@@ -271,7 +271,9 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
         throw new ApiError(400, "Avatar file is missing")
     }
 
-    //TODO: delete old image - assignment
+    //taking oldavatar
+      const userOld = await User.findById(req.user?._id);
+      const oldAvatarUrl = userOld?.avatar; 
 
     const avatar = await uploadOnCloudinary(avatarLocalPath)
 
@@ -279,6 +281,15 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
         throw new ApiError(400, "Error while uploading on avatar")
         
     }
+
+      if (oldAvatarUrl) {
+        const parts = oldAvatarUrl.split("/");
+        const fileName = parts.pop();
+        const publicId = fileName.split(".")[0];
+
+        await cloudinary.uploader.destroy(publicId);
+        }
+
 
     const user = await User.findByIdAndUpdate(
         req.user?._id,
@@ -299,47 +310,47 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
 
 
 const getUserChannelProfile = asyncHandler(async(req, res) => {
-    const {username} = req.params
+    const {userName} = req.params
 
-    if (!username?.trim()) {
+    if (!userName?.trim()) {
         throw new ApiError(400, "username is missing")
     }
 
     const channel = await User.aggregate([
         {
             $match: {
-                username: username?.toLowerCase()
+                userName: userName?.toLowerCase()
             }
         },
         {
             $lookup: {
                 from: "subscriptions",
                 localField: "_id",
-                foreignField: "channel",
-                as: "subscribers"
+                foreignField: "accountTheyAreFollowing",
+                as: "followers"
             }
         },
         {
             $lookup: {
                 from: "subscriptions",
                 localField: "_id",
-                foreignField: "subscriber",
-                as: "subscribedTo"
+                foreignField: "accFollowers",
+                as: "followings"
             }
         },
         {
             $addFields: {
-                subscribersCount: {
-                    $size: "$subscribers"
+                followersCount: {
+                    $size: "$followers"
                 },
                 channelsSubscribedToCount: {
-                    $size: "$subscribedTo"
+                    $size: "$followings"
                 },
                 isSubscribed: {
                     $cond: {
-                        if: {$in: [req.user?._id, "$subscribers.subscriber"]},
+                        if: {$in: [req.user?._id, "$followers.accFollowers"]},
                         then: true,
-                        else: false
+                        else: false  //checks if user subscribe person
                     }
                 }
             }
@@ -347,12 +358,11 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
         {
             $project: {
                 fullName: 1,
-                username: 1,
-                subscribersCount: 1,
+                userName: 1,
+                followersCount: 1,
                 channelsSubscribedToCount: 1,
                 isSubscribed: 1,
                 avatar: 1,
-                coverImage: 1,
                 email: 1
 
             }
@@ -379,7 +389,7 @@ const getWatchHistory = asyncHandler(async(req, res) => {
         },
         {
             $lookup: {
-                from: "videos",
+                from: "posts",
                 localField: "watchHistory",
                 foreignField: "_id",
                 as: "watchHistory",
