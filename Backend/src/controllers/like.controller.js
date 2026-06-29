@@ -113,60 +113,6 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
 
 })
 
-const toggleTweetLike = asyncHandler(async (req, res) => {
-    //TODO: toggle like on tweet
-        const { tweetId } = req.params
-
-    if (!isValidObjectId(tweetId)) {
-        throw new ApiError(400, "Invalid tweet id")
-    }
-
-    const tweet = await Tweet.findById(tweetId)
-
-    if (!tweet) {
-        throw new ApiError(404, "Tweet not found")
-    }
-
-    const alreadyLiked = await Like.findOne({
-        tweet: tweetId,
-        likedBy: req.user?._id
-    })
-
-    // unlike
-    if (alreadyLiked) {
-
-        await Like.findByIdAndDelete(
-            alreadyLiked._id
-        )
-
-        return res
-        .status(200)
-        .json(
-            new ApiResponse(
-                200,
-                {},
-                "Tweet unliked successfully"
-            )
-        )
-    }
-
-    // like
-    const like = await Like.create({
-        tweet: tweetId,
-        likedBy: req.user?._id
-    })
-
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            like,
-            "Tweet liked successfully"
-        )
-    )
-})
-
 const getLikedPosts = asyncHandler(async (req, res) => {
     //TODO: get all liked posts
         const likedPosts = await Like.aggregate([

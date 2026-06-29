@@ -5,7 +5,7 @@ import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asynchandler.js"
 
 const getPostComments = asyncHandler(async (req, res) => {
-    //TODO: get all comments for a video
+    //TODO: get all comments for a post
     const {postId} = req.params
     const {page = 1, limit = 10} = req.query
 
@@ -136,7 +136,7 @@ const getPostComments = asyncHandler(async (req, res) => {
 })
 
 const addComment = asyncHandler(async (req, res) => {
-    // TODO: add a comment to a video
+    // TODO: add a comment to a post
     
     const { postId } = req.params
 
