@@ -1,17 +1,22 @@
 
-
+import { User } from "../context/user.jsx";
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
 
 const Register = () => {
 
-  const[name,setName]= useState("")
+  const[userName,setUserName]= useState("")
   const [email, setEmail]= useState("")
   const [password, setPassword]= useState("")
-  const Regsubmithandle = (e) => {
+  const [fullName, setFullName]= useState("")
+  
+  const { register } = User();
+
+  const Regsubmithandle = async (e) => {
     e.preventDefault();
-    console.log(email, password);
+
+   await register(fullName, userName, email, password);
     
   }
 
@@ -28,16 +33,30 @@ const Register = () => {
 
           <form onSubmit={Regsubmithandle}>
 
-          <div className="mb-4 w-full">
+           <div className="mb-4 w-full">
             <label 
             htmlFor="Text" 
-            className="block text-sm font-medium text-gray-700">Name</label>
+            className="block text-sm font-medium text-gray-700">Full Name</label>
 
           <input 
           type="text"
           className="input-box"
-          value={name}
-          onChange={(e) =>setName(e.target.value)}
+          value={fullName}
+          onChange={(e) =>setFullName(e.target.value)}
+          required
+          />
+          </div>
+
+          <div className="mb-4 w-full">
+            <label 
+            htmlFor="Text" 
+            className="block text-sm font-medium text-gray-700">User Name</label>
+
+          <input 
+          type="text"
+          className="input-box"
+          value={userName}
+          onChange={(e) =>setUserName(e.target.value)}
           required
           />
           </div>

@@ -1,16 +1,29 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { User } from "../context/user.jsx";
+import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [email, setEmail]= useState("")
-  const [password, setPassword]= useState("")
-  const submithandle = (e) => {
+  const { login } = User();  
+  const navigate = useNavigate();
+
+  const submithandle = async (e) => {
     e.preventDefault();
-    console.log(email, password);
-    
-  }
+
+    try {
+      await login(email, password);  
+
+      alert("Login successful");
+
+      navigate("/");
+    } catch (err) {
+      console.log(err.response?.data || err.message);
+      alert("Login failed");
+    }
+  };
 
   return (
     <div className='min-h-screen w-full flex items-center justify-center bg-gray-300'>
@@ -56,7 +69,7 @@ const Login = () => {
 
           <div className="w-full flex flex-col gap-4 items-center justify-center">
             
-            <button className="w-full h-10 bg-[#111] text-white rounded-md cursor-pointer">Log in</button>
+            <button type="submit" className="w-full h-10 bg-[#111] text-white rounded-md cursor-pointer">Log in</button>
             
             <h5>or</h5>
               
@@ -78,4 +91,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Login;

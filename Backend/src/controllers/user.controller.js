@@ -6,7 +6,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
 
-const generateAccessandRefreshToken = async(UserId) => {
+const generateAccessAndRefreshToken = async(UserId) => {
   try {
     const user = await User.findById(UserId)
     const accessToken = user.generateAccessToken()
@@ -105,7 +105,7 @@ const loginUser = asyncHandler( async (req, res) => {
     throw new ApiError(401, "Invalid Password")
   }
 
-  const {accessToken, refreshToken} = await generateAccessandRefreshToken(user._id)
+  const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
 
   const loggedInUser = await User.findById(user._id).select(
     "-password -refreshToken"
@@ -190,7 +190,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             secure: true
         }
     
-        const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
+        const {accessToken, newRefreshToken} = await generateAccessAndRefreshToken(user._id)
     
         return res
         .status(200)
@@ -275,7 +275,7 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
       const userOld = await User.findById(req.user?._id);
       const oldAvatarUrl = userOld?.avatar; 
 
-    const avatar = await uploadOnCloudinary(avatarLocalPath)
+    const avatar = await uploadOnCloudnary(avatarLocalPath)
 
     if (!avatar.url) {
         throw new ApiError(400, "Error while uploading on avatar")
