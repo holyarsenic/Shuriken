@@ -223,7 +223,6 @@ const getLikedPosts = asyncHandler(async (req, res) => {
 
 export {
     toggleCommentLike,
-    toggleTweetLike,
     togglePostLike,
     getLikedPosts
 }

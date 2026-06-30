@@ -19,7 +19,7 @@ router
     .post(
         upload.fields([
             {
-                name: "PostFile",
+                name: "postFile",
                 maxCount: 1,
             }
             

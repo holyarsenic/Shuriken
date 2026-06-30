@@ -116,23 +116,22 @@ const publishAPost = asyncHandler(async (req, res) => {
     }
 
 
-    const postFile = await uploadOnCloudinary(PostFileLocalPath)
+    const postFile = await uploadOnCloudnary(PostFileLocalPath)
 
 
     if (!postFile) {
         throw new ApiError(500, "Error while uploading post")
     }
 
-    const Post = await Post.create({
+    const newPost = await Post.create({
         title,
         description,
         postFile: postFile.url,
-        duration: postFile.duration || 0,
         owner: req.user?._id,
         isPublished: true
     })
 
-    const uploadedPost = await Post.findById(Post._id)
+    const uploadedPost = await Post.findById(newPost._id)
 
     if (!uploadedPost) {
         throw new ApiError(500, "Something went wrong while uploading post")
