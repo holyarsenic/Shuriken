@@ -26,15 +26,11 @@ const userSchema = new Schema(
       index: true
     },
      avatar:{
-      type: String,
-      required: true
-    },
-    coverImage:{
       type: String
     },
     watchHistory:[{
       type:Schema.Types.ObjectId,
-      ref:"Picture"
+      ref:"Post"
     }],
     password:{
       type:String,

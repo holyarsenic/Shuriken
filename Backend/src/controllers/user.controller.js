@@ -43,26 +43,11 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(409, "User with this Email or Username already existed");
       }
 
-  //Taking Avatar 
-
-      const avatarLocalPath = req.files?.avatar[0]?.path;
-
-      if (!avatarLocalPath) {
-        throw new ApiError(400, "Avatar is Required")
-      }
-
-      const avatar = await uploadOnCloudnary(avatarLocalPath)
-
-      if (!avatar) {
-        throw new ApiError(400, "Avatar is Required")
-      }
-
   //throwing data in db now
 
       const user = await User.create({
         userName: userName.toLowerCase(),
         fullName,
-        avatar: avatar.url,
         email,
         password
       })
@@ -190,16 +175,16 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             secure: true
         }
     
-        const {accessToken, newRefreshToken} = await generateAccessAndRefreshToken(user._id)
+        const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
     
         return res
         .status(200)
         .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", newRefreshToken, options)
+        .cookie("refreshToken", refreshToken, options)
         .json(
             new ApiResponse(
                 200, 
-                {accessToken, refreshToken: newRefreshToken},
+                {accessToken, refreshToken: refreshToken},
                 "Access token refreshed"
             )
         )
@@ -319,7 +304,7 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
     const channel = await User.aggregate([
         {
             $match: {
-                usernName: username?.toLowerCase()
+                userName: username?.toLowerCase()
             }
         },
         {

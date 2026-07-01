@@ -1,7 +1,8 @@
 
 import { User } from "../context/user.jsx";
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const Register = () => {
@@ -12,13 +13,21 @@ const Register = () => {
   const [fullName, setFullName]= useState("")
   
   const { register } = User();
-
-  const Regsubmithandle = async (e) => {
+    const navigate = useNavigate();
+  
+    const Regsubmithandle = async (e) => {
     e.preventDefault();
 
-   await register(fullName, userName, email, password);
-    
-  }
+    try {
+      await register(fullName, userName, email, password);
+
+      alert("Registration successful");
+      navigate("/");
+    } catch (err) {
+      console.log(err.response?.data || err.message);
+      alert("Registration failed");
+    }
+  };
 
   return (
     <div className='min-h-screen w-full flex items-center justify-center bg-gray-300'>

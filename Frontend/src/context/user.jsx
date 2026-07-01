@@ -17,30 +17,22 @@ export const UserProvider = ({ children }) => {
     return res.data;
   };
 
-    const register = async (fullName, userName, email, password, avatar) => {
-    const formData = new FormData();
-
-    formData.append("fullName", fullName);
-    formData.append("userName", userName);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("avatar", avatar);
-
-    const res = await axios.post(
+  const register = async (fullName, userName, email, password) => {
+     const res = await axios.post(
       "http://localhost:8000/api/v1/users/register",
-      formData,
       {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
+        fullName,
+        userName,
+        email,
+        password
+      },
+      { withCredentials: true }
     );
 
     return res.data;
   };
 
-  const logout = async () => {
+  const logOut = async () => {
     await axios.post(
       "http://localhost:8000/api/v1/users/logout",
       {},
@@ -51,7 +43,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout, register }}>
+    <UserContext.Provider value={{ user, login, logOut, register }}>
       {children}
     </UserContext.Provider>
   );
