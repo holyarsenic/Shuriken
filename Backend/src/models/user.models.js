@@ -26,7 +26,8 @@ const userSchema = new Schema(
       index: true
     },
      avatar:{
-      type: String
+      type: String,
+      default: "https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
     },
     watchHistory:[{
       type:Schema.Types.ObjectId,

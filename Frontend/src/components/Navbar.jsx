@@ -15,10 +15,10 @@ const SidebarItem = ({ icon, label, to }) => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex items-center gap-4 w-full px-5 py-3 rounded-xl transition-all duration-200 ${
+        `flex items-center gap-4 w-full px-5 py-3 rounded-xl transition-all duration-300 ${
           isActive
-            ? "bg-slate-800 text-white"
-            : "text-white hover:bg-slate-900"
+            ? "bg-[#23232A] text-white"
+            : "text-gray-300 hover:bg-[#1A1A20] hover:text-white"
         }`
       }
     >
@@ -31,15 +31,9 @@ const SidebarItem = ({ icon, label, to }) => {
 const Navbar = () => {
   return (
     <>
-      <div className="fixed left-0 top-0 w-64 h-screen bg-[#111] border-r border-slate-800 flex flex-col justify-between">
+      <div className="fixed left-0 top-0 w-64 h-screen bg-[#111018] border-r border-[#3B0764] flex flex-col justify-between">
         <div>
-          <div className="h-20 flex items-center px-8 border-b border-slate-800">
-            <h1 className="text-2xl font-bold text-white tracking-wide">
-              Shuriken
-            </h1>
-          </div>
-
-          <div className="px-4 mt-6 flex flex-col gap-2">
+          <div className="px-4 mt-26 flex flex-col gap-3">
             <SidebarItem
               icon={<IoIosHome />}
               label="Home"
@@ -66,34 +60,41 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="p-4 border-t border-slate-800 w-full flex items-center justify-center">
-          <SidebarItem
-            icon={<IoSettingsSharp />}
-            label="Settings"
-            to="/Settings"
-          />
+        <div className="p-4 border-t border-white/10 w-full flex items-center justify-center">
+          <NavLink
+                to="/Settings"
+                className="flex items-center gap-2 px-4 py-2 text-gray-300 hover:bg-[#1A1A20] hover:text-white transition"
+              >
+            <IoSettingsSharp className="text-2xl text-white" />
+            <span className="ml-2 text-white text-md font-medium">Settings</span>
+          </NavLink>
         </div>
       </div>
 
 
       <header
-        className="ml-64 h-20 bg-[#111] border-b border-slate-800
+        className="fixed w-full top-0 left-0 right-0 h-20 bg-[#111111] border-b border-[#3B0764] z-10
       flex items-center justify-between px-10">
-        <div></div>
-
+         <div className="h-20 flex justify-center items-center gap-2 px-2">
+          <img src="./src/assets/Logo.jpeg" className="h-10 w-10 rounded-full object-cover" />
+            <h1 className="text-3xl font-semibold tracking-wide text-white">
+              Shuriken
+            </h1>
+          </div>
         <div className="relative w-1/2 flex items-center justify-center">
-          <CiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-gray-400" />
+          <CiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-white" />
 
           <input
             type="text"
             placeholder="Search..."
-            className="w-full h-11 rounded-full
-            border-2 border-slate-500
+           className="w-full h-11 rounded-full
+            bg-[#151320]
+            border border-white/60
             text-white
             pl-11 pr-4
-            placeholder:text-gray-400
+            placeholder:text-white/60
             focus:outline-none
-            focus:border-slate-400
+            focus:border-violet-500
             transition"
           />
         </div>
@@ -101,12 +102,12 @@ const Navbar = () => {
       <div className="flex w-fit items-center justify-end gap-6">
         <div className="flex rounded-xl items-center justify-end gap-6">
           <button
-            className="p-1 border-2 border-slate-300 rounded-xl hover:bg-slate-900 transition cursor-pointer"
+            className="p-1 rounded-xl hover:bg-gray-500 transition cursor-pointer"
           >
-            <FiPlus className="text-2xl text-slate-300" />
+            <FiPlus className="text-3xl text-slate-300" />
           </button>
 
-          <div className="flex items-center gap-3 cursor-pointer rounded-xl border-2 hover:border-slate-300 px-3 py-2 transition">
+          <div className="flex items-center gap-3 cursor-pointer rounded-xl border-2 border-white/10 hover:border-slate-300 px-3 py-2 transition">
             <img
               src="https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
               className="w-10 h-10 rounded-full object-cover"

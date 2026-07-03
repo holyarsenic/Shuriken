@@ -7,6 +7,7 @@ import History from "./pages/History";
 import Create from "./pages/Create";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
+import PostDetails from "./pages/PostDetails";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/create" element={<Create />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/post/:postId" element={<PostDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

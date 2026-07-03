@@ -172,7 +172,7 @@ const getPostById = asyncHandler(async (req, res) => {
                     {
                         $project: {
                             fullName: 1,
-                            username: 1,
+                            userName: 1,
                             avatar: 1,
                         }
                     }

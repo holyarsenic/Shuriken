@@ -1,15 +1,17 @@
 import { HiDotsHorizontal } from "react-icons/hi";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/posts",
+          "http://localhost:8000/api/v1/posts/",
           { withCredentials: true }
         );
 
@@ -22,9 +24,13 @@ const Home = () => {
     fetchPosts();
   }, []);
 
+    function handlePostClick(postId) {
+      navigate(`/post/${postId}`);
+    }
+
   return (
     <>
-      <div className="min-h-screen ml-64 px-6 py-6 bg-[#000000] text-white">
+      <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-[#0B0A10] text-white">
 
         <div className="flex gap-3 text-sm mb-6">
           <h4 className="px-4 py-2 cursor-pointer text-xl hover:border-b-2 transition">
@@ -41,12 +47,13 @@ const Home = () => {
             <div
               key={post._id}
               className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
+              onClick={() => handlePostClick(post._id)}
             >
 
               <img
                 src={post.postFile}
                 alt={post.title}
-                className="rounded-xl w-full h-48 object-cover"
+                className="rounded-xl w-full object-cover"
               />
 
               <div className="p-3 flex justify-between items-center">
