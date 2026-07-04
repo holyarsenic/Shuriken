@@ -1,6 +1,7 @@
 import mongoose, {isValidObjectId} from "mongoose";
 import {Post} from "../models/post.models.js";
 import {User} from "../models/user.models.js";
+import { Like } from "../models/like.models.js";
 import {ApiError} from "../utils/ApiError.js";
 import {ApiResponse} from "../utils/ApiResponse.js";
 import {asyncHandler} from "../utils/asyncHandler.js";
@@ -220,15 +221,22 @@ const getPostById = asyncHandler(async (req, res) => {
         }
     )
 
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            post[0],
-            "Post fetched successfully"
-        )
-    )
+  // Check if current user liked this post
+        const liked = await Like.findOne({
+            post: postId,
+            likedBy: req.user._id
+        });
+
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                {
+                    ...post[0],
+                    isLiked: !!liked
+                },
+                "Post fetched successfully"
+            )
+        );
 })
 
 const updatePost = asyncHandler(async (req, res) => {

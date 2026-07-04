@@ -6,24 +6,25 @@ const PostContext = createContext();
 export const PostProvider = ({ children }) => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
+   const [animate, setAnimate] = useState(false);
 
-  const fetchPostById = async (postId) => {
-    setLoading(true);
+        const fetchPostById = async (postId) => {
+          setLoading(true);
 
-    try {
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/posts/${postId}`,
-        { withCredentials: true }
-      );
+          try {
+            const res = await axios.get(
+              `http://localhost:8000/api/v1/posts/${postId}`,
+              { withCredentials: true }
+            );
 
-      setPost(res.data.data);
-    } catch (error) {
-      console.log("ERROR:", error.response?.data || error.message);
-      setPost(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+            setPost(res.data.data);
+          } catch (error) {
+            console.log(error);
+            setPost(null);
+          } finally {
+            setLoading(false);
+          }
+        };
 
         const toggleLike = async (postId) => {
         try {
@@ -35,14 +36,19 @@ export const PostProvider = ({ children }) => {
 
           const { isLiked } = res.data.data;
 
-          setPost((prev) => {
-            if (!prev) return prev;
+          setPost((prev) => ({
+            ...prev,
+            isLiked,
+            likes: isLiked ? prev.likes + 1 : prev.likes - 1
+          }));
 
-            return {
-              ...prev,
-              isLiked
-            };
-          });
+            if(isLiked){
+             setAnimate(true);
+
+            setTimeout(() => {
+              setAnimate(false);
+            }, 400);
+            }
 
         } catch (err) {
           console.log(err.response?.data || err.message);
@@ -51,7 +57,7 @@ export const PostProvider = ({ children }) => {
 
   return (
     <PostContext.Provider
-      value={{ post, loading, fetchPostById, toggleLike }}
+      value={{ post, loading, fetchPostById, toggleLike, animate }}
     >
       {children}
     </PostContext.Provider>

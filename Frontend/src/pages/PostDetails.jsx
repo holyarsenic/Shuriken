@@ -6,11 +6,11 @@ import { Post } from "../context/post.jsx";
 const PostDetails = () => {
   const { postId } = useParams();
 
-  const { post, loading, fetchPostById, toggleLike } = Post();
+  const { post, loading, fetchPostById, toggleLike ,animate} = Post();
 
   useEffect(() => {
     fetchPostById(postId);
-  }, [postId]);
+    },[postId]);
 
   if (loading) {
     return (
@@ -28,12 +28,13 @@ const PostDetails = () => {
     );
   }
 
+
   return (
     <div className="min-h-screen ml-64 mt-22 bg-[#0B0A10] text-white px-8 py-8">
 
       <div className="border border-gray-600 rounded-xl p-4 max-w-8xl mx-auto flex gap-10 items-start">
 
-        <div className="w-[620px] h-[520px] overflow-hidden bg-[#111116]">
+        <div className="w-155 h-130 overflow-hidden bg-[#111116]">
           <img
             src={post.postFile}
             alt={post.title}
@@ -79,10 +80,10 @@ const PostDetails = () => {
 
              <button
               onClick={() => toggleLike(post._id)}
-              className="transition"
+              className="transition cursor-pointer"
             >
               {post.isLiked? (
-                <FaHeart className="text-3xl text-red-500" />
+                <FaHeart className={`text-3xl text-red-500 transition-all duration-300 ${ animate ? "scale-125" : "scale-100"}`}/>
               ) : (
                 <FaRegHeart className="text-3xl text-white" />
               )}

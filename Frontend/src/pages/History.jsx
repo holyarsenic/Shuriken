@@ -60,7 +60,7 @@ const History = () => {
                 <div>
                   <p className="text-sm font-medium">{post.title}</p>
                   <p className="text-xs text-slate-400">
-                    @{post.owner?.username}
+                    @{post.owner.userName}
                   </p>
                 </div>
 
