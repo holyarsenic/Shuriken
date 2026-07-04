@@ -81,7 +81,7 @@ const PostDetails = () => {
               onClick={() => toggleLike(post._id)}
               className="transition"
             >
-              {post.isLiked ? (
+              {post.isLiked? (
                 <FaHeart className="text-3xl text-red-500" />
               ) : (
                 <FaRegHeart className="text-3xl text-white" />

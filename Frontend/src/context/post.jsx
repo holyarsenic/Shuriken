@@ -25,30 +25,29 @@ export const PostProvider = ({ children }) => {
     }
   };
 
-    const toggleLike = async (postId) => {
-    try {
-      await axios.post(
-        `http://localhost:8000/api/v1/likes/toggle/post/${postId}`,
-        {},
-        { withCredentials: true }
-      );
+        const toggleLike = async (postId) => {
+        try {
+          const res = await axios.post(
+            `http://localhost:8000/api/v1/likes/toggle/v/${postId}`,
+            {},
+            { withCredentials: true } 
+          );
 
-      setPost((prev) => {
-        if (!prev) return prev;
+          const { isLiked } = res.data.data;
 
-        const isLiked = prev.isLiked;
+          setPost((prev) => {
+            if (!prev) return prev;
 
-        return {
-          ...prev,
-          isLiked: !isLiked,
-          likes: isLiked ? prev.likes - 1 : prev.likes + 1,
-        };
-      });
+            return {
+              ...prev,
+              isLiked
+            };
+          });
 
-    } catch (err) {
-      console.log(err.response?.data || err.message);
-    }
-  };
+        } catch (err) {
+          console.log(err.response?.data || err.message);
+        }
+      };
 
   return (
     <PostContext.Provider

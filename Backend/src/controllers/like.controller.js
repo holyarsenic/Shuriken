@@ -14,28 +14,29 @@ import {asyncHandler} from "../utils/asynchandler.js"
 
     const existingLike = await Like.findOne({
         post: postId,
-        likedBy: req.user._id,
-        isLiked: true
+        likedBy: req.user._id
     });
 
     // UNLIKE
     if (existingLike) {
-        await Like.deleteOne({ _id: existingLike._id });
+        await Like.deleteOne({
+            post: postId,
+            likedBy: req.user._id
+        });
 
         await Post.findByIdAndUpdate(postId, {
             $inc: { likes: -1 }
         });
 
         return res.status(200).json(
-            new ApiResponse(200, {}, "Post unliked successfully")
+            new ApiResponse(200, {isLiked: false}, "Post unliked successfully")
         );
     }
 
     // LIKE
     await Like.create({
         post: postId,
-        likedBy: req.user._id,
-        isLiked: false
+        likedBy: req.user._id
     });
 
     await Post.findByIdAndUpdate(postId, {
@@ -43,7 +44,7 @@ import {asyncHandler} from "../utils/asynchandler.js"
     });
 
     return res.status(200).json(
-        new ApiResponse(200, {}, "Post liked successfully")
+        new ApiResponse(200, {isLiked: true}, "Post liked successfully")
     );
 });
 
