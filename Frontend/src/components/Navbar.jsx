@@ -9,6 +9,8 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
 import { SlArrowDown } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
+import logo from "../assets/Logo.jpeg";
+
 
 const SidebarItem = ({ icon, label, to }) => {
   return (
@@ -76,7 +78,7 @@ const Navbar = () => {
         className="fixed w-full top-0 left-0 right-0 h-20 bg-[#111111] border-b border-[#3B0764] z-10
       flex items-center justify-between px-10">
          <div className="h-20 flex justify-center items-center gap-2 px-2">
-          <img src="./src/assets/Logo.jpeg" className="h-10 w-10 rounded-full object-cover" />
+          <img src={logo} className="h-10 w-10 rounded-full object-cover" />
             <h1 className="text-3xl font-semibold tracking-wide text-white">
               Shuriken
             </h1>

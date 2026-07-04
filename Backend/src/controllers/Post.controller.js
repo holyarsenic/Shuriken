@@ -1,10 +1,11 @@
-import mongoose, {isValidObjectId} from "mongoose"
-import {Post} from "../models/post.models.js"
-import {User} from "../models/user.models.js"
-import {ApiError} from "../utils/ApiError.js"
-import {ApiResponse} from "../utils/ApiResponse.js"
-import {asyncHandler} from "../utils/asyncHandler.js"
-import {uploadOnCloudnary} from "../utils/cloudnary.js"
+import mongoose, {isValidObjectId} from "mongoose";
+import {Post} from "../models/post.models.js";
+import {User} from "../models/user.models.js";
+import {ApiError} from "../utils/ApiError.js";
+import {ApiResponse} from "../utils/ApiResponse.js";
+import {asyncHandler} from "../utils/asyncHandler.js";
+import {uploadOnCloudnary} from "../utils/cloudnary.js";
+import {PostView} from "../models/postView.models.js";
 
 
 const getAllPosts = asyncHandler(async (req, res) => {
@@ -193,14 +194,21 @@ const getPostById = asyncHandler(async (req, res) => {
     }
 
     // increment views
-    await Post.findByIdAndUpdate(
-        postId,
-        {
-            $inc: {
-                views: 1
-            }
+        const alreadyViewed = await PostView.findOne({
+        post: postId,
+        userId: req.user._id,
+        });
+
+        if (!alreadyViewed) {
+        await PostView.create({
+            post: postId,
+            userId: req.user._id,
+        });
+
+        await Post.findByIdAndUpdate(postId, {
+            $inc: { views: 1 },
+        });
         }
-    )
 
     // add to watch history
     await User.findByIdAndUpdate(

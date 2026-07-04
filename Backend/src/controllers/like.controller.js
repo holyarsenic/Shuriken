@@ -5,59 +5,47 @@ import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asynchandler.js"
 
-const togglePostLike = asyncHandler(async (req, res) => {
-    const {postId} = req.params
-    //TODO: toggle like on post
-     if (!isValidObjectId(postId)) {
-        throw new ApiError(400, "Invalid post id")
+ const togglePostLike = asyncHandler(async (req, res) => {
+    const { postId } = req.params;
+
+    if (!mongoose.isValidObjectId(postId)) {
+        throw new ApiError(400, "Invalid post id");
     }
 
-    const post = await Post.findById(postId)
-
-    if (!post) {
-        throw new ApiError(404, "Post not found")
-    }
-
-    const alreadyLiked = await Like.findOne({
+    const existingLike = await Like.findOne({
         post: postId,
-        likedBy: req.user?._id
-    })
+        likedBy: req.user._id,
+        isLiked: true
+    });
 
-    // unlike
-    if (alreadyLiked) {
+    // UNLIKE
+    if (existingLike) {
+        await Like.deleteOne({ _id: existingLike._id });
 
-        await Like.findByIdAndDelete(
-            alreadyLiked._id
-        )
+        await Post.findByIdAndUpdate(postId, {
+            $inc: { likes: -1 }
+        });
 
-        return res
-        .status(200)
-        .json(
-            new ApiResponse(
-                200,
-                {},
-                "Post unliked successfully"
-            )
-        )
+        return res.status(200).json(
+            new ApiResponse(200, {}, "Post unliked successfully")
+        );
     }
 
-    // like
-    const like = await Like.create({
+    // LIKE
+    await Like.create({
         post: postId,
-        likedBy: req.user?._id
-    })
+        likedBy: req.user._id,
+        isLiked: false
+    });
 
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            like,
-            "Post liked successfully"
-        )
-    )
+    await Post.findByIdAndUpdate(postId, {
+        $inc: { likes: 1 }
+    });
 
-})
+    return res.status(200).json(
+        new ApiResponse(200, {}, "Post liked successfully")
+    );
+});
 
 const toggleCommentLike = asyncHandler(async (req, res) => {
     const {commentId} = req.params
