@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 
@@ -9,12 +10,14 @@ import { HomeProvider } from './context/homePost.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <UserProvider>
-      <HomeProvider>
-      <PostProvider>
-        <App />
-      </PostProvider>
-      </HomeProvider>
-    </UserProvider>
+    <BrowserRouter>
+      <UserProvider>
+        <HomeProvider>
+          <PostProvider>
+            <App />
+          </PostProvider>
+        </HomeProvider>
+      </UserProvider>
+    </BrowserRouter>
   </StrictMode>
 )

@@ -1,10 +1,12 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const login = async (email, password) => {
     const res = await axios.post(
@@ -30,6 +32,7 @@ export const UserProvider = ({ children }) => {
     );
 
     return res.data;
+    
   };
 
   const logOut = async () => {
@@ -40,6 +43,7 @@ export const UserProvider = ({ children }) => {
     );
 
     setUser(null);
+    navigate("/login");
   };
 
   return (

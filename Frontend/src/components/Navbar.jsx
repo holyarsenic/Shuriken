@@ -1,3 +1,4 @@
+import { useState} from "react";
 import { IoIosHome } from "react-icons/io";
 import {
   MdHistoryToggleOff,
@@ -10,6 +11,8 @@ import { CiSearch } from "react-icons/ci";
 import { SlArrowDown } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/Logo.jpeg";
+import { useNavigate } from "react-router-dom";
+import { User } from "../context/user";
 
 
 const SidebarItem = ({ icon, label, to }) => {
@@ -31,34 +34,20 @@ const SidebarItem = ({ icon, label, to }) => {
 };
 
 const Navbar = () => {
+  const [profileOpen, setProfileOpen] = useState(false);
+  const {user, logOut} = User();
+
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="fixed left-0 top-0 w-64 h-screen bg-[#111018] border-r border-[#3B0764] flex flex-col justify-between">
         <div>
           <div className="px-4 mt-26 flex flex-col gap-3">
-            <SidebarItem
-              icon={<IoIosHome />}
-              label="Home"
-              to="/"
-            />
-
-            <SidebarItem
-              icon={<MdHistoryToggleOff />}
-              label="History"
-              to="/History"
-            />
-
-            <SidebarItem
-              icon={<MdAddBox />}
-              label="Create"
-              to="/Create"
-            />
-
-            <SidebarItem
-              icon={<MdSpaceDashboard />}
-              label="Dashboard"
-              to="/Dashboard"
-            />
+            <SidebarItem icon={<IoIosHome />} label="Home" to="/" />
+            <SidebarItem icon={<MdHistoryToggleOff />} label="History" to="/History" />
+            <SidebarItem icon={<MdAddBox />} label="Create" to="/Create" />
+            <SidebarItem icon={<MdSpaceDashboard />} label="Dashboard" to="/Dashboard" />
           </div>
         </div>
 
@@ -106,16 +95,40 @@ const Navbar = () => {
           <button
             className="p-1 rounded-xl hover:bg-gray-500 transition cursor-pointer"
           >
-            <FiPlus className="text-3xl text-slate-300" />
+            <FiPlus className="text-3xl text-slate-300" onClick={ () => {
+              navigate("/create")
+            }}/>
           </button>
 
-          <div className="flex items-center gap-3 cursor-pointer rounded-xl border-2 border-white/10 hover:border-slate-300 px-3 py-2 transition">
-            <img
-              src="https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
-              className="w-10 h-10 rounded-full object-cover"
-            />
+          <div className="relative">
+            <div
+              className="flex items-center gap-3 cursor-pointer rounded-xl px-3 py-2"
+              onClick={() => setProfileOpen((prev) => !prev)}
+            >
+              <img
+                src="https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
+                className="w-10 h-10 rounded-full object-cover"
+              />
 
-            <SlArrowDown className="text-sm text-slate-400" />
+              <SlArrowDown
+                className={`text-sm text-white transition-transform duration-200 ${
+                  profileOpen ? "rotate-180" : "rotate-0"
+                }`}
+              />
+            </div>
+
+            {profileOpen && (
+              <div className="absolute top-20 right-0 w-55 bg-[#111018] border border-slate-500 rounded-xl py-2 z-50">
+                <button className="w-full text-left px-4 py-2 text-lg text-slate-300 hover:bg-[#221E2C] transition"
+                onClick={() => navigate(`/post/${user.userName}`)}>
+                  Your profile
+                </button>
+                <button className="w-full text-left px-4 py-2 text-lg text-rose-400 hover:bg-[#221E2C] transition"
+                onClick={logOut}>
+                  Log out
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

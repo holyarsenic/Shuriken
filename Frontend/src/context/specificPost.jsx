@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState , useCallback} from "react";
 import axios from "axios";
 
 const PostContext = createContext();
@@ -8,7 +8,7 @@ export const PostProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
 
-        const fetchPostById = async (postId) => {
+        const fetchPostById = useCallback(async (postId) => {
           setLoading(true);
 
           try {
@@ -24,7 +24,7 @@ export const PostProvider = ({ children }) => {
           } finally {
             setLoading(false);
           }
-        };
+        },[]);
 
         const toggleLike = async (postId) => {
         try {
