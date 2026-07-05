@@ -1,28 +1,23 @@
 import { HiDotsHorizontal } from "react-icons/hi";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import { HomePage } from "../context/homePost";
 
 const Home = () => {
-  const [posts, setPosts] = useState([]);
+  const {posts, loading, fetchPosts} = HomePage();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await axios.get(
-          "http://localhost:8000/api/v1/posts/",
-          { withCredentials: true }
-        );
-
-        setPosts(res.data.data.posts);
-      } catch (error) {
-        console.log("ERROR:", error.response?.data || error.message);
-      }
-    };
-
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
+
+  if (loading) {
+    return (
+      <div className="text-white ml-64 mt-20 p-6">
+        Loading post...
+      </div>
+    );
+  }
 
     function handlePostClick(postId) {
       navigate(`/post/${postId}`);

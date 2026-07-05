@@ -6,7 +6,7 @@ const PostContext = createContext();
 export const PostProvider = ({ children }) => {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
-   const [animate, setAnimate] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
         const fetchPostById = async (postId) => {
           setLoading(true);
