@@ -162,7 +162,7 @@ const getChannelPosts = asyncHandler(async (req, res) => {
                                     if: {
                                         $in: [
                                             req.user?._id,
-                                            "$followers.follower"
+                                            "$followers.accFollowers"
                                         ]
                                     },
                                     then: true,
