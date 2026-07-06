@@ -1,7 +1,7 @@
 
 import mongoose, {Schema} from "mongoose"
 
-const subscriptionSchema = new Schema({
+const followListSchema = new Schema({
     accFollowers: {
         type: Schema.Types.ObjectId, // one who is following
         ref: "User"
@@ -14,4 +14,4 @@ const subscriptionSchema = new Schema({
 
 
 
-export const Subscription = mongoose.model("Subscription", subscriptionSchema)
+export const Follow = mongoose.model("Follow", followListSchema)

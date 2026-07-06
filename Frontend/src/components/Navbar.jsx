@@ -120,7 +120,7 @@ const Navbar = () => {
             {profileOpen && (
               <div className="absolute top-20 right-0 w-55 bg-[#111018] border border-slate-500 rounded-xl py-2 z-50">
                 <button className="w-full text-left px-4 py-2 text-lg text-slate-300 hover:bg-[#221E2C] transition"
-                onClick={() => navigate(`/post/${user.userName}`)}>
+                onClick={() => navigate(`/profile/${user.user.userName}`)}>
                   Your profile
                 </button>
                 <button className="w-full text-left px-4 py-2 text-lg text-rose-400 hover:bg-[#221E2C] transition"

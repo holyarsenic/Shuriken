@@ -1,6 +1,7 @@
 import { asyncHandler } from "../utils/asynchandler.js";
 import {ApiError} from "../utils/ApiError.js";
 import {User} from "../models/user.models.js";
+import {Post} from "../models/post.models.js";
 import {uploadOnCloudnary} from "../utils/cloudnary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
@@ -216,19 +217,23 @@ const changeCurrentPassword = asyncHandler(async(req, res) => {
 
 
 const getCurrentUser = asyncHandler(async(req, res) => {
+    
+    const user = req.user
+    const posts = await Post.find({ owner: user._id });
+
     return res
     .status(200)
     .json(new ApiResponse(
         200,
-        req.user,
+        { user, posts },
         "User fetched successfully"
     ))
 })
 
 const updateAccountDetails = asyncHandler(async(req, res) => {
-    const {fullName, email} = req.body
+    const {fullName, email ,bio} = req.body
 
-    if (!(fullName || email)) {
+    if (!(fullName || email || bio)) {
         throw new ApiError(400, "At least one field is required")
     }
 
@@ -237,7 +242,8 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
         {
             $set: {
                 fullName,
-                email
+                email,
+                bio
             }
         },
         {new: true}

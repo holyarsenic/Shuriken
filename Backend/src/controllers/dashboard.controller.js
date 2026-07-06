@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import {Post} from "../models/post.models.js"
-import {Subscription} from "../models/subscription.models.js"
+import {Follow} from "../models/followList.models.js"
 import {Like} from "../models/like.models.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
@@ -39,7 +39,7 @@ const getChannelStats = asyncHandler(async (req, res) => {
         totalViewsResult[0]?.totalViews || 0
 
     // total subscribers
-    const totalSubscribers = await Subscription.countDocuments({
+    const totalFollowers = await Follow.countDocuments({
         channel: channelId
     })
 
@@ -91,7 +91,7 @@ const getChannelStats = asyncHandler(async (req, res) => {
             {
                 totalposts,
                 totalViews,
-                totalSubscribers,
+                totalFollowers,
                 totalLikes
             },
             "Channel stats fetched successfully"
@@ -143,26 +143,26 @@ const getChannelPosts = asyncHandler(async (req, res) => {
 
                     {
                         $lookup: {
-                            from: "subscriptions",
+                            from: "follows",
                             localField: "_id",
                             foreignField: "channel",
-                            as: "subscribers"
+                            as: "followers"
                         }
                     },
 
                     {
                         $addFields: {
 
-                            subscribersCount: {
-                                $size: "$subscribers"
+                            followersCount: {
+                                $size: "$followers"
                             },
 
-                            isSubscribed: {
+                            isFollowed: {
                                 $cond: {
                                     if: {
                                         $in: [
                                             req.user?._id,
-                                            "$subscribers.subscriber"
+                                            "$followers.follower"
                                         ]
                                     },
                                     then: true,
@@ -178,8 +178,8 @@ const getChannelPosts = asyncHandler(async (req, res) => {
                             fullName: 1,
                             username: 1,
                             avatar: 1,
-                            subscribersCount: 1,
-                            isSubscribed: 1
+                            followersCountersCount: 1,
+                            isFollowed: 1
                         }
                     }
 

@@ -1,12 +1,12 @@
 import mongoose, { isValidObjectId } from "mongoose"
 import { User } from "../models/user.models.js"
-import { Subscription } from "../models/subscription.models.js"
+import { Follow } from "../models/followList.models.js"
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { asyncHandler } from "../utils/asynchandler.js"
 
 
-const toggleSubscription = asyncHandler(async (req, res) => {
+const toggleFollow = asyncHandler(async (req, res) => {
 
     const { channelId } = req.params
 
@@ -14,9 +14,9 @@ const toggleSubscription = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid channel id")
     }
 
-    // prevent self subscribe
+    // prevent self follow
     if (channelId === req.user?._id.toString()) {
-        throw new ApiError(400, "You cannot subscribe to yourself")
+        throw new ApiError(400, "You cannot follow yourself")
     }
 
     // check channel exists
@@ -26,17 +26,17 @@ const toggleSubscription = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Channel not found")
     }
 
-    // already subscribed?
-    const alreadySubscribed = await Subscription.findOne({
+    // already followed?
+    const alreadyFollowed = await Follow.findOne({
         accFollowers: req.user?._id,
         accountTheyAreFollowing: channelId
     })
 
-    // unsubscribe
-    if (alreadySubscribed) {
+    // unfollow
+    if (alreadyFollowed) {
 
-        await Subscription.findByIdAndDelete(
-            alreadySubscribed._id
+        await Follow.findByIdAndDelete(
+            alreadyFollowed._id
         )
 
         return res
@@ -45,13 +45,13 @@ const toggleSubscription = asyncHandler(async (req, res) => {
             new ApiResponse(
                 200,
                 {},
-                "Channel unsubscribed successfully"
+                "Channel unfollowed successfully"
             )
         )
     }
 
-    // subscribe
-    const subscription = await Subscription.create({
+    // follow
+    const follow = await Follow.create({
         accFollowers: req.user?._id,
         accountTheyAreFollowing: channelId
     })
@@ -61,14 +61,13 @@ const toggleSubscription = asyncHandler(async (req, res) => {
     .json(
         new ApiResponse(
             200,
-            subscription,
-            "Channel subscribed successfully"
+            follow,
+            "Channel followed successfully"
         )
     )
-
 })
 
-const getUserChannelSubscribers = asyncHandler(async (req, res) => {
+const getUserChannelFollowers = asyncHandler(async (req, res) => {
 
     const { channelId } = req.params
 
@@ -76,7 +75,7 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid channel id")
     }
 
-    const subscribers = await Subscription.aggregate([
+    const followers = await Follow.aggregate([   
 
         {
             $match: {
@@ -92,20 +91,18 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
                 as: "follower",
                 pipeline: [
 
-                    // subscribers count
                     {
                         $lookup: {
-                            from: "subscriptions",
+                            from: "follows",
                             localField: "_id",
                             foreignField: "accountTheyAreFollowing",
                             as: "followers"
                         }
                     },
 
-                    // subscribed channels count
                     {
                         $lookup: {
-                            from: "subscriptions",
+                            from: "follows",
                             localField: "_id",
                             foreignField: "accFollowers",
                             as: "following"
@@ -114,22 +111,13 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
 
                     {
                         $addFields: {
+                            followersCount: { $size: "$followers" },
+                            followingCount: { $size: "$following" },
 
-                            subscribersCount: {
-                                $size: "$followers"
-                            },
-
-                            channelsSubscribedToCount: {
-                                $size: "$following"
-                            },
-
-                            isSubscribed: {
+                            isFollowed: {
                                 $cond: {
                                     if: {
-                                        $in: [
-                                            req.user?._id,
-                                            "$followers.accFollowers"
-                                        ]
+                                        $in: [req.user?._id, "$followers.accFollowers"]
                                     },
                                     then: true,
                                     else: false
@@ -141,11 +129,11 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
                     {
                         $project: {
                             fullName: 1,
-                            username: 1,
+                            userName: 1,
                             avatar: 1,
-                            subscribersCount: 1,
-                            channelsSubscribedToCount: 1,
-                            isSubscribed: 1
+                            followersCount: 1,
+                            followingCount: 1,
+                            isFollowed: 1
                         }
                     }
                 ]
@@ -154,38 +142,29 @@ const getUserChannelSubscribers = asyncHandler(async (req, res) => {
 
         {
             $addFields: {
-                subscriber: {
-                    $first: "$subscriber"
-                }
+                follower: { $first: "$follower" }
             }
         }
     ])
 
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            subscribers,
-            "Subscribers fetched successfully"
-        )
+    return res.status(200).json(
+        new ApiResponse(200, followers, "Followers fetched successfully")
     )
-
 })
 
-const getSubscribedChannels = asyncHandler(async (req, res) => {
+const getFollowedChannels = asyncHandler(async (req, res) => {
 
-    const { subscriberId } = req.params
+    const { followedId } = req.params
 
-    if (!isValidObjectId(subscriberId)) {
-        throw new ApiError(400, "Invalid subscriber id")
+    if (!isValidObjectId(followedIdId)) {
+        throw new ApiError(400, "Invalid follower id")
     }
 
-    const subscribedChannels = await Subscription.aggregate([
+    const followedChannels = await Follow.aggregate([ 
 
         {
             $match: {
-                accFollowers: new mongoose.Types.ObjectId(subscriberId)
+                accFollowers: new mongoose.Types.ObjectId(followedIdId)
             }
         },
 
@@ -194,24 +173,21 @@ const getSubscribedChannels = asyncHandler(async (req, res) => {
                 from: "users",
                 localField: "accountTheyAreFollowing",
                 foreignField: "_id",
-                as: "accountTheyAreFollowing",
-
+                as: "channel",
                 pipeline: [
 
-                    // subscribers count
                     {
                         $lookup: {
-                            from: "subscriptions",
+                            from: "follows",
                             localField: "_id",
                             foreignField: "accountTheyAreFollowing",
                             as: "followers"
                         }
                     },
 
-                    // subscribed count
                     {
                         $lookup: {
-                            from: "subscriptions",
+                            from: "follows",
                             localField: "_id",
                             foreignField: "accFollowers",
                             as: "following"
@@ -220,22 +196,13 @@ const getSubscribedChannels = asyncHandler(async (req, res) => {
 
                     {
                         $addFields: {
+                            followersCount: { $size: "$followers" },
+                            followingCount: { $size: "$following" },
 
-                            subscribersCount: {
-                                $size: "$followers"
-                            },
-
-                            channelsSubscribedToCount: {
-                                $size: "$following"
-                            },
-
-                            isSubscribed: {
+                            isFollowed: {
                                 $cond: {
                                     if: {
-                                        $in: [
-                                            req.user?._id,
-                                            "$followers.accFollowers"
-                                        ]
+                                        $in: [req.user?._id, "$followers.accFollowers"]
                                     },
                                     then: true,
                                     else: false
@@ -247,12 +214,12 @@ const getSubscribedChannels = asyncHandler(async (req, res) => {
                     {
                         $project: {
                             fullName: 1,
-                            username: 1,
+                            userName: 1,
                             avatar: 1,
                             coverImage: 1,
-                            subscribersCount: 1,
-                            channelsSubscribedToCount: 1,
-                            isSubscribed: 1
+                            followersCount: 1,
+                            followingCount: 1,
+                            isFollowed: 1
                         }
                     }
                 ]
@@ -261,29 +228,19 @@ const getSubscribedChannels = asyncHandler(async (req, res) => {
 
         {
             $addFields: {
-                channel: {
-                    $first: "$channel"
-                }
+                channel: { $first: "$channel" }
             }
         }
     ])
 
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            subscribedChannels,
-            "Subscribed channels fetched successfully"
-        )
+    return res.status(200).json(
+        new ApiResponse(200, followedChannels, "Following fetched successfully")
     )
-
 })
 
 
-
 export {
-    toggleSubscription,
-    getUserChannelSubscribers,
-    getSubscribedChannels
+    toggleFollow,
+    getUserChannelFollowers,
+    getFollowedChannels
 }
