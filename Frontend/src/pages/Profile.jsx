@@ -57,7 +57,7 @@ const Profile = () => {
               </div>
 
               <div>
-                <p className="text-2xl font-bold">1.2K</p>
+                <p className="text-2xl font-bold">1.2M</p>
                 <p className="text-slate-400">Followers</p>
               </div>
 

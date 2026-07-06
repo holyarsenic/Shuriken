@@ -334,16 +334,21 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
                 followersCount: {
                     $size: "$followers"
                 },
-                channelsFollowToCount: {
+                followingCount: {
                     $size: "$followings"
                 },
                 isFollowed: {
-                    $cond: {
-                        if: {$in: [req.user?._id, "$followers.accFollowers"]},
-                        then: true,
-                        else: false  //checks if user subscribe person
+                    $in: [
+                        req.user?._id,
+                        {
+                        $map: {
+                            input: "$followers",
+                            as: "f",
+                            in: "$$f.accFollowers"
+                        }
+                        }
+                    ]
                     }
-                }
             }
         },
         {
@@ -351,7 +356,7 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
                 fullName: 1,
                 userName: 1,
                 followersCount: 1,
-                channelsFollowToCount: 1,
+                followingCount: 1,
                 isFollowed: 1,
                 avatar: 1,
                 email: 1

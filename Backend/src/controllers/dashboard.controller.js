@@ -7,51 +7,48 @@ import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asynchandler.js"
 
 const getChannelStats = asyncHandler(async (req, res) => {
-    // TODO: Get the channel stats like total video views, total subscribers, total videos, total likes etc.
-      const channelId = req.user?._id
+
+    const channelId = req.user?._id;
 
     // total posts
-    const totalposts = await Post.countDocuments({
+    const totalPosts = await Post.countDocuments({
         owner: channelId
-    })
+    });
 
-    // total video views
+    // total views
     const totalViewsResult = await Post.aggregate([
-
         {
             $match: {
                 owner: new mongoose.Types.ObjectId(channelId)
             }
         },
-
         {
             $group: {
                 _id: null,
-                totalViews: {
-                    $sum: "$views"
-                }
+                totalViews: { $sum: "$views" }
             }
         }
+    ]);
 
-    ])
+    const totalViews = totalViewsResult[0]?.totalViews || 0;
 
-    const totalViews =
-        totalViewsResult[0]?.totalViews || 0
-
-    // total subscribers
+    //followers (people who follow me)
     const totalFollowers = await Follow.countDocuments({
-        channel: channelId
-    })
+        accountTheyAreFollowing: channelId
+    });
+
+    //following (people I follow)
+    const totalFollowing = await Follow.countDocuments({
+        accFollowers: channelId
+    });
 
     // total likes on posts
     const totalLikesResult = await Post.aggregate([
-
         {
             $match: {
                 owner: new mongoose.Types.ObjectId(channelId)
             }
         },
-
         {
             $lookup: {
                 from: "likes",
@@ -60,44 +57,35 @@ const getChannelStats = asyncHandler(async (req, res) => {
                 as: "likes"
             }
         },
-
         {
             $addFields: {
-                likesCount: {
-                    $size: "$likes"
-                }
+                likesCount: { $size: "$likes" }
             }
         },
-
         {
             $group: {
                 _id: null,
-                totalLikes: {
-                    $sum: "$likesCount"
-                }
+                totalLikes: { $sum: "$likesCount" }
             }
         }
+    ]);
 
-    ])
+    const totalLikes = totalLikesResult[0]?.totalLikes || 0;
 
-    const totalLikes =
-        totalLikesResult[0]?.totalLikes || 0
-
-    return res
-    .status(200)
-    .json(
+    return res.status(200).json(
         new ApiResponse(
             200,
             {
-                totalposts,
+                totalPosts,
                 totalViews,
                 totalFollowers,
+                totalFollowing,
                 totalLikes
             },
             "Channel stats fetched successfully"
         )
-    )
-})
+    );
+});
 
 const getChannelPosts = asyncHandler(async (req, res) => {
     // TODO: Get all the posts uploaded by the channel
