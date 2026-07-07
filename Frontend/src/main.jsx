@@ -7,6 +7,7 @@ import App from './App.jsx'
 import { UserProvider } from './context/user.jsx'
 import { PostProvider } from './context/specificPost.jsx'
 import { HomeProvider } from './context/homePost.jsx'
+import { ProfileProvider } from './context/userProfile.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -14,7 +15,9 @@ createRoot(document.getElementById('root')).render(
       <UserProvider>
         <HomeProvider>
           <PostProvider>
-            <App />
+            <ProfileProvider>
+              <App />
+            </ProfileProvider>
           </PostProvider>
         </HomeProvider>
       </UserProvider>

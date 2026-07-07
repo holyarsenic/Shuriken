@@ -164,7 +164,7 @@ const getFollowedChannels = asyncHandler(async (req, res) => {
 
         {
             $match: {
-                accFollowers: new mongoose.Types.ObjectId(followedIdId)
+                accFollowers: new mongoose.Types.ObjectId(followedId)
             }
         },
 

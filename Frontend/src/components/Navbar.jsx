@@ -66,9 +66,9 @@ const Navbar = () => {
       <header
         className="fixed w-full top-0 left-0 right-0 h-20 bg-[#111111] border-b border-[#3B0764] z-10
       flex items-center justify-between px-10">
-         <div className="h-20 flex justify-center items-center gap-2 px-2">
-          <img src={logo} className="h-10 w-10 rounded-full object-cover" />
-            <h1 className="text-3xl font-semibold tracking-wide text-white">
+         <div className="h-20 flex justify-center items-center gap-1 px-2">
+          <img src={logo} className="h-7 w-7 rounded-full object-cover" />
+            <h1 className="text-2xl font-semibold tracking-wide text-white">
               Shuriken
             </h1>
           </div>
@@ -119,11 +119,11 @@ const Navbar = () => {
 
             {profileOpen && (
               <div className="absolute top-20 right-0 w-55 bg-[#111018] border border-slate-500 rounded-xl py-2 z-50">
-                <button className="w-full text-left px-4 py-2 text-lg text-slate-300 hover:bg-[#221E2C] transition"
-                onClick={() => navigate(`/profile/${user.user.userName}`)}>
+                <button className="w-full text-left px-4 py-2 text-lg text-slate-300 cursor-pointer hover:bg-[#221E2C] transition"
+                onClick={() => navigate(`/profile/${user.userName}`)}>
                   Your profile
                 </button>
-                <button className="w-full text-left px-4 py-2 text-lg text-rose-400 hover:bg-[#221E2C] transition"
+                <button className="w-full text-left px-4 py-2 text-lg cursor-pointer text-rose-400 hover:bg-[#221E2C] transition"
                 onClick={logOut}>
                   Log out
                 </button>

@@ -218,14 +218,13 @@ const changeCurrentPassword = asyncHandler(async(req, res) => {
 
 const getCurrentUser = asyncHandler(async(req, res) => {
     
-    const user = req.user
-    const posts = await Post.find({ owner: user._id });
+    const user = req.user;
 
     return res
     .status(200)
     .json(new ApiResponse(
         200,
-        { user, posts },
+        user,
         "User fetched successfully"
     ))
 })
@@ -299,6 +298,74 @@ const updateUserAvatar = asyncHandler(async(req, res) => {
     )
 })
 
+const getMyProfile = asyncHandler(async(req,res) =>{
+
+    const profile = await User.aggregate([
+        {
+            $match: {
+                _id: new mongoose.Types.ObjectId(req.user._id)
+            }
+        },
+        {
+            $lookup: {
+                from: "follows",
+                localField: "_id",
+                foreignField:"accountTheyAreFollowing",
+                as:"followers"
+            }
+        },
+        {
+            $lookup: {
+                from:"follows",
+                localField:"_id",
+                foreignField:"accFollower",
+                as:"following"
+            }
+        },
+        {
+            $lookup:{
+                from: "posts",
+                localField:"_id",
+                foreignField:"owner",
+                as:"myPosts"
+            }
+        },
+        {
+            $addFields: {
+                followersCount: {
+                    $size: "$followers"
+                },
+                followingCount: {
+                    $size: "$following"
+                },
+                totalPosts: {
+                    $size: "$myPosts"
+                }
+            }
+        },
+        {
+            $project:{
+                userName:1,
+                fullName:1,
+                avatar:1,
+                bio:1,
+                followersCount:1,
+                followingCount:1,
+                totalPosts:1,
+                myPosts:1
+            }
+        }
+    ])
+
+     return res
+     .status(200)
+     .json(
+        new ApiResponse(200,
+             profile[0]
+        , "User channel fetched successfully")
+     )
+})
+
 
 const getUserChannelProfile = asyncHandler(async(req, res) => {
     const {username} = req.params
@@ -325,7 +392,7 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
             $lookup: {
                 from: "follows",
                 localField: "_id",
-                foreignField: "accFollowers",
+                foreignField: "accFollower",
                 as: "followings"
             }
         },
@@ -344,7 +411,7 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
                         $map: {
                             input: "$followers",
                             as: "f",
-                            in: "$$f.accFollowers"
+                            in: "$$f.accFollower"
                         }
                         }
                     ]
@@ -440,6 +507,7 @@ export {
     getCurrentUser,
     updateAccountDetails,
     updateUserAvatar,
+    getMyProfile,
     getUserChannelProfile,
     getWatchHistory
 }

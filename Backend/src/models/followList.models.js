@@ -2,7 +2,7 @@
 import mongoose, {Schema} from "mongoose"
 
 const followListSchema = new Schema({
-    accFollowers: {
+    accFollower: {
         type: Schema.Types.ObjectId, // one who is following
         ref: "User"
     },
