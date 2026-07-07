@@ -43,6 +43,10 @@ const PostDetails = () => {
       navigate(`/post/${postId}`);
     }
 
+  function handleChannelProfileClick(channelUsername) {
+    navigate(`/c/${channelUsername}`)
+  }
+
 
   return (
     <div className="min-h-screen ml-64 mt-18 bg-[#0B0A10] text-white p-5">
@@ -59,20 +63,20 @@ const PostDetails = () => {
 
         <div className="w-1/2 flex flex-col">
 
-          <div className="flex items-center gap-3 pb-4 border-b border-[#221E2C]">
+          <div className="flex items-center gap-3 pb-4 border-b border-[#221E2C]" onClick={() => {handleChannelProfileClick(post.owner.userName)}}>
 
             <img
-              src={post.owner?.avatar}
+              src={post.owner.avatar}
               className="w-12 h-12 rounded-full object-cover"
             />
 
             <div className="flex-1">
               <h2 className="font-semibold text-sm">
-                {post.owner?.fullName}
+                {post.owner.fullName}
               </h2>
 
               <p className="text-xs text-slate-500">
-                @{post.owner?.userName}
+                @{post.owner.userName}
               </p>
             </div>
           </div>
@@ -165,7 +169,7 @@ const PostDetails = () => {
                     </div>
 
                     <p className="text-sm text-slate-300 mt-1">
-                      Amazing design 🔥 Love the purple theme.
+                      Amazing design! Love the purple theme.
                     </p>
 
                     <div className="flex items-center gap-4 mt-1.5">
@@ -204,7 +208,7 @@ const PostDetails = () => {
                     </div>
 
                     <p className="text-sm text-slate-300 mt-1 leading-snug">
-                      Clean UI 👏
+                      Clean UI
                     </p>
 
                     <div className="flex items-center gap-4 mt-1.5">

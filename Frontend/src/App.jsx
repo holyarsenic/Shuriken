@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
 import PostDetails from "./pages/PostDetails";
 import Profile from "./pages/Profile";
+import Channel from "./pages/Channel";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="/post/:postId" element={<PostDetails />} />
           <Route path="/profile/:username" element={<Profile />} />
+          <Route path="/c/:channelUsername" element={<Channel/>} />
         </Route>
       </Route>
     </Routes>

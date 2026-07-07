@@ -397,12 +397,23 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
             }
         },
         {
+            $lookup: {
+                from: "posts",
+                localField: "_id",
+                foreignField: "owner",
+                as: "userPosts"
+            }
+        },
+        {
             $addFields: {
                 followersCount: {
                     $size: "$followers"
                 },
                 followingCount: {
                     $size: "$followings"
+                },
+                totalPosts: {
+                    $size: "$userPosts"
                 },
                 isFollowed: {
                     $in: [
@@ -422,8 +433,12 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
             $project: {
                 fullName: 1,
                 userName: 1,
+                avatar:1,
+                bio:1,
+                userPosts:1,
                 followersCount: 1,
                 followingCount: 1,
+                totalPosts:1,
                 isFollowed: 1,
                 avatar: 1,
                 email: 1

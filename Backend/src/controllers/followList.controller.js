@@ -28,7 +28,7 @@ const toggleFollow = asyncHandler(async (req, res) => {
 
     // already followed?
     const alreadyFollowed = await Follow.findOne({
-        accFollowers: req.user?._id,
+        accFollower: req.user?._id,
         accountTheyAreFollowing: channelId
     })
 
@@ -52,7 +52,7 @@ const toggleFollow = asyncHandler(async (req, res) => {
 
     // follow
     const follow = await Follow.create({
-        accFollowers: req.user?._id,
+        accFollower: req.user?._id,
         accountTheyAreFollowing: channelId
     })
 

@@ -1,16 +1,19 @@
-import { ProfileData } from "../context/userProfile";
+
+import { ChannelData } from "../context/channelProfile";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-const Profile = () => {
+const Channel = () => {
   const navigate = useNavigate();
+  const { channelUsername } = useParams();
 
-  const { fetchProfile, profile, loading } = ProfileData();
+  const {loading, fetchChannelId, channel } = ChannelData();
 
-    useEffect(() => {
-      fetchProfile();
-    }, [fetchProfile]);
+     useEffect(() => {
+      fetchChannelId(channelUsername)
+    },[channelUsername,fetchChannelId]);
 
     if (loading) {
       return (
@@ -22,10 +25,10 @@ const Profile = () => {
       );
     }
 
-    if (!profile) {
+    if (!channel) {
       return (
         <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-[#0B0A10]">
-          <p className="text-slate-400 text-sm">Post not found</p>
+          <p className="text-slate-400 text-sm">user not found</p>
         </div>
       );
     }
@@ -39,7 +42,7 @@ const Profile = () => {
 
         <div className="flex items-center gap-10">
           <img
-            src={profile.avatar}
+            src={channel.avatar}
             className="w-40 h-40 rounded-full object-cover border border-gray-800"
           />
           <div className="flex-1">
@@ -47,29 +50,34 @@ const Profile = () => {
             <div className="flex items-center gap-5">
 
               <h1 className="text-2xl font-medium">
-                @{profile.userName}
+                @{channel.userName}
               </h1>
 
-              <button className="px-5 py-2 rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition">
-                Edit Profile
+              {channel.isFollowed?
+              <button className="px-5 py-2 rounded-xl bg-[#5c5961] hover:bg-[#7C3AED] transition">
+                Unfollow
+              </button>:
+              <button className="px-5 py-2 rounded-xl bg-[#6D28D9]  hover:bg-[#7C3AED] transition">
+                Follow
               </button>
+              }
 
             </div>
 
             <div className="flex gap-10 mt-8">
 
               <div>
-                <p className="text-2xl font-bold">{profile.totalPosts}</p>
+                <p className="text-2xl font-bold">{channel.totalPosts}</p>
                 <p className="text-slate-400">Posts</p>
               </div>
 
               <div>
-                <p className="text-2xl font-bold">{profile.followersCount}</p>
+                <p className="text-2xl font-bold">{channel.followersCount}</p>
                 <p className="text-slate-400">Followers</p>
               </div>
 
               <div>
-                <p className="text-2xl font-bold">{profile.followingCount}</p>
+                <p className="text-2xl font-bold">{channel.followingCount}</p>
                 <p className="text-slate-400">Following</p>
               </div>
 
@@ -78,11 +86,11 @@ const Profile = () => {
             <div className="mt-8">
 
               <h2 className="text-xl font-semibold">
-                {profile.fullName}
+                {channel.fullName}
               </h2>
 
               <p className="text-slate-400 mt-2">
-                Full Stack Web Developer {profile.bio}
+                Full Stack Web Developer {channel.bio}
               </p>
             </div>
 
@@ -107,7 +115,7 @@ const Profile = () => {
 
       <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
 
-        {profile.myPosts.map((post) => (
+        {channel.userPosts.map((post) => (
                     <div
                       key={post._id}
                       className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
@@ -136,4 +144,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Channel;
