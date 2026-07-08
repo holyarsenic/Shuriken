@@ -1,19 +1,24 @@
 
 import { ChannelData } from "../context/channelProfile";
-import { HiDotsHorizontal } from "react-icons/hi";
+import { GoArrowUpRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { LikedPostPage } from "../context/likedPosts";
 
 const Channel = () => {
   const navigate = useNavigate();
   const { channelUsername } = useParams();
 
   const {loading, fetchChannelId, channel, toggleFollow } = ChannelData();
+  const { likedPosts, fetchlLIkedPosts} = LikedPostPage();
+
+  const [activeTab,setActiveTab] = useState();
 
      useEffect(() => {
       fetchChannelId(channelUsername)
-    },[channelUsername,fetchChannelId]);
+      fetchlLIkedPosts(channel._id)
+    },[channelUsername,fetchChannelId,fetchlLIkedPosts,channel]);
 
     if (loading) {
       return (
@@ -92,7 +97,7 @@ const Channel = () => {
               </h2>
 
               <p className="text-slate-400 mt-2">
-                Full Stack Web Developer {channel.bio}
+                {channel.bio}
               </p>
             </div>
 
@@ -105,44 +110,80 @@ const Channel = () => {
 
       <div className="flex items-start gap-12 mt-6">
 
-        <button className="pb-3 border-b-2 border-[#7C3AED] font-semibold">
-          POSTS
-        </button>
+          <button
+            onClick={() => setActiveTab("post")}
+            className={`pb-3 font-semibold ${activeTab === "post"
+                ? "border-b-2 border-[#7C3AED]"
+                : "text-slate-400"
+            }`}
+          >
+            YOUR POSTS
+          </button>
 
-        <button className="pb-3 text-slate-400 hover:text-white transition">
-          WATCH HISTORY
-        </button>
 
-      </div>
-
-      <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
-
-        {channel.userPosts.map((post) => (
-                    <div
-                      key={post._id}
-                      className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
-                      onClick={() => handlePostClick(post._id)}
-                    >
-        
-                      <img
-                        src={post.postFile}
-                        alt={post.title}
-                        className="rounded-xl w-full object-cover"
-                      />
-        
-                      <div className="p-3 flex justify-between items-center">
-                        <p className="text-sm font-medium">
-                          {post.title}
-                        </p>
-        
-                        <HiDotsHorizontal className="cursor-pointer text-slate-400 hover:text-white" />
-                      </div>
-                    </div>
-                  ))}
+          <button
+            onClick={() => setActiveTab("likedPosts")}
+            className={`pb-3 font-semibold ${
+              activeTab === "likedPosts"
+                ? "border-b-2 border-[#7C3AED]"
+                : "text-slate-400"
+            }`}
+          >
+            WATCH HISTORY
+          </button>
 
       </div>
 
-    </div>
+      {activeTab === "posts" && (
+        <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
+
+          {channel.userPosts.map((post) => (
+            <div
+              key={post._id}
+              className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
+              onClick={() => handlePostClick(post._id)}
+            >
+              <img
+                src={post.postFile}
+                className="rounded-xl w-full object-cover"
+              />
+
+              <div className="p-3">
+                <p>{post.title}</p>
+              </div>
+            </div>
+          ))}
+
+        </div>
+      )}
+
+      {activeTab === "likedPosts" && (
+        <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
+
+          {likedPosts.posts.map((post) => (
+            <div
+              key={post._id}
+              className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
+              onClick={() => handlePostClick(post._id)}
+            >
+              <img
+                src={post.postFile}
+                alt={post.title}
+                className="rounded-xl w-full object-cover"
+                
+              />
+
+              <div className="p-3 flex justify-between items-center">
+                <p>{post.title}</p>
+              </div>
+               <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
+            </div>
+          ))}
+
+        </div>
+      )}
+
+      </div>
   );
 };
 
