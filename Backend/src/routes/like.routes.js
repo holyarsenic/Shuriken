@@ -11,6 +11,6 @@ router.use(verifyJWT); // Apply verifyJWT middleware to all routes in this file
 
 router.route("/toggle/v/:postId").post(togglePostLike);
 router.route("/toggle/c/:commentId").post(toggleCommentLike);
-router.route("/posts").get(getLikedPosts);
+router.route("/likedposts/:channelId").get(getLikedPosts);
 
 export default router

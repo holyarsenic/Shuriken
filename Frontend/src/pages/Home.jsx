@@ -1,4 +1,4 @@
-import { HiDotsHorizontal } from "react-icons/hi";
+import { GoArrowUpRight } from "react-icons/go";
 import { useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { HomePage } from "../context/homePost";
@@ -58,7 +58,7 @@ const Home = () => {
                   {post.title}
                 </p>
 
-                <HiDotsHorizontal className="cursor-pointer text-slate-400 hover:text-white" />
+                <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
               </div>
             </div>
           ))}

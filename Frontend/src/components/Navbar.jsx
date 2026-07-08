@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import { IoIosHome } from "react-icons/io";
 import {
   MdHistoryToggleOff,
@@ -36,6 +36,15 @@ const SidebarItem = ({ icon, label, to }) => {
 const Navbar = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const {user, logOut} = User();
+
+    useEffect(() => {
+    const handleClick = () => {
+      setProfileOpen(false);
+    };
+
+    window.addEventListener("click", handleClick);
+  }, []);
+
 
   const navigate = useNavigate();
 
@@ -103,8 +112,10 @@ const Navbar = () => {
           <div className="relative">
             <div
               className="flex items-center gap-3 cursor-pointer rounded-xl px-3 py-2"
-              onClick={() => setProfileOpen((prev) => !prev)}
-            >
+              onClick={(e) => {
+                e.stopPropagation();
+                setProfileOpen((prev) => !prev);
+              }}>
               <img
                 src="https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
                 className="w-10 h-10 rounded-full object-cover"
@@ -118,7 +129,7 @@ const Navbar = () => {
             </div>
 
             {profileOpen && (
-              <div className="absolute top-20 right-0 w-55 bg-[#111018] border border-slate-500 rounded-xl py-2 z-50">
+              <div className="absolute top-20 right-0 w-55 bg-[#111018] border border-slate-700 rounded-md py-2 z-50">
                 <button className="w-full text-left px-4 py-2 text-lg text-slate-300 cursor-pointer hover:bg-[#221E2C] transition"
                 onClick={() => navigate(`/profile/${user.userName}`)}>
                   Your profile

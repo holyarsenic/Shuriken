@@ -9,7 +9,7 @@ const Channel = () => {
   const navigate = useNavigate();
   const { channelUsername } = useParams();
 
-  const {loading, fetchChannelId, channel } = ChannelData();
+  const {loading, fetchChannelId, channel, toggleFollow } = ChannelData();
 
      useEffect(() => {
       fetchChannelId(channelUsername)
@@ -47,20 +47,22 @@ const Channel = () => {
           />
           <div className="flex-1">
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center">
 
               <h1 className="text-2xl font-medium">
                 @{channel.userName}
               </h1>
 
-              {channel.isFollowed?
-              <button className="px-5 py-2 rounded-xl bg-[#5c5961] hover:bg-[#7C3AED] transition">
-                Unfollow
-              </button>:
-              <button className="px-5 py-2 rounded-xl bg-[#6D28D9]  hover:bg-[#7C3AED] transition">
-                Follow
-              </button>
-              }
+              <button
+                onClick={() => toggleFollow(channel._id)}
+                className="px-5 py-2 rounded-xl cursor-pointer"
+                >
+                {
+                channel.isFollowed
+                ? (<button className="px-5 py-2 rounded-xl bg-[#58555e] cursor-pointer">Following</button>)
+                : (<button className="px-5 py-2 rounded-xl bg-violet-500 cursor-pointer">Follow</button>)
+                }
+                </button>
 
             </div>
 
@@ -104,7 +106,7 @@ const Channel = () => {
       <div className="flex items-start gap-12 mt-6">
 
         <button className="pb-3 border-b-2 border-[#7C3AED] font-semibold">
-          YOUR POSTS
+          POSTS
         </button>
 
         <button className="pb-3 text-slate-400 hover:text-white transition">

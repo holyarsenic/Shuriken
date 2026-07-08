@@ -104,14 +104,24 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
 })
 
 const getLikedPosts = asyncHandler(async (req, res) => {
-    //TODO: get all liked posts
-        const likedPosts = await Like.aggregate([
 
+    const { channelId } = req.params;
+
+    if (!mongoose.isValidObjectId(channelId)) {
+        throw new ApiError(400, "Invalid channel id");
+    }
+
+    const channel = await User.findById(channelId);
+
+    if (!channel) {
+        throw new ApiError(404, "Channel not found");
+    }
+
+
+    const likedPosts = await Like.aggregate([
         {
             $match: {
-                likedBy: new mongoose.Types.ObjectId(
-                    req.user?._id
-                ),
+                likedBy: new mongoose.Types.ObjectId(channelId),
                 post: {
                     $exists: true
                 }
@@ -123,10 +133,9 @@ const getLikedPosts = asyncHandler(async (req, res) => {
                 from: "posts",
                 localField: "post",
                 foreignField: "_id",
-                as: "post",
+                as: "posts",
 
                 pipeline: [
-
                     {
                         $lookup: {
                             from: "users",
@@ -135,44 +144,9 @@ const getLikedPosts = asyncHandler(async (req, res) => {
                             as: "owner",
 
                             pipeline: [
-
-                                {
-                                    $lookup: {
-                                        from: "subscriptions",
-                                        localField: "_id",
-                                        foreignField: "channel",
-                                        as: "subscribers"
-                                    }
-                                },
-
-                                {
-                                    $addFields: {
-                                        subscribersCount: {
-                                            $size: "$subscribers"
-                                        },
-
-                                        isSubscribed: {
-                                            $cond: {
-                                                if: {
-                                                    $in: [
-                                                        req.user?._id,
-                                                        "$subscribers.subscriber"
-                                                    ]
-                                                },
-                                                then: true,
-                                                else: false
-                                            }
-                                        }
-                                    }
-                                },
-
                                 {
                                     $project: {
-                                        fullName: 1,
-                                        username: 1,
-                                        avatar: 1,
-                                        subscribersCount: 1,
-                                        isSubscribed: 1
+                                        userName: 1
                                     }
                                 }
                             ]
@@ -185,6 +159,15 @@ const getLikedPosts = asyncHandler(async (req, res) => {
                                 $first: "$owner"
                             }
                         }
+                    },
+
+                    {
+                        $project: {
+                            title: 1,
+                            description: 1,
+                            postFile: 1,
+                            owner: 1
+                        }
                     }
                 ]
             }
@@ -193,23 +176,27 @@ const getLikedPosts = asyncHandler(async (req, res) => {
         {
             $addFields: {
                 post: {
-                    $first: "$post"
+                    $first: "$posts"
                 }
             }
+        },
+
+        {
+            $project: {
+                post: 1
+            }
         }
+    ]);
 
-    ])
 
-    return res
-    .status(200)
-    .json(
+    return res.status(200).json(
         new ApiResponse(
             200,
             likedPosts,
             "Liked posts fetched successfully"
         )
-    )
-})
+    );
+});
 
 export {
     toggleCommentLike,

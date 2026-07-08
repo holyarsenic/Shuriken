@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { HiDotsHorizontal } from "react-icons/hi";
+import { GoArrowUpRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 
 const History = () => {
@@ -74,7 +74,7 @@ const History = () => {
                   </p>
                 </div>
 
-                <HiDotsHorizontal className="cursor-pointer text-slate-400 hover:text-white" />
+                <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
               </div>
             </div>
           ))}
