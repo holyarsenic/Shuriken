@@ -11,14 +11,20 @@ const Channel = () => {
   const { channelUsername } = useParams();
 
   const {loading, fetchChannelId, channel, toggleFollow } = ChannelData();
-  const { likedPosts, fetchlLIkedPosts} = LikedPostPage();
+  const { likedPosts, fetchLikedPosts} = LikedPostPage();
 
-  const [activeTab,setActiveTab] = useState();
+  const [activeTab,setActiveTab] = useState("posts");
 
      useEffect(() => {
       fetchChannelId(channelUsername)
-      fetchlLIkedPosts(channel._id)
-    },[channelUsername,fetchChannelId,fetchlLIkedPosts,channel]);
+    },[channelUsername,fetchChannelId]);
+
+         
+      useEffect(() => {
+        if(channel?._id){
+          fetchLikedPosts(channel._id);
+        }
+      }, [channel, fetchLikedPosts]);
 
     if (loading) {
       return (
@@ -52,22 +58,22 @@ const Channel = () => {
           />
           <div className="flex-1">
 
-            <div className="flex items-center">
+            <div className="flex items-center gap-3">
 
               <h1 className="text-2xl font-medium">
                 @{channel.userName}
               </h1>
 
-              <button
+             <button
                 onClick={() => toggleFollow(channel._id)}
-                className="px-5 py-2 rounded-xl cursor-pointer"
-                >
-                {
-                channel.isFollowed
-                ? (<button className="px-5 py-2 rounded-xl bg-[#58555e] cursor-pointer">Following</button>)
-                : (<button className="px-5 py-2 rounded-xl bg-violet-500 cursor-pointer">Follow</button>)
-                }
-                </button>
+                className={`px-5 py-2 rounded-xl cursor-pointer ${
+                  channel.isFollowed
+                    ? "bg-[#58555e]"
+                    : "bg-violet-500"
+                }`}
+              >
+                {channel.isFollowed ? "Following" : "Follow"}
+             </button>
 
             </div>
 
@@ -111,8 +117,8 @@ const Channel = () => {
       <div className="flex items-start gap-12 mt-6">
 
           <button
-            onClick={() => setActiveTab("post")}
-            className={`pb-3 font-semibold ${activeTab === "post"
+            onClick={() => setActiveTab("posts")}
+            className={`pb-3 font-semibold ${activeTab === "posts"
                 ? "border-b-2 border-[#7C3AED]"
                 : "text-slate-400"
             }`}
@@ -129,7 +135,7 @@ const Channel = () => {
                 : "text-slate-400"
             }`}
           >
-            WATCH HISTORY
+            LIKED
           </button>
 
       </div>
@@ -137,7 +143,7 @@ const Channel = () => {
       {activeTab === "posts" && (
         <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
 
-          {channel.userPosts.map((post) => (
+          {channel.userPosts?.map((post) => (
             <div
               key={post._id}
               className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
@@ -148,8 +154,9 @@ const Channel = () => {
                 className="rounded-xl w-full object-cover"
               />
 
-              <div className="p-3">
+              <div className="p-3 flex justify-between items-center">
                 <p>{post.title}</p>
+                <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
               </div>
             </div>
           ))}
@@ -160,23 +167,23 @@ const Channel = () => {
       {activeTab === "likedPosts" && (
         <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
 
-          {likedPosts.posts.map((post) => (
+          {likedPosts?.map((post) => (
             <div
-              key={post._id}
+              key={post.post._id}
               className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
-              onClick={() => handlePostClick(post._id)}
+              onClick={() => handlePostClick(post.post._id)}
             >
               <img
-                src={post.postFile}
-                alt={post.title}
+                src={post.post.postFile}
+                alt={post.post.title}
                 className="rounded-xl w-full object-cover"
                 
               />
 
               <div className="p-3 flex justify-between items-center">
-                <p>{post.title}</p>
+                <p>{post.post.title}</p>
+                 <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
               </div>
-               <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
             </div>
           ))}
 

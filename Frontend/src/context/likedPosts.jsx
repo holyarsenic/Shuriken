@@ -7,7 +7,7 @@ export const LikedPostProvider = ({ children }) => {
   const [likedPosts, setLikedPosts] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchlLIkedPosts = useCallback(async (channelId) => {
+  const fetchLikedPosts = useCallback(async (channelId) => {
     setLoading(true);
 
     try {
@@ -32,7 +32,7 @@ export const LikedPostProvider = ({ children }) => {
       value={{
         likedPosts,
         loading,
-        fetchlLIkedPosts,
+        fetchLikedPosts,
       }}
     >
       {children}
