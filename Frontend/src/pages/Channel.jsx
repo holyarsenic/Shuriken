@@ -4,14 +4,13 @@ import { GoArrowUpRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { LikedPostPage } from "../context/likedPosts";
+import LikedPostsComponent from "../components/LikedPosts.component";
 
 const Channel = () => {
   const navigate = useNavigate();
   const { channelUsername } = useParams();
 
   const {loading, fetchChannelId, channel, toggleFollow } = ChannelData();
-  const { likedPosts, fetchLikedPosts} = LikedPostPage();
 
   const [activeTab,setActiveTab] = useState("posts");
 
@@ -19,12 +18,6 @@ const Channel = () => {
       fetchChannelId(channelUsername)
     },[channelUsername,fetchChannelId]);
 
-         
-      useEffect(() => {
-        if(channel?._id){
-          fetchLikedPosts(channel._id);
-        }
-      }, [channel, fetchLikedPosts]);
 
     if (loading) {
       return (
@@ -123,7 +116,7 @@ const Channel = () => {
                 : "text-slate-400"
             }`}
           >
-            YOUR POSTS
+            POSTS
           </button>
 
 
@@ -165,29 +158,7 @@ const Channel = () => {
       )}
 
       {activeTab === "likedPosts" && (
-        <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
-
-          {likedPosts?.map((post) => (
-            <div
-              key={post.post._id}
-              className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
-              onClick={() => handlePostClick(post.post._id)}
-            >
-              <img
-                src={post.post.postFile}
-                alt={post.post.title}
-                className="rounded-xl w-full object-cover"
-                
-              />
-
-              <div className="p-3 flex justify-between items-center">
-                <p>{post.post.title}</p>
-                 <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
-              </div>
-            </div>
-          ))}
-
-        </div>
+        <LikedPostsComponent channelId={`${channel._id}`}/>
       )}
 
       </div>

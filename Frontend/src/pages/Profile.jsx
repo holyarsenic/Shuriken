@@ -1,12 +1,15 @@
 import { ProfileData } from "../context/userProfile";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
+import LikedPostsComponent from "../components/LikedPosts.component";
 
 const Profile = () => {
   const navigate = useNavigate();
 
   const { fetchProfile, profile, loading } = ProfileData();
+
+  const [activeTab,setActiveTab] = useState("posts");
 
     useEffect(() => {
       fetchProfile();
@@ -82,7 +85,7 @@ const Profile = () => {
               </h2>
 
               <p className="text-slate-400 mt-2">
-                Full Stack Web Developer {profile.bio}
+                {profile.bio}
               </p>
             </div>
 
@@ -95,17 +98,23 @@ const Profile = () => {
 
       <div className="flex items-start gap-12 mt-6">
 
-        <button className="pb-3 border-b-2 border-[#7C3AED] font-semibold">
+        <button 
+        onClick={()=>setActiveTab("posts")}
+        className={`pb-3 font-semibold ${activeTab === "posts"?"border-b-2 border-[#7C3AED]":"text-slate-400"  }`}>
           YOUR POSTS
         </button>
 
-        <button className="pb-3 text-slate-400 hover:text-white transition">
-          WATCH HISTORY
+        <button 
+        onClick={()=> setActiveTab("likedPosts")}
+        className={`pb-3 font-semibold ${activeTab === "likedPosts"?"border-b-2 border-[#7C3AED]":"text-slate-400"}`}>
+          LIKED
         </button>
 
       </div>
 
-      <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
+      { activeTab === "posts" && (
+        
+        <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
 
         {profile.myPosts.map((post) => (
                     <div
@@ -130,7 +139,11 @@ const Profile = () => {
                     </div>
                   ))}
 
-      </div>
+      </div>)}
+
+      { activeTab === "likedPosts" && (
+        <LikedPostsComponent channelId= {`${profile._id}`}/>
+        )}
 
     </div>
   );
