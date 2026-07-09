@@ -19,7 +19,7 @@ export const PostProvider = ({ children }) => {
 
             setPost(res.data.data);
           } catch (error) {
-            console.log(error);
+            console.log(error.message);
             setPost(null);
           } finally {
             setLoading(false);

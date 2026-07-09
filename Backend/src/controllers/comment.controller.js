@@ -1,5 +1,6 @@
-import mongoose from "mongoose"
+import mongoose, {isValidObjectId} from "mongoose"
 import {Comment} from "../models/comment.models.js"
+import { Post } from "../models/post.models.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asynchandler.js"
@@ -35,61 +36,10 @@ const getPostComments = asyncHandler(async (req, res) => {
                 as: "owner",
 
                 pipeline: [
-
-                    // subscriber count
-                    {
-                        $lookup: {
-                            from: "subscriptions",
-                            localField: "_id",
-                            foreignField: "channel",
-                            as: "subscribers"
-                        }
-                    },
-
-                    // subscribed count
-                    {
-                        $lookup: {
-                            from: "subscriptions",
-                            localField: "_id",
-                            foreignField: "subscriber",
-                            as: "subscribedTo"
-                        }
-                    },
-
-                    {
-                        $addFields: {
-
-                            subscribersCount: {
-                                $size: "$subscribers"
-                            },
-
-                            channelsSubscribedToCount: {
-                                $size: "$subscribedTo"
-                            },
-
-                            isSubscribed: {
-                                $cond: {
-                                    if: {
-                                        $in: [
-                                            req.user?._id,
-                                            "$subscribers.subscriber"
-                                        ]
-                                    },
-                                    then: true,
-                                    else: false
-                                }
-                            }
-                        }
-                    },
-
                     {
                         $project: {
-                            fullName: 1,
-                            username: 1,
-                            avatar: 1,
-                            subscribersCount: 1,
-                            channelsSubscribedToCount: 1,
-                            isSubscribed: 1
+                            userName: 1,
+                            avatar: 1
                         }
                     }
                 ]
@@ -181,7 +131,7 @@ const addComment = asyncHandler(async (req, res) => {
                     {
                         $project: {
                             fullName: 1,
-                            username: 1,
+                            userName: 1,
                             avatar: 1
                         }
                     }
@@ -208,55 +158,6 @@ const addComment = asyncHandler(async (req, res) => {
             "Comment added successfully"
         )
     )
-})
-
-const updateComment = asyncHandler(async (req, res) => {
-    // TODO: update a comment
-        const { commentId } = req.params
-
-    const { content } = req.body
-
-    if (!isValidObjectId(commentId)) {
-        throw new ApiError(400, "Invalid comment id")
-    }
-
-    if (!content || content.trim() === "") {
-        throw new ApiError(400, "Content is required")
-    }
-
-    const comment = await Comment.findById(commentId)
-
-    if (!comment) {
-        throw new ApiError(404, "Comment not found")
-    }
-
-    // ownership check
-    if (comment.owner.toString() !== req.user?._id.toString()) {
-        throw new ApiError(403, "Unauthorized request")
-    }
-
-    const updatedComment = await Comment.findByIdAndUpdate(
-        commentId,
-        {
-            $set: {
-                content
-            }
-        },
-        {
-            new: true
-        }
-    )
-
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            updatedComment,
-            "Comment updated successfully"
-        )
-    )
-
 })
 
 const deleteComment = asyncHandler(async (req, res) => {
@@ -294,6 +195,5 @@ const deleteComment = asyncHandler(async (req, res) => {
 export {
     getPostComments, 
     addComment, 
-    updateComment,
-     deleteComment
+    deleteComment
     }

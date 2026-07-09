@@ -10,6 +10,7 @@ import { HomeProvider } from './context/homePost.jsx'
 import { ProfileProvider } from './context/userProfile.jsx'
 import { ChannelProvider } from './context/channelProfile.jsx'
 import { LikedPostProvider } from './context/likedPosts.jsx'
+import { CommentsProvider } from './context/commentPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,13 +18,15 @@ createRoot(document.getElementById('root')).render(
       <UserProvider>
         <HomeProvider>
           <PostProvider>
-            <ProfileProvider>
-              <ChannelProvider>
-                <LikedPostProvider>
-              <App />
-                </LikedPostProvider>
-              </ChannelProvider>
-            </ProfileProvider>
+            <CommentsProvider>
+              <ProfileProvider>
+                <ChannelProvider>
+                  <LikedPostProvider>
+                                <App />
+                  </LikedPostProvider>
+                </ChannelProvider>
+              </ProfileProvider>
+              </CommentsProvider>
           </PostProvider>
         </HomeProvider>
       </UserProvider>

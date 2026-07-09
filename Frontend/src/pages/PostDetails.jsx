@@ -5,6 +5,7 @@ import { Post } from "../context/specificPost.jsx";
 import { HomePage } from "../context/homePost.jsx";
 import { useNavigate } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
+import Comments from "../components/Comments.component.jsx";
 
 const PostDetails = () => {
   const { postId } = useParams();
@@ -18,7 +19,6 @@ const PostDetails = () => {
     fetchPostById(postId);
     fetchPosts();
     },[postId,fetchPostById, fetchPosts]);
-
   
 
      if (loading) {
@@ -118,118 +118,13 @@ const PostDetails = () => {
                   <FaRegComment className="text-lg" />
                 </button>
                 <p className="text-sm text-slate-300 font-medium">
-                    {post.likes}
+                    {post.comments || 0}
                 </p>
             </div>
 
           </div>
           
-            <div className="mt-5 pt-1 flex flex-col flex-1 min-h-0">
-
-              <div className="flex items-center gap-3">
-
-                <img
-                  src="https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
-                  className="w-9 h-9 rounded-full object-cover ring-1 ring-[#2A2438]"
-                />
-
-                <input
-                  type="text"
-                  placeholder="Add a comment..."
-                  className="flex-1 bg-[#17141F] border border-[#2A2438] rounded-full px-4 py-2.5 text-sm outline-none focus:border-violet-500 transition placeholder:text-slate-500"
-                />
-
-                <button
-                  className="px-5 py-2.5 rounded-full bg-violet-600 hover:bg-violet-500 active:bg-violet-700 transition text-sm font-semibold cursor-pointer"
-                >
-                  Post
-                </button>
-
-              </div>
-
-              <div className="mt-6 space-y-5 max-h-87.5 overflow-y-auto pr-2">
-
-                <div className="flex gap-3">
-
-                  <img
-                    src="https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
-                    className="w-9 h-9 rounded-full object-cover ring-1 ring-[#2A2438]"
-                  />
-
-                  <div className="flex-1">
-
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-sm">
-                        Rohan
-                      </h3>
-
-                      <span className="text-xs text-slate-600">
-                        2h
-                      </span>
-                    </div>
-
-                    <p className="text-sm text-slate-300 mt-1">
-                      Amazing design! Love the purple theme.
-                    </p>
-
-                    <div className="flex items-center gap-4 mt-1.5">
-
-                      <button className="text-xs text-slate-500 hover:text-white font-medium transition">
-                        Reply
-                      </button>
-
-                      <button className="text-xs text-slate-500 hover:text-rose-400 font-medium transition">
-                        Like
-                      </button>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-                <div className="flex gap-3">
-
-                  <img
-                    src="https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
-                    className="w-9 h-9 rounded-full object-cover ring-1 ring-[#2A2438]"
-                  />
-
-                  <div className="flex-1">
-
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-sm">
-                        Arman
-                      </h3>
-
-                      <span className="text-xs text-slate-600">
-                        5h
-                      </span>
-                    </div>
-
-                    <p className="text-sm text-slate-300 mt-1 leading-snug">
-                      Clean UI
-                    </p>
-
-                    <div className="flex items-center gap-4 mt-1.5">
-
-                      <button className="text-xs text-slate-500 hover:text-white font-medium transition">
-                        Reply
-                      </button>
-
-                      <button className="text-xs text-slate-500 hover:text-rose-400 font-medium transition">
-                        Like
-                      </button>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
+           <Comments postId={postId}/>
 
         </div>
       </div>
