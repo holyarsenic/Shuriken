@@ -274,9 +274,48 @@ const deletePost = asyncHandler(async (req, res) => {
 
 })
 
-const postSearchBar = asyncHandler(async (req, res) => {
-   
-})
+const userSearchBar = asyncHandler(async (req, res) => {
+    const { query } = req.query;
+
+      if (!query?.trim()) {
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                [],
+                "No search query"
+            )
+        );
+    }
+    
+    const users = await User.aggregate([
+        {
+            $match: {
+                userName: {
+                    $regex: query,
+                    $options: "i"
+                }
+            }
+        },
+        {
+            $project: {
+                userName: 1,
+                avatar: 1,
+                fullName: 1
+            }
+        },
+        {
+            $limit: 10
+        }
+    ]);
+
+    res.status(200).json(
+        new ApiResponse(
+            200,
+            users,
+            "Users found"
+        )
+    );
+});
 
 export {
     getAllPosts,
@@ -284,5 +323,5 @@ export {
     getPostById,
     updatePost,
     deletePost,
-    postSearchBar
+    userSearchBar
 }

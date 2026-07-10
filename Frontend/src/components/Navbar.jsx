@@ -102,7 +102,7 @@ const Navbar = () => {
                 setProfileOpen((prev) => !prev);
               }}>
               <img
-                src="https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
+                src={user.avatar}
                 className="w-10 h-10 rounded-full object-cover"
               />
 

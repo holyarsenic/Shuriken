@@ -4,7 +4,7 @@ import {
     getAllPosts,
     getPostById,
     publishAPost,
-    postSearchBar,
+    userSearchBar,
     updatePost,
 } from "../controllers/post.controller.js"
 import {verifyJWT} from "../middlewares/auth.middleware.js"
@@ -12,6 +12,9 @@ import {upload} from "../middlewares/multer.middleware.js"
 
 const router = Router();
 router.use(verifyJWT); // Apply verifyJWT middleware to all routes in this file
+
+
+router.route("/search").get(userSearchBar);
 
 router
     .route("/")
@@ -31,7 +34,5 @@ router
     .route("/:postId")
     .get(getPostById)
     .delete(deletePost)
-
-router.route("/search").get(postSearchBar);
 
 export default router
