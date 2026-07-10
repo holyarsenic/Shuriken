@@ -4,7 +4,7 @@ import {
     getAllPosts,
     getPostById,
     publishAPost,
-    togglePublishStatus,
+    postSearchBar,
     updatePost,
 } from "../controllers/post.controller.js"
 import {verifyJWT} from "../middlewares/auth.middleware.js"
@@ -32,6 +32,6 @@ router
     .get(getPostById)
     .delete(deletePost)
 
-router.route("/toggle/publish/:postId").patch(togglePublishStatus);
+router.route("/search").get(postSearchBar);
 
 export default router

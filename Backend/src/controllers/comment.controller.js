@@ -149,6 +149,10 @@ const addComment = asyncHandler(async (req, res) => {
 
     ])
 
+    await Post.findByIdAndUpdate(postId, {
+            $inc: { comments: 1 }
+        });
+
     return res
     .status(201)
     .json(

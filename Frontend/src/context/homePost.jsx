@@ -18,7 +18,7 @@ export const HomeProvider = ({ children }) => {
         }
       );
 
-      setPosts(res.data.data.posts);
+      setPosts(res.data.data);
     } catch (error) {
       console.log(error.response?.data || error.message);
       setPosts([]);

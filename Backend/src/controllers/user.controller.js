@@ -440,7 +440,6 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
                 followingCount: 1,
                 totalPosts:1,
                 isFollowed: 1,
-                avatar: 1,
                 email: 1
 
             }

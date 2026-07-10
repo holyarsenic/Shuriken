@@ -10,95 +10,51 @@ import {PostView} from "../models/postView.models.js";
 
 
 const getAllPosts = asyncHandler(async (req, res) => {
-    //TODO: get all posts based on query, sort, pagination
-     
-    const {
-        page = 1,
-        limit = 10,
-        query,
-        sortBy = "createdAt",
-        sortType = "desc",
-        userId
-    } = req.query
-
-    const matchCondition = {
-        isPublished: true
-    }
-
-    // search query
-    if (query) {
-        matchCondition.title = {
-            $regex: query,
-            $options: "i"
-        }
-    }
-
-    // user specific videos
-    if (userId && isValidObjectId(userId)) {
-        matchCondition.owner = new mongoose.Types.ObjectId(userId)
-    }
-
-    const sortOptions = {}
-
-    sortOptions[sortBy] = sortType === "asc" ? 1 : -1
+    const { page = 1, limit = 20 } = req.query;
 
     const posts = await Post.aggregate([
-        {
-            $match: matchCondition
-        },
         {
             $lookup: {
                 from: "users",
                 localField: "owner",
                 foreignField: "_id",
-                as: "owner",
-                pipeline: [
-                    {
-                        $project: {
-                            fullName: 1,
-                            username: 1,
-                            avatar: 1
-                        }
-                    }
-                ]
+                as: "owner"
             }
         },
         {
-            $addFields: {
+            $unwind: "$owner"
+        },
+        {
+            $project: {
+                title: 1,
+                postFile: 1,
                 owner: {
-                    $first: "$owner"
+                    userName: "$owner.userName",
+                    avatar: "$owner.avatar"
                 }
             }
         },
         {
-            $sort: sortOptions
+            $sort: {
+                createdAt: -1
+            }
         },
         {
-            $skip: (Number(page) - 1) * Number(limit)
+            $skip: (page - 1) * limit
         },
         {
             $limit: Number(limit)
         }
-    ])
+    ]);
 
-    const totalPosts = await Post.countDocuments(matchCondition)
-
-    return res
-    .status(200)
-    .json(
+    res.status(200).json(
         new ApiResponse(
             200,
-            {
-                posts: posts,
-                totalPosts: totalPosts,
-                currentPage: Number(page),
-                totalPages: Math.ceil(totalPosts / limit)
-            },
-            "Posts fetched successfully"
+            posts,
+            "Posts fetched"
         )
-    )
-    
-})
+    );
+});
 
 const publishAPost = asyncHandler(async (req, res) => {
     // TODO: get post, upload to cloudinary, create video
@@ -318,49 +274,8 @@ const deletePost = asyncHandler(async (req, res) => {
 
 })
 
-const togglePublishStatus = asyncHandler(async (req, res) => {
-    const { postId } = req.params
-
-    if (!isValidObjectId(postId)) {
-        throw new ApiError(400, "Invalid post id")
-    }
-
-    const post = await Post.findById(postId)
-
-    if (!post) {
-        throw new ApiError(404, "Post not found")
-    }
-
-    // ownership check
-    if (post.owner.toString() !== req.user?._id.toString()) {
-        throw new ApiError(403, "Unauthorized request")
-    }
-
-    const updatedPost = await Post.findByIdAndUpdate(
-        postId,
-        {
-            $set: {
-                isPublished: !post.isPublished
-            }
-        },
-        {
-            new: true
-        }
-    )
-
-    return res
-    .status(200)
-    .json(
-        new ApiResponse(
-            200,
-            updatedPost,
-            `Post ${
-                updatedPost.isPublished
-                    ? "published"
-                    : "unpublished"
-            } successfully`
-        )
-    )
+const postSearchBar = asyncHandler(async (req, res) => {
+   
 })
 
 export {
@@ -369,5 +284,5 @@ export {
     getPostById,
     updatePost,
     deletePost,
-    togglePublishStatus
+    postSearchBar
 }

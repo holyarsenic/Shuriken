@@ -7,12 +7,12 @@ import {
 } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import { IoSettingsSharp } from "react-icons/io5";
-import { CiSearch } from "react-icons/ci";
 import { SlArrowDown } from "react-icons/sl";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/Logo.jpeg";
 import { useNavigate } from "react-router-dom";
 import { User } from "../context/user";
+import SearchBar from "./SearchBar.component";
 
 
 const SidebarItem = ({ icon, label, to }) => {
@@ -81,23 +81,8 @@ const Navbar = () => {
               Shuriken
             </h1>
           </div>
-        <div className="relative w-1/2 flex items-center justify-center">
-          <CiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-white" />
-
-          <input
-            type="text"
-            placeholder="Search..."
-           className="w-full h-11 rounded-full
-            bg-[#151320]
-            border border-white/60
-            text-white
-            pl-11 pr-4
-            placeholder:text-white/60
-            focus:outline-none
-            focus:border-violet-500
-            transition"
-          />
-        </div>
+        
+        <SearchBar/>
 
       <div className="flex w-fit items-center justify-end gap-6">
         <div className="flex rounded-xl items-center justify-end gap-6">
