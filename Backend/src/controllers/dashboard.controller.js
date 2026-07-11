@@ -191,7 +191,6 @@ const getChannelPosts = asyncHandler(async (req, res) => {
                 duration: 1,
                 views: 1,
                 createdAt: 1,
-                isPublished: 1,
                 likesCount: 1,
                 owner: 1
             }
