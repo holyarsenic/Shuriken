@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { CiSearch } from "react-icons/ci";
 import { HomePage } from "../context/homePost";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
 
@@ -11,10 +12,12 @@ const SearchBar = () => {
 
   const {posts, fetchPosts} = HomePage();
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchSearch = async () => {
 
-    if (!search.trim()) {
+    if (!search) {
       setSearchUser([]);
       return;
     }
@@ -46,11 +49,25 @@ const SearchBar = () => {
     fetchPosts();
   },[fetchPosts])
 
-  const result = search.trim()
+  const result = typeof search === "string" && search.trim()
     ? posts.filter((post) =>
-        post.title?.toLowerCase().includes(search.toLowerCase())
+        post.title
+          ?.toLowerCase()
+          .includes(search.toLowerCase())
       )
     : [];
+
+   function handleChannelProfileClick(channelUsername) {
+    navigate(`/c/${channelUsername}`)
+    setSearchUser([]);
+    setSearch([])
+  }
+
+  function handlePostView(postId) {
+    navigate(`/post/${postId}`)
+    setSearchUser([]);
+    setSearch([])
+  }
 
   const searching = searchUser;
 
@@ -77,22 +94,25 @@ const SearchBar = () => {
 
         {
           (result.length > 0 || searching.length > 0) && (
-           <div className="fixed w-1/2 top-20 bg-[#2d2944] flex-col text-white items-center justify-center py-10 px-4">
+           <div className="fixed w-1/2 top-20 bg-[#2d2944] flex-col text-white rounded-xl items-center justify-center pt-10 pb-5 px-4">
             {
               searching.map((user) => (
-                 <div key={user._id} className="text-white flex gap-3 items-center mb-10">
+                 <div key={user._id} className="text-white flex gap-3 items-center mb-5 cursor-pointer" 
+                 onClick={() => handleChannelProfileClick(user.userName)}>
                   <img src={user.avatar} className="w-13 h-13 rounded-full object-cover"/>
-                  <div className="">
-                   <span className="">@{user.userName}</span>
-                   <span className="">{user.fullName}</span>
+                  <div className="flex flex-col">
+                   <span className="text-md text-white">{user.fullName}</span>
+                   <span className="text-sm text-gray-300">@{user.userName}</span>
                   </div>
                 </div>  
               ))
             }
             {
               result.map((post) => (
-                <div key={post._id} className="text-white">
-                {post.title}
+                <div key={post._id} className="text-white text-lg mb-2 ml-2 flex gap-2 items-center cursor-pointer"
+                onClick={()=> handlePostView(post._id)}
+                >
+                 <CiSearch/> {post.title}
                 </div>  
               ))
             }

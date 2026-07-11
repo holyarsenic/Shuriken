@@ -20,8 +20,6 @@ export const CommentsProvider = ({children}) => {
       );
 
       setComments(res.data.data.docs)
-
-      console.log(res.data.data)
     } catch (error) {
       console.log(error.message);
       setComments([])
