@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import {Post} from "../models/post.models.js"
+import {User} from "../models/user.models.js"
 import {Follow} from "../models/followList.models.js"
 import {Like} from "../models/like.models.js"
 import {ApiError} from "../utils/ApiError.js"
@@ -9,6 +10,24 @@ import {asyncHandler} from "../utils/asynchandler.js"
 const getChannelStats = asyncHandler(async (req, res) => {
 
     const channelId = req.user?._id;
+
+    const ownerData = await User.aggregate([
+        {
+            $match: {
+                _id: new mongoose.Types.ObjectId(channelId)
+            }
+        },
+        {
+          $project: {
+            avatar: 1,
+            userName: 1,
+            fullName: 1,
+            bio: 1
+          }
+        }
+    ])
+
+    const owner = ownerData[0] || null;
 
     // total posts
     const totalPosts = await Post.countDocuments({
@@ -39,7 +58,7 @@ const getChannelStats = asyncHandler(async (req, res) => {
 
     //following (people I follow)
     const totalFollowing = await Follow.countDocuments({
-        accFollowers: channelId
+        accFollower: channelId
     });
 
     // total likes on posts
@@ -72,15 +91,47 @@ const getChannelStats = asyncHandler(async (req, res) => {
 
     const totalLikes = totalLikesResult[0]?.totalLikes || 0;
 
+    const viewsAnalytics = await Post.aggregate([
+        {
+            $match: {
+            owner: new mongoose.Types.ObjectId(channelId)
+            }
+        },
+        {
+            $group: {
+            _id: {
+                month: {
+                $dateToString: {
+                    format: "%b",
+                    date: "$createdAt"
+                }
+                }
+            },
+            views: {
+                $sum: "$views"
+            }
+            }
+        },
+        {
+            $project: {
+            _id: 0,
+            month: "$_id.month",
+            views: 1
+            }
+        }
+    ]);
+
     return res.status(200).json(
         new ApiResponse(
             200,
             {
+                owner,
                 totalPosts,
                 totalViews,
                 totalFollowers,
                 totalFollowing,
-                totalLikes
+                totalLikes,
+                viewsAnalytics
             },
             "Channel stats fetched successfully"
         )
@@ -128,67 +179,22 @@ const getChannelPosts = asyncHandler(async (req, res) => {
                 as: "owner",
 
                 pipeline: [
-
-                    {
-                        $lookup: {
-                            from: "follows",
-                            localField: "_id",
-                            foreignField: "channel",
-                            as: "followers"
-                        }
-                    },
-
-                    {
-                        $addFields: {
-
-                            followersCount: {
-                                $size: "$followers"
-                            },
-
-                            isFollowed: {
-                                $cond: {
-                                    if: {
-                                        $in: [
-                                            req.user?._id,
-                                            "$followers.accFollowers"
-                                        ]
-                                    },
-                                    then: true,
-                                    else: false
-                                }
-                            }
-
-                        }
-                    },
-
                     {
                         $project: {
                             fullName: 1,
                             username: 1,
-                            avatar: 1,
-                            followersCountersCount: 1,
-                            isFollowed: 1
+                            avatar: 1
                         }
                     }
 
                 ]
             }
         },
-
-        {
-            $addFields: {
-                owner: {
-                    $first: "$owner"
-                }
-            }
-        },
-
         {
             $project: {
                 postFile: 1,
                 title: 1,
                 description: 1,
-                duration: 1,
                 views: 1,
                 createdAt: 1,
                 likesCount: 1,
@@ -209,7 +215,7 @@ const getChannelPosts = asyncHandler(async (req, res) => {
     .json(
         new ApiResponse(
             200,
-            channePosts,
+            channelPosts,
             "Channel posts fetched successfully"
         )
     )

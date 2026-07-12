@@ -6,24 +6,18 @@ import {
   Legend,
   ResponsiveContainer } from "recharts"
 
-
-const data = [
-  {
-    name: "Followers",
-    value: 100
-  },
-  {
-    name: "Following",
-    value: 200
-  }
-];
-
 const COLORS = [
   "#7C3AED",
   "#A78BFA"
 ];
 
-const PieChartView = () => {
+const PieChartView = ({followers,following}) => {
+
+    const data = [
+    { name: "Followers", value: followers },
+    { name: "Following", value: following },
+  ];
+
   return (
      <div className="bg-[#181622] border border-[#2A2438] rounded-2xl p-6 w-1/2">
     
@@ -62,7 +56,14 @@ const PieChartView = () => {
               </Pie>
 
 
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#111",
+                  border: "1px solid #2A2438",
+                  borderRadius: "1rem",
+                  color: "white"
+                }}
+              />
 
 
               <Legend />

@@ -33,6 +33,7 @@ router
 router
     .route("/:postId")
     .get(getPostById)
+    .patch(updatePost)
     .delete(deletePost)
 
 export default router

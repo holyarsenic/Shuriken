@@ -8,39 +8,8 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const data = [
-  {
-    date: "Jan",
-    views: 4000,
-  },
-  {
-    date: "Feb",
-    views: 7000,
-  },
-  {
-    date: "Mar",
-    views: 5000,
-  },
-  {
-    date: "Apr",
-    views: 12000,
-  },
-  {
-    date: "May",
-    views: 9000,
-  },
-  {
-    date: "Jun",
-    views: 15000,
-  },
-  {
-    date: "Jul",
-    views: 18000,
-  },
-];
 
-
-const LineGraphForViews = () => {
+const LineGraphForViews = ({data}) => {
   return (
     <div className="bg-[#181622] border border-[#2A2438] rounded-2xl p-6 w-1/2">
 
@@ -51,7 +20,7 @@ const LineGraphForViews = () => {
         </h2>
 
         <p className="text-gray-400 text-sm">
-          Last 7 Months
+          Last month
         </p>
 
       </div>
@@ -69,7 +38,7 @@ const LineGraphForViews = () => {
 
 
           <XAxis
-            dataKey="date"
+            dataKey="month"
             stroke="#9CA3AF"
           />
 
