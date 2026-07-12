@@ -7,13 +7,14 @@ const EditPostContext = createContext();
 
 export const EditPostProvider = ({ children }) => {
 
-  const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [editing, setEditing] = useState(false);
 
 
 
   const deletePost = useCallback(async(postId)=>{
 
-    setLoading(true);
+    setDeleting(true);
 
     try {
 
@@ -37,8 +38,30 @@ export const EditPostProvider = ({ children }) => {
 
     } finally {
 
-      setLoading(false);
+      setDeleting(false);
 
+    }
+
+  },[]);
+
+  const editPost = useCallback(async(postId, title, description)=>{
+    setEditing(true);
+    try {
+
+      await axios.patch(
+        `http://localhost:8000/api/v1/posts/${postId}`,
+        {
+        title,
+        description,
+      },
+        {
+          withCredentials:true,
+        }
+      );
+    } catch(error){
+      console.log(error.message);
+    } finally {
+      setEditing(false);
     }
 
   },[]);
@@ -50,7 +73,9 @@ export const EditPostProvider = ({ children }) => {
     <EditPostContext.Provider
       value={{
         deletePost,
-        loading
+        deleting,
+        editPost,
+        editing
       }}
     >
 

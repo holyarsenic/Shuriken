@@ -97,7 +97,7 @@ const Create = () => {
               <label className="text-md text-white">Description</label>
               <textarea
                 rows="4"
-                maxLength={100}
+                maxLength={150}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Write something..."
