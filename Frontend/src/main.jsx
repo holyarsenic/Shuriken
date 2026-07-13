@@ -22,15 +22,15 @@ createRoot(document.getElementById('root')).render(
           <PostProvider>
             <CommentsProvider>
               <ProfileProvider>
-                <DashboardProvider>
-                  <EditPostProvider>
-                    <ChannelProvider>
-                     <LikedPostProvider>
-                                   <App />
-                     </LikedPostProvider>
-                    </ChannelProvider>
-                  </EditPostProvider>
-                </DashboardProvider>
+                    <DashboardProvider>
+                      <EditPostProvider>
+                        <ChannelProvider>
+                        <LikedPostProvider>
+                                      <App />
+                        </LikedPostProvider>
+                        </ChannelProvider>
+                      </EditPostProvider>
+                    </DashboardProvider>
               </ProfileProvider>
             </CommentsProvider>
           </PostProvider>

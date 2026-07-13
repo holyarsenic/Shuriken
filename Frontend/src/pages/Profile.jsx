@@ -3,6 +3,7 @@ import { HiDotsHorizontal } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import LikedPostsComponent from "../components/LikedPosts.component";
+import EditProfilePage from "../components/EditProfilePage";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Profile = () => {
   const { fetchProfile, profile, loading } = ProfileData();
 
   const [activeTab,setActiveTab] = useState("posts");
+  const [ editProfile, setEditProfile ] = useState(false);
 
     useEffect(() => {
       fetchProfile();
@@ -53,7 +55,9 @@ const Profile = () => {
                 @{profile.userName}
               </h1>
 
-              <button className="px-5 py-2 rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition">
+              <button className="px-5 py-2 rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition"
+              onClick={() => setEditProfile(true)}
+              >
                 Edit Profile
               </button>
 
@@ -145,6 +149,10 @@ const Profile = () => {
         <LikedPostsComponent channelId= {`${profile._id}`}/>
         )}
 
+
+        { editProfile === true && (
+        <EditProfilePage closeProfileEdit={() => setEditProfile(null)}/>
+        )}
     </div>
   );
 };

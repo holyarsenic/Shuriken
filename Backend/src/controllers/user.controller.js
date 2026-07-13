@@ -2,7 +2,7 @@ import { asyncHandler } from "../utils/asynchandler.js";
 import {ApiError} from "../utils/ApiError.js";
 import {User} from "../models/user.models.js";
 import {Post} from "../models/post.models.js";
-import {uploadOnCloudnary} from "../utils/cloudnary.js";
+import {uploadOnCloudnary ,cloudinary} from "../utils/cloudnary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose";
@@ -180,74 +180,87 @@ const getCurrentUser = asyncHandler(async(req, res) => {
     ))
 })
 
-const updateAccountDetails = asyncHandler(async(req, res) => {
-    const {fullName, email ,bio} = req.body
+const updateProfile = asyncHandler(async (req, res) => {
 
-    if (!(fullName || email || bio)) {
-        throw new ApiError(400, "At least one field is required")
+    const { fullName, email, bio } = req.body;
+
+    const avatarLocalPath = req.file?.path;
+
+
+    if (!fullName && !email && !bio && !avatarLocalPath) {
+        throw new ApiError(400, "At least one field is required");
     }
 
+
+    const userOld = await User.findById(req.user?._id);
+
+    if (!userOld) {
+        throw new ApiError(404, "User not found");
+    }
+
+
+    let avatarUrl = userOld.avatar;
+
+
+    // Update avatar if new file is uploaded
+    if (avatarLocalPath) {
+
+        const avatar = await uploadOnCloudnary(avatarLocalPath);
+
+
+        if (!avatar.url) {
+            throw new ApiError(400, "Error while uploading avatar");
+        }
+
+
+        // Delete old avatar
+        if (userOld.avatar) {
+
+            const parts = userOld.avatar.split("/");
+            const fileName = parts.pop();
+            const publicId = fileName.split(".")[0];
+
+            await cloudinary.uploader.destroy(publicId);
+        }
+
+
+        avatarUrl = avatar.url;
+    }
+
+
+
     const user = await User.findByIdAndUpdate(
+
         req.user?._id,
+
         {
             $set: {
                 fullName,
                 email,
-                bio
+                bio,
+                avatar: avatarUrl
             }
         },
-        {new: true}
-        
-    ).select("-password")
 
-    return res
-    .status(200)
-    .json(new ApiResponse(200, user, "Account details updated successfully"))
-});
-
-const updateUserAvatar = asyncHandler(async(req, res) => {
-    const avatarLocalPath = req.file?.path
-
-    if (!avatarLocalPath) {
-        throw new ApiError(400, "Avatar file is missing")
-    }
-
-    //taking oldavatar
-      const userOld = await User.findById(req.user?._id);
-      const oldAvatarUrl = userOld?.avatar; 
-
-    const avatar = await uploadOnCloudnary(avatarLocalPath)
-
-    if (!avatar.url) {
-        throw new ApiError(400, "Error while uploading on avatar")
-        
-    }
-
-      if (oldAvatarUrl) {
-        const parts = oldAvatarUrl.split("/");
-        const fileName = parts.pop();
-        const publicId = fileName.split(".")[0];
-
-        await cloudinary.uploader.destroy(publicId);
+        {
+            new: true
         }
 
+    ).select("-password");
 
-    const user = await User.findByIdAndUpdate(
-        req.user?._id,
-        {
-            $set:{
-                avatar: avatar.url
-            }
-        },
-        {new: true}
-    ).select("-password")
+
 
     return res
-    .status(200)
-    .json(
-        new ApiResponse(200, user, "Avatar image updated successfully")
-    )
-})
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                user,
+                "Profile updated successfully"
+            )
+        );
+
+});
 
 const getMyProfile = asyncHandler(async(req,res) =>{
 
@@ -299,6 +312,7 @@ const getMyProfile = asyncHandler(async(req,res) =>{
                 userName:1,
                 fullName:1,
                 avatar:1,
+                email:1,
                 bio:1,
                 followersCount:1,
                 followingCount:1,
@@ -469,8 +483,7 @@ export {
     logOut,
     changeCurrentPassword,
     getCurrentUser,
-    updateAccountDetails,
-    updateUserAvatar,
+    updateProfile,
     getMyProfile,
     getUserChannelProfile,
     getWatchHistory
