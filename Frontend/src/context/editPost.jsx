@@ -58,8 +58,12 @@ export const EditPostProvider = ({ children }) => {
           withCredentials:true,
         }
       );
+
+      return true;
     } catch(error){
       console.log(error.message);
+
+      return false
     } finally {
       setEditing(false);
     }

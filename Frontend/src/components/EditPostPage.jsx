@@ -1,24 +1,31 @@
 import { useEffect, useState } from "react";
 import { Post } from "../context/specificPost";
 import { EditPost } from "../context/editPost";
+import { DashboardPage } from "../context/dashboardStats";
 
 
 const EditPostPage = ({ postId, closeEdit }) => {
 
   const { post, loading, fetchPostById } = Post();
   const { deletePost, deleting ,editPost, editing} = EditPost();
+  const { fetchPostDashboard, fetchDashboardStats } = DashboardPage();
 
-  const [title, setTitle] = useState(post?.title || "");
-  const [description, setDescription] = useState(post?.description || "");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     fetchPostById(postId);
   }, [postId, fetchPostById]);
 
+
   const deletingPost = async () => {
     const success = await deletePost(postId);
 
     if(success){
+
+      await fetchPostDashboard();
+      await fetchDashboardStats();
+
       closeEdit();
     }
   };
@@ -28,21 +35,27 @@ const EditPostPage = ({ postId, closeEdit }) => {
       const success = await editPost(postId, title, description);
 
       if (success) {
+
+        await fetchPostDashboard();
+        await fetchDashboardStats();
+
         closeEdit();
       }
+      
     };
 
+    
 
 
- if (loading || deleting || editing) {
-  return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-      <div className="text-white">
-        Loading...
-      </div>
-    </div>
-  );
-}
+  if (loading || deleting || editing) {
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
+          <div className="flex">
+            <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
+          </div>
+        </div>
+    );
+  }
 
 
   if(!post){
@@ -50,7 +63,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
 
         <div className="text-gray-400">
-          Post not found
+          Page not found
         </div>
 
       </div>
@@ -86,7 +99,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
                   <label className="text-md text-white">Title</label>
                   <input
                     type="text"
-                    value={title}
+                    defaultValue={post?.title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter Your Post Title..."
                     className="w-full mt-2 p-3 placeholder:text-gray-400 bg-black border border-[#1B1728] rounded-lg outline-none focus:border-violet-500"
@@ -98,7 +111,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
                   <textarea
                     rows="4"
                     maxLength={150}
-                    value={description}
+                    defaultValue={post?.description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Write something..."
                     className="resize-none w-full mt-2 p-3 bg-black border placeholder:text-gray-400 border-[#1B1728] rounded-lg outline-none focus:border-violet-500"

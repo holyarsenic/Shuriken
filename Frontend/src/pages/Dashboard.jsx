@@ -11,7 +11,7 @@ import EditPostPage from "../components/EditPostPage";
 
 const Dashboard = () => {
 
-  const { dashboardStats, loading, fetchDashboardStats, fetchPostDashboard, dashboardPosts } = DashboardPage();
+  const { dashboardStats, statsLoading,postsLoading, fetchDashboardStats, fetchPostDashboard, dashboardPosts } = DashboardPage();
 
   const [editPostId, setEditPostId] = useState(null);
 
@@ -22,7 +22,7 @@ const Dashboard = () => {
     fetchPostDashboard();
   },[fetchDashboardStats,fetchPostDashboard])
 
-  if (loading) {
+  if (statsLoading || postsLoading) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
           <div className="flex">
@@ -35,7 +35,7 @@ const Dashboard = () => {
     if (!dashboardStats) {
       return (
         <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-[#0B0A10]">
-          <p className="text-slate-400 text-sm">Post not found</p>
+          <p className="text-slate-400 text-sm">Something went wrong</p>
         </div>
       );
     }

@@ -6,10 +6,11 @@ const DashboardContext = createContext();
 export const DashboardProvider = ({children}) => {
   const [dashboardStats, setDashboardStats] = useState(null);
   const [dashboardPosts,setDashboardPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [statsLoading, setStatsLoading] = useState(false);
+  const [postsLoading, setPostsLoading] = useState(false);
 
   const fetchDashboardStats = useCallback(async () => {
-    setLoading(true);
+    setStatsLoading(true);
 
     try {
       const res = await axios.get(
@@ -24,12 +25,12 @@ export const DashboardProvider = ({children}) => {
       console.log(error.message);
       setDashboardStats(null);
     } finally {
-      setLoading(false);
+      setStatsLoading(false);
     }
   }, []);
 
   const fetchPostDashboard = useCallback(async () => {
-    setLoading(true);
+    setPostsLoading(true);
 
     try {
       const res = await axios.get(
@@ -44,7 +45,7 @@ export const DashboardProvider = ({children}) => {
       console.log(error.message);
       setDashboardPosts(null);
     } finally {
-      setLoading(false);
+      setPostsLoading(false);
     }
   }, []);
 
@@ -52,7 +53,8 @@ export const DashboardProvider = ({children}) => {
     <DashboardContext.Provider
       value={{
         dashboardStats,
-        loading,
+        statsLoading,
+        postsLoading,
         fetchDashboardStats,
         fetchPostDashboard,
         dashboardPosts
