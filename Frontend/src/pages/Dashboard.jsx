@@ -7,6 +7,7 @@ import { DashboardPage } from "../context/dashboardStats";
 import { useState, useEffect } from "react";
 import { FaPen } from "react-icons/fa";
 import EditPostPage from "../components/EditPostPage";
+import EditProfilePage from "../components/EditProfilePage";
 
 
 const Dashboard = () => {
@@ -14,6 +15,7 @@ const Dashboard = () => {
   const { dashboardStats, statsLoading,postsLoading, fetchDashboardStats, fetchPostDashboard, dashboardPosts } = DashboardPage();
 
   const [editPostId, setEditPostId] = useState(null);
+  const [ editProfile, setEditProfile ] = useState(false);
 
 
 
@@ -129,7 +131,10 @@ const Dashboard = () => {
 
             </div>
 
-            <button className="w-full mt-5 py-2 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition">
+            <button 
+            className="w-full mt-5 py-2 rounded-xl bg-white text-black font-semibold hover:bg-gray-200 transition"
+            onClick={() => setEditProfile(true)}
+            >
               Edit Profile
             </button>
 
@@ -230,6 +235,10 @@ const Dashboard = () => {
               />
             )
           }
+
+          { editProfile === true && (
+        <EditProfilePage closeProfileEdit={() => setEditProfile(null)}/>
+        )}
 
       </div>
     </div>

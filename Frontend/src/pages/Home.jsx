@@ -30,11 +30,8 @@ const Home = () => {
       <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-[#0B0A10] text-white">
 
         <div className="flex gap-3 text-sm mb-6">
-          <h4 className="px-4 py-2 cursor-pointer text-xl hover:border-b-2 transition">
-            All
-          </h4>
-          <h4 className="px-4 py-2 cursor-pointer text-xl hover:border-b-2 transition">
-            Your Posts
+          <h4 className="px-4 py-2 cursor-pointer text-xl border-b-2">
+            Recents
           </h4>
         </div>
 
