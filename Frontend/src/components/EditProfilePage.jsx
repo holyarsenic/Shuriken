@@ -34,9 +34,9 @@ const EditProfile = ({ closeProfileEdit }) => {
 
       const formData = new FormData();
 
-      formData.append("fullName", fullName);
-      formData.append("email", email);
-      formData.append("bio", bio);
+      formData.append("fullName", fullName || profile.fullName);
+      formData.append("email", email || profile.email);
+      formData.append("bio", bio || profile.bio);
 
       if(file){
         formData.append("avatar", file);
