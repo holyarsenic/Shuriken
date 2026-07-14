@@ -86,7 +86,7 @@ const getUserChannelFollowers = asyncHandler(async (req, res) => {
         {
             $lookup: {
                 from: "users",
-                localField: "accFollowers",
+                localField: "accFollower",
                 foreignField: "_id",
                 as: "follower",
                 pipeline: [
@@ -104,24 +104,25 @@ const getUserChannelFollowers = asyncHandler(async (req, res) => {
                         $lookup: {
                             from: "follows",
                             localField: "_id",
-                            foreignField: "accFollowers",
+                            foreignField: "accFollower",
                             as: "following"
                         }
                     },
 
                     {
                         $addFields: {
-                            followersCount: { $size: "$followers" },
-                            followingCount: { $size: "$following" },
 
                             isFollowed: {
-                                $cond: {
-                                    if: {
-                                        $in: [req.user?._id, "$followers.accFollowers"]
-                                    },
-                                    then: true,
-                                    else: false
-                                }
+                                $in: [
+                                    new mongoose.Types.ObjectId(req.user._id),
+                                    {
+                                        $map: {
+                                            input: "$followers",
+                                            as: "follower",
+                                            in: "$$follower.accFollower"
+                                        }
+                                    }
+                                ]
                             }
                         }
                     },
@@ -131,8 +132,6 @@ const getUserChannelFollowers = asyncHandler(async (req, res) => {
                             fullName: 1,
                             userName: 1,
                             avatar: 1,
-                            followersCount: 1,
-                            followingCount: 1,
                             isFollowed: 1
                         }
                     }
@@ -156,7 +155,7 @@ const getFollowedChannels = asyncHandler(async (req, res) => {
 
     const { followedId } = req.params
 
-    if (!isValidObjectId(followedIdId)) {
+    if (!isValidObjectId(followedId)) {
         throw new ApiError(400, "Invalid follower id")
     }
 
@@ -164,7 +163,7 @@ const getFollowedChannels = asyncHandler(async (req, res) => {
 
         {
             $match: {
-                accFollowers: new mongoose.Types.ObjectId(followedId)
+                accFollower: new mongoose.Types.ObjectId(followedId)
             }
         },
 
@@ -189,24 +188,25 @@ const getFollowedChannels = asyncHandler(async (req, res) => {
                         $lookup: {
                             from: "follows",
                             localField: "_id",
-                            foreignField: "accFollowers",
+                            foreignField: "accFollower",
                             as: "following"
                         }
                     },
 
                     {
                         $addFields: {
-                            followersCount: { $size: "$followers" },
-                            followingCount: { $size: "$following" },
 
-                            isFollowed: {
-                                $cond: {
-                                    if: {
-                                        $in: [req.user?._id, "$followers.accFollowers"]
-                                    },
-                                    then: true,
-                                    else: false
-                                }
+                             isFollowed: {
+                                $in: [
+                                    new mongoose.Types.ObjectId(req.user._id),
+                                    {
+                                        $map: {
+                                            input: "$followers",
+                                            as: "follower",
+                                            in: "$$follower.accFollower"
+                                        }
+                                    }
+                                ]
                             }
                         }
                     },
@@ -216,9 +216,6 @@ const getFollowedChannels = asyncHandler(async (req, res) => {
                             fullName: 1,
                             userName: 1,
                             avatar: 1,
-                            coverImage: 1,
-                            followersCount: 1,
-                            followingCount: 1,
                             isFollowed: 1
                         }
                     }
