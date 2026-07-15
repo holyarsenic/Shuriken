@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import LikedPostsComponent from "../components/LikedPosts.component";
 import EditProfilePage from "../components/EditProfilePage";
+import Followers from "../components/Followers";
+import Following from "../components/Following";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -12,6 +14,8 @@ const Profile = () => {
 
   const [activeTab,setActiveTab] = useState("posts");
   const [ editProfile, setEditProfile ] = useState(false);
+  const [ followersTab, setFollowersTab ] = useState(false);
+  const [ followingTab, setFollowingTab ] = useState(false);
 
     useEffect(() => {
       fetchProfile();
@@ -70,12 +74,16 @@ const Profile = () => {
                 <p className="text-slate-400">Posts</p>
               </div>
 
-              <div>
+              <div
+              onClick={() => setFollowersTab(true)}
+              >
                 <p className="text-2xl font-bold">{profile.followersCount}</p>
                 <p className="text-slate-400">Followers</p>
               </div>
 
-              <div>
+              <div
+              onClick={() => setFollowingTab(true)}
+              >
                 <p className="text-2xl font-bold">{profile.followingCount}</p>
                 <p className="text-slate-400">Following</p>
               </div>
@@ -151,8 +159,17 @@ const Profile = () => {
 
 
         { editProfile === true && (
-        <EditProfilePage closeProfileEdit={() => setEditProfile(null)}/>
+        <EditProfilePage closeProfileEdit={() => setEditProfile(false)}/>
         )}
+
+        { followersTab === true && (
+        <Followers userId={profile._id} closeFollowersTab={() => setFollowersTab(false)}/>
+        )}
+        
+        { followingTab === true && (
+        <Following userId={profile._id} closeFollowingTab={() => setFollowingTab(false)}/>
+        )}
+
     </div>
   );
 };

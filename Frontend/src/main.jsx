@@ -13,6 +13,7 @@ import { LikedPostProvider } from './context/likedPosts.jsx'
 import { CommentsProvider } from './context/commentPage.jsx'
 import { DashboardProvider } from './context/dashboardStats.jsx'
 import { EditPostProvider } from './context/editPost.jsx'
+import { FollowListProvider } from './context/followList.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,9 +26,11 @@ createRoot(document.getElementById('root')).render(
                     <DashboardProvider>
                       <EditPostProvider>
                         <ChannelProvider>
-                        <LikedPostProvider>
-                                      <App />
-                        </LikedPostProvider>
+                          <FollowListProvider>
+                            <LikedPostProvider>
+                                          <App />
+                            </LikedPostProvider>
+                        </FollowListProvider>
                         </ChannelProvider>
                       </EditPostProvider>
                     </DashboardProvider>
