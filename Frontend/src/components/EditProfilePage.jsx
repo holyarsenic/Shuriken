@@ -220,7 +220,7 @@ const EditProfile = ({ closeProfileEdit }) => {
 
             <button
               onClick={updateProfile}
-              className="w-full my-2 py-3 rounded-xl bg-violet-800 text-white"
+              className="w-full my-2 py-3 rounded-xl bg-violet-800 text-white cursor-pointer"
             >
               Save Changes
             </button>

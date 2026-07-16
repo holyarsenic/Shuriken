@@ -147,14 +147,28 @@ const logOut = asyncHandler( async (req, res) => {
 
 
 const changeCurrentPassword = asyncHandler(async(req, res) => {
-    const {oldPassword, newPassword} = req.body
+    const {oldPassword, newPassword , confirmNewPassword} = req.body
 
+    if (!oldPassword || !newPassword || !confirmNewPassword) {
+    throw new ApiError(400, "All fields are required");
+    }
+
+    if (oldPassword === newPassword) {
+        throw new ApiError(400, "New password must be different from the old password");
+    }
+
+    if (newPassword.length < 8) {
+        throw new ApiError(400, "Password must be at least 8 characters long");
+    }
     
+    if (newPassword !== confirmNewPassword) {
+        throw new ApiError(400, "New Password and Confirm Password should be the same");
+    }
 
     const user = await User.findById(req.user?._id)
     const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
 
-    if (!isPasswordCorrect) {
+      if (!isPasswordCorrect) {
         throw new ApiError(400, "Invalid old password")
     }
 

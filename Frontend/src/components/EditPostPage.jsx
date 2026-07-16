@@ -74,16 +74,16 @@ const EditPostPage = ({ postId, closeEdit }) => {
 
   return (
 
-    <div className="fixed top-0 right-0 left-0 bottom-0 bg-black/60 flex items-center justify-center z-50">
+    <div className="fixed inset-0 ml-64 bg-[#0B0A10]/10 backdrop-blur-sm text-white flex items-center justify-center">
 
 
-      <div className="bg-[#181622] border border-[#2A2438] rounded-2xl p-6 w-200 h-150 flex flex-col overflow-hidden">
+      <div className="bg-[#181622] border border-[#2A2438] rounded-2xl p-6 w-170 h-120 flex flex-col overflow-hidden">
         <h2 className="text-white text-2xl font-bold flex-1">
           Edit Post
         </h2>
 
           <div className="flex gap-4">
-            <div className="h-100 bg-black overflow-hidden mb-5 w-100 flex items-center justify-center">
+            <div className="h-70 bg-black overflow-hidden mb-5 w-70 flex items-center justify-center">
 
               <img
                 src={post.postFile}
@@ -124,7 +124,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
                 <button
                   onClick={deletingPost}
                   className=" bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg">
-                  Delete
+                  Delete Post
                 </button>
 
                 <div className="flex gap-3">

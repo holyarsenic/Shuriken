@@ -12,6 +12,9 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const getCurrentUser = async () => {
+
+      setLoading(true)
+
       try {
         const res = await axios.get(
           "http://localhost:8000/api/v1/users/current-user",
@@ -67,7 +70,11 @@ export const UserProvider = ({ children }) => {
   };
 
   const logOut = async () => {
-    await axios.post(
+
+    setLoading(true);
+
+    try {
+      await axios.post(
       "http://localhost:8000/api/v1/users/logout",
       {},
       {
@@ -77,6 +84,31 @@ export const UserProvider = ({ children }) => {
 
     setUser(null);
     navigate("/login");
+    } catch (error) {
+       console.log(error.message)
+    }  finally {
+        setLoading(false);
+      }
+  };
+
+  const changePassword = async (
+    oldPassword,
+    newPassword,
+    confirmNewPassword
+  ) => {
+    const res = await axios.post(
+      "http://localhost:8000/api/v1/users/change-password",
+      {
+        oldPassword,
+        newPassword,
+        confirmNewPassword,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+
+    return res.data;
   };
 
   return (
@@ -87,6 +119,7 @@ export const UserProvider = ({ children }) => {
         login,
         register,
         logOut,
+        changePassword
       }}
     >
       {children}
