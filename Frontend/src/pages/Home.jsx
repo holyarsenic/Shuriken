@@ -40,7 +40,7 @@ const Home = () => {
           {posts.map((post) => (
             <div
               key={post._id}
-              className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
+              className="rounded-xl overflow-hidden hover:scale-[1.02] transition cursor-pointer"
               onClick={() => handlePostClick(post._id)}
             >
 

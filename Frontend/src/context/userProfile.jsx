@@ -8,8 +8,12 @@ export const ProfileProvider =({ children })=>{
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchProfile = useCallback(async()=>{
-    setLoading(true)
+  const fetchProfile = useCallback(async(showLoading = true)=>{
+    
+    if (showLoading) {
+        setLoading(true);
+      }
+
   try {
     const res = await axios.get("http://localhost:8000/api/v1/users/my-profile",
       {
@@ -21,7 +25,10 @@ export const ProfileProvider =({ children })=>{
     console.log(error.message)
     setProfile(null);
   } finally{
-    setLoading(false)
+    
+    if (showLoading) {
+          setLoading(false);
+        }
   }
 
 },[])

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import LikedPostsComponent from "../components/LikedPosts.component";
+import Followers from "../components/Followers";
+import Following from "../components/Following";
 
 const Channel = () => {
   const navigate = useNavigate();
@@ -13,6 +15,8 @@ const Channel = () => {
   const {loading, fetchChannelId, channel, toggleFollow } = ChannelData();
 
   const [activeTab,setActiveTab] = useState("posts");
+  const [ followersTab, setFollowersTab ] = useState(false);
+  const [ followingTab, setFollowingTab ] = useState(false);
 
      useEffect(() => {
       fetchChannelId(channelUsername)
@@ -77,12 +81,12 @@ const Channel = () => {
                 <p className="text-slate-400">Posts</p>
               </div>
 
-              <div>
+              <div className="cursor-pointer" onClick={() => setFollowersTab(true)}>
                 <p className="text-2xl font-bold">{channel.followersCount}</p>
                 <p className="text-slate-400">Followers</p>
               </div>
 
-              <div>
+              <div className="cursor-pointer" onClick={() => setFollowingTab(true)}>
                 <p className="text-2xl font-bold">{channel.followingCount}</p>
                 <p className="text-slate-400">Following</p>
               </div>
@@ -111,7 +115,7 @@ const Channel = () => {
 
           <button
             onClick={() => setActiveTab("posts")}
-            className={`pb-3 font-semibold ${activeTab === "posts"
+            className={`pb-3 font-semibold cursor-pointer ${activeTab === "posts"
                 ? "border-b-2 border-[#7C3AED]"
                 : "text-slate-400"
             }`}
@@ -122,7 +126,7 @@ const Channel = () => {
 
           <button
             onClick={() => setActiveTab("likedPosts")}
-            className={`pb-3 font-semibold ${
+            className={`pb-3 font-semibold cursor-pointer ${
               activeTab === "likedPosts"
                 ? "border-b-2 border-[#7C3AED]"
                 : "text-slate-400"
@@ -139,7 +143,7 @@ const Channel = () => {
           {channel.userPosts?.map((post) => (
             <div
               key={post._id}
-              className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
+              className="rounded-xl overflow-hidden hover:scale-[1.02] transition cursor-pointer"
               onClick={() => handlePostClick(post._id)}
             >
               <img
@@ -159,6 +163,14 @@ const Channel = () => {
 
       {activeTab === "likedPosts" && (
         <LikedPostsComponent channelId={`${channel._id}`}/>
+      )}
+      
+      {followersTab === true && (
+        <Followers userId={channel._id} closeFollowersTab={() => setFollowersTab(false)}/>
+      )}
+        
+      {followingTab === true && (
+        <Following userId={channel._id} closeFollowingTab={() => setFollowingTab(false)}/>
       )}
 
       </div>

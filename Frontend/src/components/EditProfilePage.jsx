@@ -1,5 +1,6 @@
 import { useState} from "react";
 import { RxCross1 } from "react-icons/rx";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import axios from "axios";
 import { useEffect } from "react";
 import { ProfileData } from "../context/userProfile";
@@ -104,7 +105,7 @@ const EditProfile = ({ closeProfileEdit }) => {
           onClick={closeProfileEdit}
           className="absolute top-4 right-5 bg-gray/5 px-2 py-1 rounded-full z-20"
           >
-          <RxCross1 className="text-2xl"/>
+          <FaArrowLeftLong className="text-2xl"/>
         </button>
 
 

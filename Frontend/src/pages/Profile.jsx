@@ -76,6 +76,7 @@ const Profile = () => {
 
               <div
               onClick={() => setFollowersTab(true)}
+              className="cursor-pointer"
               >
                 <p className="text-2xl font-bold">{profile.followersCount}</p>
                 <p className="text-slate-400">Followers</p>
@@ -83,6 +84,7 @@ const Profile = () => {
 
               <div
               onClick={() => setFollowingTab(true)}
+              className="cursor-pointer"
               >
                 <p className="text-2xl font-bold">{profile.followingCount}</p>
                 <p className="text-slate-400">Following</p>
@@ -112,13 +114,13 @@ const Profile = () => {
 
         <button 
         onClick={()=>setActiveTab("posts")}
-        className={`pb-3 font-semibold ${activeTab === "posts"?"border-b-2 border-[#7C3AED]":"text-slate-400"  }`}>
+        className={`pb-3 font-semibold cursor-pointer ${activeTab === "posts"?"border-b-2 border-[#7C3AED]":"text-slate-400"  }`}>
           YOUR POSTS
         </button>
 
         <button 
         onClick={()=> setActiveTab("likedPosts")}
-        className={`pb-3 font-semibold ${activeTab === "likedPosts"?"border-b-2 border-[#7C3AED]":"text-slate-400"}`}>
+        className={`pb-3 font-semibold cursor-pointer ${activeTab === "likedPosts"?"border-b-2 border-[#7C3AED]":"text-slate-400"}`}>
           LIKED
         </button>
 
@@ -131,7 +133,7 @@ const Profile = () => {
         {profile.myPosts.map((post) => (
                     <div
                       key={post._id}
-                      className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
+                      className="rounded-xl overflow-hidden hover:scale-[1.02] transition cursor-pointer"
                       onClick={() => handlePostClick(post._id)}
                     >
         

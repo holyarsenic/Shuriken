@@ -1,12 +1,17 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FollowList } from "../context/followList"
 import { useNavigate } from "react-router-dom";
-import { RxCross1 } from "react-icons/rx";
-
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { ProfileData } from "../context/userProfile";
+import { ChannelData } from "../context/channelProfile";
 
 const Following = ({ userId, closeFollowingTab }) => {
 
-  const {  fetchFollowing, followingData} = FollowList();
+  const { fetchFollowing, followingData, toggleFollowFromList} = FollowList();
+  const { fetchProfile } = ProfileData();
+  const { fetchChannelId } = ChannelData();
+
+  const [ isChanged, setIsChanged ] = useState(false);
   const  navigate  = useNavigate();
 
   useEffect(() => {
@@ -16,6 +21,24 @@ const Following = ({ userId, closeFollowingTab }) => {
     function handleChannelProfileClick(channelUsername) {
     navigate(`/c/${channelUsername}`)
   }
+
+    const handleFollow = async (channelId) => {
+      await toggleFollowFromList(channelId);
+      await fetchFollowing(userId);
+
+      setIsChanged(true);
+    };
+
+    const handleTabClosing = async() => {
+
+      if(isChanged){
+         fetchProfile(false)
+         fetchChannelId(userId, false)
+        }
+        
+      closeFollowingTab();
+    }
+
 
   return (
     <div className="fixed inset-0 ml-64 bg-[#0B0A10]/10 backdrop-blur-xs text-white flex items-center justify-center p-6 z-100">
@@ -40,14 +63,20 @@ const Following = ({ userId, closeFollowingTab }) => {
                         </div>
                     </div> 
 
-                    <button className="text-center px-5 py-2 rounded-xl cursor-pointer bg-violet-500">Follow</button>
+                    <button onClick={() => handleFollow(user.channel._id)} className={`px-5 py-2 rounded-xl cursor-pointer 
+                      ${user.channel.isFollowed
+                         ? "bg-[#58555e]"
+                         : "bg-violet-500"
+                        }`}>
+                          {user.channel.isFollowed ? "Following" : "Follow"}
+                        </button>
                   </div> 
                 ))
               )}
          </div> 
 
-                <RxCross1 className="absolute top-0 right-4 cursor-pointer"
-              onClick={closeFollowingTab}/>
+                <FaArrowLeftLong className="absolute text-xl top-7 left-10 cursor-pointer"
+              onClick={() => handleTabClosing()}/>
       </div>
     </div>
   )

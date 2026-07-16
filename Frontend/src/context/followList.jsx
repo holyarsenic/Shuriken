@@ -48,6 +48,20 @@ export const FollowListProvider = ({ children }) => {
     }
   },[]);
 
+   const toggleFollowFromList = async (channelId) => {
+    try {
+      await axios.post(
+        `http://localhost:8000/api/v1/follows/c/${channelId}`,
+        {},
+        {
+          withCredentials: true
+        }
+      );
+
+    } catch(error) {
+      console.log(error);
+    }
+  };
 
 
   return (
@@ -58,6 +72,7 @@ export const FollowListProvider = ({ children }) => {
         fetchFollowing,
         followersData,
         followingData,
+        toggleFollowFromList
       }}
     >
 
