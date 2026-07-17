@@ -6,13 +6,16 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { User } from "../context/user";
 import { useState } from "react";
+import { Theme } from "../context/theme";
 
 const Settings = () => {
 
   const { logOut, changePassword } = User();
+  const { theme, toggleTheme } = Theme();
 
 
   const [passwordSetting, setPasswordSetting] = useState(false);
+  const [themeSetting, setThemeSetting] = useState(false);
   const [ oldPassword, setOldPassword ] = useState("")
   const [ newPassword, setNewPassword ] = useState("")
   const [ confirmPassword, setConfirmPassword ] = useState("")
@@ -84,7 +87,10 @@ const Settings = () => {
 
         <button
           className="w-full flex justify-between items-center px-6 py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800"
-          onClick={() => setPasswordSetting(true)}
+          onClick={() => {
+            setPasswordSetting(true)
+            setThemeSetting(false)
+          }}
         >
           <span>Change Password</span>
           <IoIosArrowForward className="text-gray-500 text-2xl" />
@@ -96,7 +102,12 @@ const Settings = () => {
           Preferences
         </h2>
 
-        <button className="w-full flex justify-between items-center px-6 py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition">
+        <button className="w-full flex justify-between items-center px-6 py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition"
+          onClick={() => {
+            setThemeSetting(true)
+            setPasswordSetting(false)
+          }}
+        >
           <span>Theme</span>
           <IoIosArrowForward className="text-gray-500 text-2xl" />
         </button>
@@ -210,6 +221,23 @@ const Settings = () => {
               </button>
             </div>
           </form>
+        </div>
+      </div>
+    )}
+
+    {themeSetting && (
+      <div className="flex-1 mt-20">
+        <div className="max-w-lg mx-auto bg-white dark:bg-[#14131C] border border-gray-300 dark:border-gray-800 rounded-xl p-8">
+          <h2 className="text-2xl font-semibold mb-2">Change Theme</h2>
+          <p className="text-violet-500 mt-3">
+            Switch to {theme === "dark"? "Light" : "Dark"} Mode.
+          </p>
+          <button
+          onClick={toggleTheme}
+          className="w-full flex justify-between items-center px-6 py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800 mt-10"
+          >
+            {theme === "dark"? "Light" : "Dark"}
+          </button>
         </div>
       </div>
     )}

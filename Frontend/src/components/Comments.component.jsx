@@ -1,10 +1,12 @@
 import { UseComments } from "../context/commentPage";
 import { ProfileData } from "../context/userProfile";
 import { useState, useEffect } from "react";
+import { Post } from "../context/specificPost";
 
 const Comments = ({ postId }) => {
   const { loading, comments, fetchComments, addComment } = UseComments();
   const { profile, fetchProfile } = ProfileData();
+  const { fetchPostById } = Post()
 
   const [content, setContent] = useState("");
 
@@ -21,6 +23,7 @@ const Comments = ({ postId }) => {
 
     await addComment(postId, content);
     setContent("");
+    fetchPostById(postId,false);
   }
 
   if (loading) {

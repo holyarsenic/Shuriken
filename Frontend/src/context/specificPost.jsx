@@ -8,8 +8,11 @@ export const PostProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [animate, setAnimate] = useState(false);
 
-        const fetchPostById = useCallback(async (postId) => {
-          setLoading(true);
+        const fetchPostById = useCallback(async (postId, showLoading = true ) => {
+          
+          if (showLoading) {
+            setLoading(true);
+          }
 
           try {
             const res = await axios.get(
@@ -22,7 +25,9 @@ export const PostProvider = ({ children }) => {
             console.log(error.message);
             setPost(null);
           } finally {
-            setLoading(false);
+            if (showLoading) {
+              setLoading(false);
+            }
           }
         },[]);
 

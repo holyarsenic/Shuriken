@@ -62,6 +62,7 @@ const getPostComments = asyncHandler(async (req, res) => {
 
     ])
 
+
     const options = {
         page: Number(page),
         limit: Number(limit)
@@ -71,7 +72,6 @@ const getPostComments = asyncHandler(async (req, res) => {
         aggregate,
         options
     )
-
     return res
     .status(200)
     .json(
@@ -96,6 +96,10 @@ const addComment = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Invalid post id")
     }
 
+    if (!req.user?._id) {
+        throw new ApiError(401, "Unauthorized request")
+    }
+
     if (!content || content.trim() === "") {
         throw new ApiError(400, "Comment content is required")
     }
@@ -109,7 +113,7 @@ const addComment = asyncHandler(async (req, res) => {
     const comment = await Comment.create({
         content,
         post: postId,
-        owner: req.user?._id
+        owner: req.user._id
     })
 
     const createdComment = await Comment.aggregate([

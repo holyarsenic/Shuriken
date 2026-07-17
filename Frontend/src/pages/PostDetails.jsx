@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaRegComment, FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import { Post } from "../context/specificPost.jsx";
 import { HomePage } from "../context/homePost.jsx";
 import { useNavigate } from "react-router-dom";
@@ -51,7 +52,11 @@ const PostDetails = () => {
   return (
     <div className="min-h-screen ml-64 mt-18 bg-white text-black dark:bg-[#0B0A10] dark:text-white p-5">
 
-      <div className="bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 items-start">
+      <div className="relative bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 items-start">
+
+        <FaArrowLeftLong 
+        onClick={() => navigate(-1)}
+        className="absolute top-8 text-5xl left-8 p-2 text-black bg-violet-300 dark:text-white dark:bg-[#2d2944] rounded-full"/>
 
         <div className="w-155 h-155 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
           <img
