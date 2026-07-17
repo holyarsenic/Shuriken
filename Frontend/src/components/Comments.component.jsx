@@ -25,16 +25,16 @@ const Comments = ({ postId }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex mt-23 justify-center bg-[#0B0A10]">
+       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
-          <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
+          <span className="w-10 h-10 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="mt-1 flex flex-col flex-1 min-h-0 border border-gray-300 dark:border-gray-900 px-4 pt-5">
+    <div className="mt-1 flex flex-col flex-1 min-h-93 border border-gray-300 dark:border-gray-900 px-4 pt-5">
 
       <div className="flex items-center gap-3">
 

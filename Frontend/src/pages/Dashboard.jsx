@@ -29,13 +29,14 @@ const Dashboard = () => {
 
   if (statsLoading || postsLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center dark:bg-[#0B0A10] bg-white">
+        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
-          <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
+          <span className="w-10 h-10 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
         </div>
       </div>
     );
   }
+
 
   if (!dashboardStats) {
     return (
@@ -53,7 +54,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen ml-64 mt-20 p-6 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
-      <div className="bg-gray-100 border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 justify-between items-start">
+      <div className="bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 justify-between items-start">
         <div className="bg-white border border-gray-300 dark:bg-[#181622] dark:border-[#2A2438] rounded-2xl p-6 w-full">
           <div className="w-full flex items-center justify-between">
             <p className="text-gray-600 dark:text-gray-400">Total Views</p>
@@ -86,7 +87,7 @@ const Dashboard = () => {
       </div>
 
       <div className="flex gap-8 justify-between max-w-8xl">
-        <div className="bg-gray-100 border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 w-80 mt-6">
+        <div className="bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 w-80 mt-6">
           <div className="w-full h-full bg-white border border-gray-300 dark:bg-[#181622] dark:border-[#2A2438] rounded-2xl p-6">
             <div className="flex flex-col items-center text-center">
               <img
@@ -109,7 +110,7 @@ const Dashboard = () => {
             </div>
 
             <div className="flex justify-between gap-3 mt-6">
-              <div className="flex-1 bg-gray-100 border border-gray-300 dark:bg-[#121018] dark:border-[#2A2438] rounded-xl py-3 text-center">
+              <div className="flex-1 bg-white border border-gray-300 dark:bg-[#121018] dark:border-[#2A2438] rounded-xl py-3 text-center">
                 <h3 className="text-black dark:text-white text-xl font-bold">
                   {dashboardStats.totalFollowers}
                 </h3>
@@ -118,7 +119,7 @@ const Dashboard = () => {
                 </p>
               </div>
 
-              <div className="flex-1 bg-gray-100 border border-gray-300 dark:bg-[#121018] dark:border-[#2A2438] rounded-xl py-3 text-center">
+              <div className="flex-1 bg-white border border-gray-300 dark:bg-[#121018] dark:border-[#2A2438] rounded-xl py-3 text-center">
                 <h3 className="text-black dark:text-white text-xl font-bold">
                   {dashboardStats.totalFollowing}
                 </h3>
@@ -137,7 +138,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="bg-gray-100 border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 w-auto mt-6 flex-1">
+        <div className="bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 w-auto mt-6 flex-1">
           <div className="flex gap-5">
             <LineGraphForViews data={dashboardStats.viewsAnalytics} />
             <PieChartView
@@ -148,7 +149,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="bg-gray-100 border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 mt-6">
+      <div className="bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 mt-6">
         <div className="flex items-center mb-10">
           <h2 className="text-black dark:text-white text-2xl font-bold">
             Your Recent Posts

@@ -27,9 +27,9 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-300 dark:bg-[#0B0A10]">
+    <div className="min-h-screen w-full flex items-center justify-center bg-gray-300 text-black dark:text-white dark:bg-[#14131C]">
 
-      <div className="bg-white dark:bg-[#181622] p-8 rounded-2xl shadow-lg w-full max-w-md">
+      <div className="bg-white dark:bg-violet-300/30 p-8 rounded-2xl shadow-lg w-full max-w-md">
 
         <div className="flex justify-center mb-4">
           <div className="h-15 w-15 rounded-4xl bg-black flex justify-center overflow-hidden">
@@ -49,7 +49,7 @@ const Register = () => {
 
             <input
               type="text"
-              className="input-box dark:bg-[#0B0A10] dark:border-[#2A2438] dark:text-white"
+              className="input-box dark:bg-[#0B0A10] dark:border-[#2A2438] text-gray-700 dark:text-gray-300"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
@@ -109,7 +109,7 @@ const Register = () => {
 
           <div className="w-full flex flex-col gap-4 items-center justify-center">
 
-            <button className="w-full h-10 bg-[#111] dark:bg-white dark:text-black text-white rounded-md cursor-pointer">
+            <button className="w-full h-10 bg-[#111] dark:bg-violet-400 text-white rounded-md cursor-pointer">
               Sign in
             </button>
 
@@ -117,16 +117,16 @@ const Register = () => {
 
             <img
               src="https://thf.bing.com/th/id/ODF.cQGDzDdW-31GYqwCeCzTrw?w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2"
-              className="border-2 rounded-4xl p-1 border-gray-50 dark:border-[#2A2438] shadow-sm cursor-pointer"
+              className="border-2 rounded-4xl p-1 bg-gray-50 shadow-sm cursor-pointer"
             />
 
-            <div className="mt-8 mb-2 w-full h-0.5 bg-gray-300 dark:bg-[#2A2438]"></div>
+            <div className="mt-2 mb-2 w-full h-0.5 bg-gray-300"></div>
 
             <span className="text-sm text-black dark:text-white">
-              Already have an account?{" "}
+              Already have an account?
               <Link
                 to="/Login"
-                className="font-bold text-sm cursor-pointer hover:underline"
+                className="ml-2 dark:text-violet-400 font-bold text-sm cursor-pointer hover:underline"
               >
                 Log in
               </Link>

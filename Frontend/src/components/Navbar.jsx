@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
-import { IoIosHome } from "react-icons/io";
+import { useState, useEffect } from "react"
+import { IoIosHome } from "react-icons/io"
 import {
   MdHistoryToggleOff,
   MdAddBox,
   MdSpaceDashboard,
-} from "react-icons/md";
-import { FiPlus } from "react-icons/fi";
-import { IoSettingsSharp } from "react-icons/io5";
-import { SlArrowDown } from "react-icons/sl";
-import { NavLink } from "react-router-dom";
-import logo from "../assets/Logo.jpeg";
-import { useNavigate } from "react-router-dom";
-import { User } from "../context/user";
-import SearchBar from "./SearchBar.component";
+} from "react-icons/md"
+import { FiPlus } from "react-icons/fi"
+import { IoSettingsSharp } from "react-icons/io5"
+import { SlArrowDown } from "react-icons/sl"
+import { NavLink } from "react-router-dom"
+import logo from "../assets/Logo.jpeg"
+import { useNavigate } from "react-router-dom"
+import { User } from "../context/user"
+import SearchBar from "./SearchBar.component"
+import { Theme } from "../context/theme"
 
 const SidebarItem = ({ icon, label, to }) => {
   return (
@@ -33,8 +34,10 @@ const SidebarItem = ({ icon, label, to }) => {
 };
 
 const Navbar = () => {
-  const [profileOpen, setProfileOpen] = useState(false);
-  const { user, logOut } = User();
+  const [ profileOpen, setProfileOpen ] = useState(false)
+
+  const { theme, toggleTheme } = Theme()
+  const { user, logOut } = User()
 
   useEffect(() => {
     const handleClick = () => {
@@ -78,10 +81,10 @@ const Navbar = () => {
       <header
         className="fixed w-full top-0 left-0 right-0 h-20 bg-white dark:bg-[#111111] border-b border-gray-300 dark:border-[#3B0764] z-10 flex items-center justify-between px-10"
       >
-        <div className="h-20 flex justify-center items-center gap-1 px-2">
+        <div className="h-20 flex justify-center items-center gap-2 px-2">
           <img
             src={logo}
-            className="h-7 w-7 rounded-full object-cover"
+            className="p-1 bg-black h-8 w-8 rounded-full object-cover"
           />
 
           <h1 className="text-2xl font-semibold tracking-wide text-black dark:text-white">
@@ -128,6 +131,13 @@ const Navbar = () => {
                   onClick={() => navigate(`/profile/${user.userName}`)}
                 >
                   Your profile
+                </button>
+
+                <button
+                  className="w-full text-left px-4 py-2 text-lg text-gray-700 dark:text-slate-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"
+                  onClick={toggleTheme}
+                >
+                  {theme === "dark" ? "Light Mode" : "Dark Mode"}
                 </button>
 
                 <button

@@ -39,13 +39,14 @@ const EditPostPage = ({ postId, closeEdit }) => {
 
   if (loading || deleting || editing) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
+        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
-          <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
+          <span className="w-10 h-10 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
         </div>
       </div>
     );
   }
+
 
   if (!post) {
     return (
@@ -58,7 +59,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
   }
 
   return (
-    <div className="fixed inset-0 ml-64 bg-black/20 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center">
+    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center">
 
       <div className="bg-white dark:bg-[#181622] border border-gray-300 dark:border-[#2A2438] rounded-2xl p-6 w-170 h-120 flex flex-col overflow-hidden">
 

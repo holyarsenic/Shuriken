@@ -11,15 +11,15 @@ import {
 
 const LineGraphForViews = ({data}) => {
   return (
-    <div className="bg-[#181622] border border-[#2A2438] rounded-2xl p-6 w-1/2">
+    <div className="bg-white dark:bg-[#181622] border border-[#2A2438] rounded-2xl p-6 w-1/2">
 
       <div className="flex justify-between items-center mb-5">
 
-        <h2 className="text-white text-xl font-bold">
+        <h2 className="text-black dark:text-white text-xl font-bold">
           Views Analytics
         </h2>
 
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-600 dark:text-gray-400 text-sm">
           Last month
         </p>
 

@@ -20,11 +20,11 @@ const PostDetails = () => {
     fetchPosts();
   }, [postId, fetchPostById, fetchPosts]);
 
-  if (loading) {
+   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
+       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
-          <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
+          <span className="w-10 h-10 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
         </div>
       </div>
     );
@@ -51,7 +51,7 @@ const PostDetails = () => {
   return (
     <div className="min-h-screen ml-64 mt-18 bg-white text-black dark:bg-[#0B0A10] dark:text-white p-5">
 
-      <div className="bg-gray-100 border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 items-start">
+      <div className="bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 items-start">
 
         <div className="w-155 h-155 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
           <img
@@ -101,7 +101,7 @@ const PostDetails = () => {
 
           <div className="flex items-center gap-3 mt-4 pb-5 border-b border-gray-300 dark:border-[#221E2C]">
 
-            <div className="flex items-center gap-2 bg-gray-200 border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
+            <div className="flex items-center gap-2 bg-white border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
               <button
                 onClick={() => toggleLike(post._id)}
                 className="transition cursor-pointer"
@@ -122,7 +122,7 @@ const PostDetails = () => {
               </p>
             </div>
 
-            <div className="flex items-center gap-2 bg-gray-200 border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
+            <div className="flex items-center gap-2 bg-white border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
               <button className="cursor-pointer transition text-slate-500 dark:text-slate-300 hover:text-violet-400">
                 <FaRegComment className="text-lg" />
               </button>

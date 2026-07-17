@@ -19,11 +19,11 @@ const PieChartView = ({followers,following}) => {
   ];
 
   return (
-     <div className="bg-[#181622] border border-[#2A2438] rounded-2xl p-6 w-1/2">
+     <div className="bg-white dark:bg-[#181622] border border-[#2A2438] rounded-2xl p-6 w-1/2">
     
           <div className="flex justify-between items-center mb-5">
     
-            <h2 className="text-white text-xl font-bold">
+            <h2 className="text-black dark:text-white text-xl font-bold">
               Followers/Following
             </h2>
     
