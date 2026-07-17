@@ -260,6 +260,14 @@ const deletePost = asyncHandler(async (req, res) => {
         throw new ApiError(403, "Unauthorized request")
     }
 
+     await Like.deleteMany({
+        post: postId
+    });
+
+     await Comment.deleteMany({ 
+        post: postId 
+    });
+
     await Post.findByIdAndDelete(postId)
 
     return res

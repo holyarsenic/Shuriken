@@ -1,19 +1,19 @@
 import { GoArrowUpRight } from "react-icons/go";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { HomePage } from "../context/homePost";
 
 const Home = () => {
-  const {posts, loading, fetchPosts} = HomePage();
+  const { posts, loading, fetchPosts } = HomePage();
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
 
-      if (loading) {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
           <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
         </div>
@@ -21,29 +21,26 @@ const Home = () => {
     );
   }
 
-    function handlePostClick(postId) {
-      navigate(`/post/${postId}`);
-    }
+  function handlePostClick(postId) {
+    navigate(`/post/${postId}`);
+  }
 
   return (
     <>
-      <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-[#0B0A10] text-white">
-
+      <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
         <div className="flex gap-3 text-sm mb-6">
-          <h4 className="px-4 py-2 cursor-pointer text-xl border-b-2">
+          <h4 className="px-4 py-2 cursor-pointer text-xl border-b-2 border-black dark:border-white">
             Recents
           </h4>
         </div>
 
         <div className="columns-2 sm:columns-2 lg:columns-3 xl:columns-5 gap-6 space-y-6">
-
           {posts.map((post) => (
             <div
               key={post._id}
               className="rounded-xl overflow-hidden hover:scale-[1.02] transition cursor-pointer"
               onClick={() => handlePostClick(post._id)}
             >
-
               <img
                 src={post.postFile}
                 alt={post.title}
@@ -51,15 +48,14 @@ const Home = () => {
               />
 
               <div className="p-3 flex justify-between items-center">
-                <p className="text-sm font-medium">
+                <p className="text-sm font-medium text-black dark:text-white">
                   {post.title}
                 </p>
 
-                <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
+                <GoArrowUpRight className="cursor-pointer text-slate-500 hover:text-black dark:text-slate-400 dark:hover:text-white" />
               </div>
             </div>
           ))}
-
         </div>
       </div>
     </>

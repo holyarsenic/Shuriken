@@ -14,31 +14,34 @@ import { CommentsProvider } from './context/commentPage.jsx'
 import { DashboardProvider } from './context/dashboardStats.jsx'
 import { EditPostProvider } from './context/editPost.jsx'
 import { FollowListProvider } from './context/followList.jsx'
+import { ThemeProvider } from './context/theme.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <UserProvider>
-        <HomeProvider>
-          <PostProvider>
-            <CommentsProvider>
-              <ProfileProvider>
-                    <DashboardProvider>
-                      <EditPostProvider>
-                        <ChannelProvider>
-                          <FollowListProvider>
-                            <LikedPostProvider>
-                                          <App />
-                            </LikedPostProvider>
-                        </FollowListProvider>
-                        </ChannelProvider>
-                      </EditPostProvider>
-                    </DashboardProvider>
-              </ProfileProvider>
-            </CommentsProvider>
-          </PostProvider>
-        </HomeProvider>
-      </UserProvider>
+    <ThemeProvider>
+          <UserProvider>
+            <HomeProvider>
+              <PostProvider>
+                <CommentsProvider>
+                  <ProfileProvider>
+                        <DashboardProvider>
+                          <EditPostProvider>
+                            <ChannelProvider>
+                              <FollowListProvider>
+                                <LikedPostProvider>
+                                              <App />
+                                </LikedPostProvider>
+                            </FollowListProvider>
+                            </ChannelProvider>
+                          </EditPostProvider>
+                        </DashboardProvider>
+                  </ProfileProvider>
+                </CommentsProvider>
+              </PostProvider>
+            </HomeProvider>
+          </UserProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>
 )

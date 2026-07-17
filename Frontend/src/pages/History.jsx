@@ -28,9 +28,9 @@ const History = () => {
     fetchHistory();
   }, []);
 
-     if (loading) {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
           <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
         </div>
@@ -39,21 +39,21 @@ const History = () => {
   }
 
   function handlePostClick(postId) {
-      navigate(`/post/${postId}`);
-    }
+    navigate(`/post/${postId}`);
+  }
 
   return (
-    <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-[#0B0A10] text-white">
-
+    <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
       <h2 className="text-2xl font-semibold mb-6">
         Watch History
       </h2>
 
       {history.length === 0 ? (
-        <p className="text-slate-400">No watch history found</p>
+        <p className="text-slate-500 dark:text-slate-400">
+          No watch history found
+        </p>
       ) : (
         <div className="columns-2 sm:columns-2 lg:columns-3 xl:columns-5 gap-6 space-y-6">
-
           {history.map((post) => (
             <div
               key={post._id}
@@ -68,17 +68,18 @@ const History = () => {
 
               <div className="p-3 flex justify-between items-center">
                 <div>
-                  <p className="text-sm font-medium">{post.title}</p>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-sm font-medium text-black dark:text-white">
+                    {post.title}
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     @{post.owner.userName}
                   </p>
                 </div>
 
-                <GoArrowUpRight className="cursor-pointer text-slate-400 hover:text-white" />
+                <GoArrowUpRight className="cursor-pointer text-slate-500 hover:text-black dark:text-slate-400 dark:hover:text-white" />
               </div>
             </div>
           ))}
-
         </div>
       )}
     </div>

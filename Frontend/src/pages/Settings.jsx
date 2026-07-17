@@ -17,7 +17,7 @@ const Settings = () => {
   const [ newPassword, setNewPassword ] = useState("")
   const [ confirmPassword, setConfirmPassword ] = useState("")
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState(""); // "success" or "error"
+  const [messageType, setMessageType] = useState(""); 
 
   const handleChangePassword = async (e) => {
     e.preventDefault();

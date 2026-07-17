@@ -11,17 +11,16 @@ const PostDetails = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const {posts, fetchPosts} = HomePage();
+  const { posts, fetchPosts } = HomePage();
 
-  const { post, loading, fetchPostById, toggleLike ,animate} = Post();
+  const { post, loading, fetchPostById, toggleLike, animate } = Post();
 
   useEffect(() => {
     fetchPostById(postId);
     fetchPosts();
-    },[postId,fetchPostById, fetchPosts]);
-  
+  }, [postId, fetchPostById, fetchPosts]);
 
-     if (loading) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
         <div className="flex">
@@ -33,27 +32,28 @@ const PostDetails = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-[#0B0A10]">
-        <p className="text-slate-400 text-sm">Post not found</p>
+      <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-white dark:bg-[#0B0A10]">
+        <p className="text-slate-500 dark:text-slate-400 text-sm">
+          Post not found
+        </p>
       </div>
     );
   }
 
-   function handlePostClick(postId) {
-      navigate(`/post/${postId}`);
-    }
-
-  function handleChannelProfileClick(channelUsername) {
-    navigate(`/c/${channelUsername}`)
+  function handlePostClick(postId) {
+    navigate(`/post/${postId}`);
   }
 
+  function handleChannelProfileClick(channelUsername) {
+    navigate(`/c/${channelUsername}`);
+  }
 
   return (
-    <div className="min-h-screen ml-64 mt-18 bg-[#0B0A10] text-white p-5">
+    <div className="min-h-screen ml-64 mt-18 bg-white text-black dark:bg-[#0B0A10] dark:text-white p-5">
 
-      <div className="bg-[#121018]/80 border border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 items-start">
+      <div className="bg-gray-100 border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 items-start">
 
-        <div className="w-155 h-155 flex items-center justify-center overflow-hidden bg-[#0E0D13] rounded-xl border border-[#211D2C]">
+        <div className="w-155 h-155 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
           <img
             src={post.postFile}
             alt={post.title}
@@ -63,15 +63,19 @@ const PostDetails = () => {
 
         <div className="w-1/2 flex flex-col">
 
-          <div className="flex items-center gap-3 pb-4 border-b border-[#221E2C]" onClick={() => {handleChannelProfileClick(post.owner.userName)}}>
-
+          <div
+            className="flex items-center gap-3 pb-4 border-b border-gray-300 dark:border-[#221E2C] cursor-pointer"
+            onClick={() => {
+              handleChannelProfileClick(post.owner.userName);
+            }}
+          >
             <img
               src={post.owner.avatar}
               className="w-12 h-12 rounded-full object-cover"
             />
 
             <div className="flex-1">
-              <h2 className="font-semibold text-sm">
+              <h2 className="font-semibold text-sm text-black dark:text-white">
                 {post.owner.fullName}
               </h2>
 
@@ -82,11 +86,11 @@ const PostDetails = () => {
           </div>
 
           <div className="mt-4">
-            <h1 className="text-lg font-bold tracking-tight">
+            <h1 className="text-lg font-bold tracking-tight text-black dark:text-white">
               {post.title}
             </h1>
 
-            <p className="text-sm text-slate-400 mt-2">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
               {post.description}
             </p>
           </div>
@@ -95,70 +99,73 @@ const PostDetails = () => {
             <span>{post.views || 0} views</span>
           </div>
 
-          <div className="flex items-center gap-3 mt-4 pb-5 border-b border-[#221E2C]">
+          <div className="flex items-center gap-3 mt-4 pb-5 border-b border-gray-300 dark:border-[#221E2C]">
 
-            <div className="flex items-center gap-2 bg-[#17141F] border border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
+            <div className="flex items-center gap-2 bg-gray-200 border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
               <button
                 onClick={() => toggleLike(post._id)}
                 className="transition cursor-pointer"
               >
-                {post.isLiked? (
-                  <FaHeart className={`text-lg text-rose-500 transition-all duration-300 ${ animate ? "scale-125" : "scale-100"}`}/>
+                {post.isLiked ? (
+                  <FaHeart
+                    className={`text-lg text-rose-500 transition-all duration-300 ${
+                      animate ? "scale-125" : "scale-100"
+                    }`}
+                  />
                 ) : (
-                  <FaRegHeart className="text-lg text-slate-300 hover:text-rose-400 transition" />
+                  <FaRegHeart className="text-lg text-slate-500 dark:text-slate-300 hover:text-rose-400 transition" />
                 )}
-            </button>
-              <p className="text-sm text-slate-300 font-medium">
+              </button>
+
+              <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
                 {post.likes}
               </p>
             </div>
 
-            <div className="flex items-center gap-2 bg-[#17141F] border border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
-                <button className="cursor-pointer transition text-slate-300 hover:text-violet-400">
-                  <FaRegComment className="text-lg" />
-                </button>
-                <p className="text-sm text-slate-300 font-medium">
-                    {post.comments || 0}
-                </p>
+            <div className="flex items-center gap-2 bg-gray-200 border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
+              <button className="cursor-pointer transition text-slate-500 dark:text-slate-300 hover:text-violet-400">
+                <FaRegComment className="text-lg" />
+              </button>
+
+              <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+                {post.comments || 0}
+              </p>
             </div>
 
           </div>
-          
-           <Comments postId={postId}/>
+
+          <Comments postId={postId} />
 
         </div>
       </div>
 
-          <h2 className="text-sm font-semibold text-white uppercase mt-10 mb-4">
-            Related
-          </h2>
+      <h2 className="text-sm font-semibold text-black dark:text-white uppercase mt-10 mb-4">
+        Related
+      </h2>
 
-          <div className="columns-2 sm:columns-2 lg:columns-3 xl:columns-5 gap-5 space-y-5">
-      
-                {posts.map((post) => (
-                  <div
-                    key={post._id}
-                    className="rounded-xl overflow-hidden hover:scale-[1.02] transition"
-                    onClick={() => handlePostClick(post._id)}
-                  >
+      <div className="columns-2 sm:columns-2 lg:columns-3 xl:columns-5 gap-5 space-y-5">
+        {posts.map((post) => (
+          <div
+            key={post._id}
+            className="rounded-xl overflow-hidden hover:scale-[1.02] transition cursor-pointer"
+            onClick={() => handlePostClick(post._id)}
+          >
+            <img
+              src={post.postFile}
+              alt={post.title}
+              className="rounded-xl w-full object-cover"
+            />
 
-                    <img
-                      src={post.postFile}
-                      alt={post.title}
-                      className="rounded-xl w-full object-cover"
-                    />
+            <div className="p-3 flex justify-between items-center">
+              <p className="text-sm font-medium text-black dark:text-white">
+                {post.title}
+              </p>
 
-                    <div className="p-3 flex justify-between items-center">
-                      <p className="text-sm font-medium">
-                        {post.title}
-                      </p>
-
-                      <HiDotsHorizontal className="cursor-pointer text-slate-400 hover:text-white" />
-                    </div>
-                  </div>
-                ))}
-      
+              <HiDotsHorizontal className="cursor-pointer text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white" />
+            </div>
           </div>
+        ))}
+      </div>
     </div>
   );
 };

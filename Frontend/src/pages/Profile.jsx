@@ -12,45 +12,49 @@ const Profile = () => {
 
   const { fetchProfile, profile, loading } = ProfileData();
 
-  const [activeTab,setActiveTab] = useState("posts");
-  const [ editProfile, setEditProfile ] = useState(false);
-  const [ followersTab, setFollowersTab ] = useState(false);
-  const [ followingTab, setFollowingTab ] = useState(false);
+  const [activeTab, setActiveTab] = useState("posts");
+  const [editProfile, setEditProfile] = useState(false);
+  const [followersTab, setFollowersTab] = useState(false);
+  const [followingTab, setFollowingTab] = useState(false);
 
-    useEffect(() => {
-      fetchProfile();
-    }, [fetchProfile]);
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
 
-    if (loading) {
-      return (
-        <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
-          <div className="flex">
-            <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
-          </div>
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
+        <div className="flex">
+          <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
         </div>
-      );
-    }
+      </div>
+    );
+  }
 
-    if (!profile) {
-      return (
-        <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-[#0B0A10]">
-          <p className="text-slate-400 text-sm">Post not found</p>
-        </div>
-      );
-    }
-  function handlePostClick(PostId){
-    navigate(`/post/${PostId}`)
+  if (!profile) {
+    return (
+      <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-white dark:bg-[#0B0A10]">
+        <p className="text-slate-500 dark:text-slate-400 text-sm">
+          Post not found
+        </p>
+      </div>
+    );
+  }
+
+  function handlePostClick(PostId) {
+    navigate(`/post/${PostId}`);
   }
 
   return (
-    <div className="min-h-screen ml-64 mt-20 px-8 py-8 bg-[#0B0A10] text-white">
-      <div className="border border-[#2A2438] rounded-2xl bg-[#14141C] p-8">
+    <div className="min-h-screen ml-64 mt-20 px-8 py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
+      <div className="border border-gray-300 dark:border-[#2A2438] rounded-2xl bg-white dark:bg-[#14141C] p-8">
 
         <div className="flex items-center gap-10">
           <img
             src={profile.avatar}
-            className="w-40 h-40 rounded-full object-cover border border-gray-800"
+            className="w-40 h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
           />
+
           <div className="flex-1">
 
             <div className="flex items-center gap-5">
@@ -59,8 +63,9 @@ const Profile = () => {
                 @{profile.userName}
               </h1>
 
-              <button className="px-5 py-2 rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition"
-              onClick={() => setEditProfile(true)}
+              <button
+                className="px-5 py-2 rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition text-white"
+                onClick={() => setEditProfile(true)}
               >
                 Edit Profile
               </button>
@@ -71,23 +76,27 @@ const Profile = () => {
 
               <div>
                 <p className="text-2xl font-bold">{profile.totalPosts}</p>
-                <p className="text-slate-400">Posts</p>
+                <p className="text-slate-500 dark:text-slate-400">Posts</p>
               </div>
 
               <div
-              onClick={() => setFollowersTab(true)}
-              className="cursor-pointer"
+                onClick={() => setFollowersTab(true)}
+                className="cursor-pointer"
               >
                 <p className="text-2xl font-bold">{profile.followersCount}</p>
-                <p className="text-slate-400">Followers</p>
+                <p className="text-slate-500 dark:text-slate-400">
+                  Followers
+                </p>
               </div>
 
               <div
-              onClick={() => setFollowingTab(true)}
-              className="cursor-pointer"
+                onClick={() => setFollowingTab(true)}
+                className="cursor-pointer"
               >
                 <p className="text-2xl font-bold">{profile.followingCount}</p>
-                <p className="text-slate-400">Following</p>
+                <p className="text-slate-500 dark:text-slate-400">
+                  Following
+                </p>
               </div>
 
             </div>
@@ -98,9 +107,10 @@ const Profile = () => {
                 {profile.fullName}
               </h2>
 
-              <p className="text-slate-400 mt-2">
+              <p className="text-slate-500 dark:text-slate-400 mt-2">
                 {profile.bio}
               </p>
+
             </div>
 
           </div>
@@ -108,69 +118,83 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="mt-10 border-t border-[#2A2438]" />
+      <div className="mt-10 border-t border-gray-300 dark:border-[#2A2438]" />
 
       <div className="flex items-start gap-12 mt-6">
 
-        <button 
-        onClick={()=>setActiveTab("posts")}
-        className={`pb-3 font-semibold cursor-pointer ${activeTab === "posts"?"border-b-2 border-[#7C3AED]":"text-slate-400"  }`}>
+        <button
+          onClick={() => setActiveTab("posts")}
+          className={`pb-3 font-semibold cursor-pointer ${
+            activeTab === "posts"
+              ? "border-b-2 border-[#7C3AED]"
+              : "text-slate-500 dark:text-slate-400"
+          }`}
+        >
           YOUR POSTS
         </button>
 
-        <button 
-        onClick={()=> setActiveTab("likedPosts")}
-        className={`pb-3 font-semibold cursor-pointer ${activeTab === "likedPosts"?"border-b-2 border-[#7C3AED]":"text-slate-400"}`}>
+        <button
+          onClick={() => setActiveTab("likedPosts")}
+          className={`pb-3 font-semibold cursor-pointer ${
+            activeTab === "likedPosts"
+              ? "border-b-2 border-[#7C3AED]"
+              : "text-slate-500 dark:text-slate-400"
+          }`}
+        >
           LIKED
         </button>
 
       </div>
 
-      { activeTab === "posts" && (
-        
+      {activeTab === "posts" && (
         <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
 
-        {profile.myPosts.map((post) => (
-                    <div
-                      key={post._id}
-                      className="rounded-xl overflow-hidden hover:scale-[1.02] transition cursor-pointer"
-                      onClick={() => handlePostClick(post._id)}
-                    >
-        
-                      <img
-                        src={post.postFile}
-                        alt={post.title}
-                        className="rounded-xl w-full object-cover"
-                      />
-        
-                      <div className="p-3 flex justify-between items-center">
-                        <p className="text-sm font-medium">
-                          {post.title}
-                        </p>
-        
-                        <HiDotsHorizontal className="cursor-pointer text-slate-400 hover:text-white" />
-                      </div>
-                    </div>
-                  ))}
+          {profile.myPosts.map((post) => (
+            <div
+              key={post._id}
+              className="rounded-xl overflow-hidden hover:scale-[1.02] transition cursor-pointer"
+              onClick={() => handlePostClick(post._id)}
+            >
+              <img
+                src={post.postFile}
+                alt={post.title}
+                className="rounded-xl w-full object-cover"
+              />
 
-      </div>)}
+              <div className="p-3 flex justify-between items-center">
+                <p className="text-sm font-medium">
+                  {post.title}
+                </p>
 
-      { activeTab === "likedPosts" && (
-        <LikedPostsComponent channelId= {`${profile._id}`}/>
-        )}
+                <HiDotsHorizontal className="cursor-pointer text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white" />
+              </div>
+            </div>
+          ))}
 
+        </div>
+      )}
 
-        { editProfile === true && (
-        <EditProfilePage closeProfileEdit={() => setEditProfile(false)}/>
-        )}
+      {activeTab === "likedPosts" && (
+        <LikedPostsComponent channelId={profile._id} />
+      )}
 
-        { followersTab === true && (
-        <Followers userId={profile._id} closeFollowersTab={() => setFollowersTab(false)}/>
-        )}
-        
-        { followingTab === true && (
-        <Following userId={profile._id} closeFollowingTab={() => setFollowingTab(false)}/>
-        )}
+      {editProfile === true && (
+        <EditProfilePage closeProfileEdit={() => setEditProfile(false)} />
+      )}
+
+      {followersTab === true && (
+        <Followers
+          userId={profile._id}
+          closeFollowersTab={() => setFollowersTab(false)}
+        />
+      )}
+
+      {followingTab === true && (
+        <Following
+          userId={profile._id}
+          closeFollowingTab={() => setFollowingTab(false)}
+        />
+      )}
 
     </div>
   );
