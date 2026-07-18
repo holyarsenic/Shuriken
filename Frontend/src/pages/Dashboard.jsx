@@ -93,7 +93,7 @@ const Dashboard = () => {
               <img
                 src={dashboardStats.owner?.avatar}
                 alt="Profile"
-                className="w-28 h-28 rounded-full border-4 border-gray-300 dark:border-[#2A2438] object-cover"
+                className="w-28 h-28 rounded-full object-cover"
               />
 
               <h2 className="text-black dark:text-white text-2xl font-bold mt-4">

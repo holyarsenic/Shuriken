@@ -43,8 +43,8 @@ const History = () => {
   }
 
   return (
-    <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
-      <h2 className="text-2xl font-semibold mb-6">
+   <div className="min-h-screen mt-5 lg:mt-24 ml-0 lg:ml-64 pb-20 lg:pb-6 px-4 sm:px-6 lg:px-8 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
+      <h2 className="mb-6 text-xl sm:text-2xl font-semibold">
         Watch History
       </h2>
 
@@ -53,30 +53,31 @@ const History = () => {
           No watch history found
         </p>
       ) : (
-        <div className="columns-2 sm:columns-2 lg:columns-3 xl:columns-5 gap-6 space-y-6">
+        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6">
           {history.map((post) => (
             <div
               key={post._id}
-              className="mb-6 break-inside-avoid rounded-xl overflow-hidden hover:scale-[1.02] transition cursor-pointer"
               onClick={() => handlePostClick(post._id)}
+              className="mb-6 break-inside-avoid overflow-hidden rounded-xl cursor-pointer transition-transform hover:scale-[1.02]"
             >
               <img
                 src={post.postFile}
                 alt={post.title}
-                className="w-full object-cover rounded-xl"
+                className="w-full rounded-xl object-cover"
               />
 
-              <div className="p-3 flex justify-between items-center">
-                <div>
-                  <p className="text-sm font-medium text-black dark:text-white">
+              <div className="flex items-center justify-between p-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">
                     {post.title}
                   </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
+
+                  <p className="truncate text-xs text-slate-500 dark:text-slate-400">
                     @{post.owner.userName}
                   </p>
                 </div>
 
-                <GoArrowUpRight className="cursor-pointer text-slate-500 hover:text-black dark:text-slate-400 dark:hover:text-white" />
+                <GoArrowUpRight className="ml-2 text-slate-500 hover:text-black dark:text-slate-400 dark:hover:text-white" />
               </div>
             </div>
           ))}

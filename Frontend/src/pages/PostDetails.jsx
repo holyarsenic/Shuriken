@@ -50,15 +50,15 @@ const PostDetails = () => {
   }
 
   return (
-    <div className="min-h-screen ml-64 mt-18 bg-white text-black dark:bg-[#0B0A10] dark:text-white p-5">
+    <div className="min-h-screen ml-0 lg:ml-64 mt-4 lg:mt-18 bg-white text-black dark:bg-[#0B0A10] dark:text-white p-2 lg:p-5">
 
-      <div className="relative bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 items-start">
+      <div className="relative bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-2 lg:p-5 max-w-8xl flex flex-col lg:flex-row gap-3 lg:gap-10 items-start">
 
         <FaArrowLeftLong 
         onClick={() => navigate(-1)}
-        className="absolute top-8 text-5xl left-8 p-2 text-gray-500 dark:text-white rounded-full cursor-pointer"/>
+        className="absolute left-4 top-4 lg:top-8 text-4xl lg:text-5xl lg:left-8 p-2 bg-violet-400 lg:bg-transparent backdrop-blur-2xl text-gray-500 dark:text-white rounded-full cursor-pointer"/>
 
-        <div className="w-155 h-155 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
+        <div className="h-86 w-86 lg:w-145 lg:h-145 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
           <img
             src={post.postFile}
             alt={post.title}
@@ -66,7 +66,46 @@ const PostDetails = () => {
           />
         </div>
 
-        <div className="w-1/2 flex flex-col">
+        <div className="lg:w-1/2 flex flex-col">
+
+          <div className="lg:hidden flex mb-2 ml-2 lg:mt-4 text-sm text-slate-500 font-medium">
+            <span>{post.views || 0} views</span>
+          </div>
+
+          <div className="flex lg:hidden items-center gap-3 lmt-4 pb-5 border-b border-gray-300 dark:border-[#221E2C]">
+
+            <div className="flex items-center gap-2 bg-white border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
+              <button
+                onClick={() => toggleLike(post._id)}
+                className="transition cursor-pointer"
+              >
+                {post.isLiked ? (
+                  <FaHeart
+                    className={`text-lg text-rose-500 transition-all duration-300 ${
+                      animate ? "scale-125" : "scale-100"
+                    }`}
+                  />
+                ) : (
+                  <FaRegHeart className="text-lg text-slate-500 dark:text-slate-300 hover:text-rose-400 transition" />
+                )}
+              </button>
+
+              <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+                {post.likes}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 bg-white border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
+              <button className="cursor-pointer transition text-slate-500 dark:text-slate-300 hover:text-violet-400">
+                <FaRegComment className="text-lg" />
+              </button>
+
+              <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+                {post.comments || 0}
+              </p>
+            </div>
+
+          </div>
 
           <div
             className="flex items-center gap-3 pb-4 border-b border-gray-300 dark:border-[#221E2C] cursor-pointer"
@@ -90,21 +129,21 @@ const PostDetails = () => {
             </div>
           </div>
 
-          <div className="mt-4">
+          <div className="mt-2 lg:mt-4">
             <h1 className="text-lg font-bold tracking-tight text-black dark:text-white">
               {post.title}
             </h1>
 
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-2">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 lg:mt-2">
               {post.description}
             </p>
           </div>
 
-          <div className="flex mt-4 text-sm text-slate-500 font-medium">
+          <div className="hidden lg:flex mt-4 text-sm text-slate-500 font-medium">
             <span>{post.views || 0} views</span>
           </div>
 
-          <div className="flex items-center gap-3 mt-4 pb-5 border-b border-gray-300 dark:border-[#221E2C]">
+          <div className="hidden lg:flex items-center gap-3 mt-4 pb-5 border-b border-gray-300 dark:border-[#221E2C]">
 
             <div className="flex items-center gap-2 bg-white border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
               <button
@@ -148,7 +187,7 @@ const PostDetails = () => {
         Related
       </h2>
 
-      <div className="columns-2 sm:columns-2 lg:columns-3 xl:columns-5 gap-5 space-y-5">
+      <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6">
         {posts.map((post) => (
           <div
             key={post._id}

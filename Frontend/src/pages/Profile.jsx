@@ -46,25 +46,25 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen ml-64 mt-20 px-8 py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
-      <div className="border border-gray-300 dark:border-[#2A2438] rounded-2xl bg-white dark:bg-[#14141C] p-8">
+    <div className="min-h-screen ml-0 lg:ml-64 mt-10 lg:mt-20 px-4 py-4 lg:px-8 lg:py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
+      <div className="border border-gray-300 dark:border-[#2A2438] rounded-2xl bg-white dark:bg-[#14141C] p-4 lg:p-8">
 
-        <div className="flex items-center gap-10">
+        <div className="flex items-center gap-4 lg:gap-10">
           <img
             src={profile.avatar}
-            className="w-40 h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
+            className="w-20 h-20 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
           />
 
           <div className="flex-1">
 
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-3 lg:gap-5">
 
-              <h1 className="text-2xl font-medium">
+              <h1 className="text-sm lg:text-2xl font-medium">
                 @{profile.userName}
               </h1>
 
               <button
-                className="px-5 py-2 rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition text-white"
+                className="px-2 py-1 lg:px-5 lg:py-2 text-xs lg:text-base rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition text-white"
                 onClick={() => setEditProfile(true)}
               >
                 Edit Profile
@@ -72,19 +72,19 @@ const Profile = () => {
 
             </div>
 
-            <div className="flex gap-10 mt-8">
+            <div className="flex gap-5 mt-4 lg:gap-10 lg:mt-8">
 
               <div>
-                <p className="text-2xl font-bold">{profile.totalPosts}</p>
-                <p className="text-slate-500 dark:text-slate-400">Posts</p>
+                <p className="text-lg lg:text-2xl font-bold">{profile.totalPosts}</p>
+                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">Posts</p>
               </div>
 
               <div
                 onClick={() => setFollowersTab(true)}
                 className="cursor-pointer"
               >
-                <p className="text-2xl font-bold">{profile.followersCount}</p>
-                <p className="text-slate-500 dark:text-slate-400">
+                <p className="text-lg lg:text-2xl font-bold">{profile.followersCount}</p>
+                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">
                   Followers
                 </p>
               </div>
@@ -93,21 +93,21 @@ const Profile = () => {
                 onClick={() => setFollowingTab(true)}
                 className="cursor-pointer"
               >
-                <p className="text-2xl font-bold">{profile.followingCount}</p>
-                <p className="text-slate-500 dark:text-slate-400">
+                <p className="text-lg lg:text-2xl font-bold">{profile.followingCount}</p>
+                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">
                   Following
                 </p>
               </div>
 
             </div>
 
-            <div className="mt-8">
+            <div className="mt-4 lg:mt-8">
 
-              <h2 className="text-xl font-semibold">
+              <h2 className="text-sm lg:text-xl font-semibold">
                 {profile.fullName}
               </h2>
 
-              <p className="text-slate-500 dark:text-slate-400 mt-2">
+              <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400 mt-2">
                 {profile.bio}
               </p>
 
@@ -118,13 +118,13 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="mt-10 border-t border-gray-300 dark:border-[#2A2438]" />
+      <div className="mt-5 lg:mt-10 border-t border-gray-300 dark:border-[#2A2438]" />
 
-      <div className="flex items-start gap-12 mt-6">
+      <div className="flex items-start gap-6 lg:gap-12 mt-3 lg:mt-6">
 
         <button
           onClick={() => setActiveTab("posts")}
-          className={`pb-3 font-semibold cursor-pointer ${
+          className={`pb-1 lg:pb-3 font-semibold cursor-pointer text-xs lg:text-base ${
             activeTab === "posts"
               ? "border-b-2 border-[#7C3AED]"
               : "text-slate-500 dark:text-slate-400"
@@ -135,7 +135,9 @@ const Profile = () => {
 
         <button
           onClick={() => setActiveTab("likedPosts")}
-          className={`pb-3 font-semibold cursor-pointer ${
+          className={`pb-1 lg:pb-3 font-semibold cursor-pointer 
+            text-xs lg:text-base
+            ${
             activeTab === "likedPosts"
               ? "border-b-2 border-[#7C3AED]"
               : "text-slate-500 dark:text-slate-400"
@@ -147,7 +149,7 @@ const Profile = () => {
       </div>
 
       {activeTab === "posts" && (
-        <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
+        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6 mt-5 lg:mt-10">
 
           {profile.myPosts.map((post) => (
             <div
@@ -162,7 +164,7 @@ const Profile = () => {
               />
 
               <div className="p-3 flex justify-between items-center">
-                <p className="text-sm font-medium">
+                <p className="truncate text-sm font-medium">
                   {post.title}
                 </p>
 

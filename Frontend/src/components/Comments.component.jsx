@@ -37,7 +37,7 @@ const Comments = ({ postId }) => {
   }
 
   return (
-    <div className="mt-1 flex flex-col flex-1 min-h-93 border border-gray-300 dark:border-gray-900 px-4 pt-5">
+    <div className="mt-1 flex flex-col flex-1 min-h-82 border border-gray-300 dark:border-gray-900 px-4 pt-5">
 
       <div className="flex items-center gap-3">
 

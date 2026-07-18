@@ -30,7 +30,7 @@ const LikedPostsComponent = ({ channelId }) => {
 
   return (
     <div>
-      <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
+      <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6 mt-5 lg:mt-10">
 
         {likedPosts?.map((post) => (
           <div

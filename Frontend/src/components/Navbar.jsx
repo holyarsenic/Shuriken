@@ -14,21 +14,22 @@ import { useNavigate } from "react-router-dom"
 import { User } from "../context/user"
 import SearchBar from "./SearchBar.component"
 import { Theme } from "../context/theme"
+import { CiSearch } from "react-icons/ci";
 
 const SidebarItem = ({ icon, label, to }) => {
   return (
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex items-center gap-4 w-full px-5 py-3 rounded-xl transition-all duration-300 ${
+        `flex items-center justify-center lg:justify-start gap-4 w-full px-5 py-3 lg:rounded-xl transition-all duration-300 ${
           isActive
-            ? "bg-gray-200 dark:bg-[#23232A] text-black dark:text-white"
-            : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#1A1A20] hover:text-black dark:hover:text-white"
+            ? "lg:bg-gray-200 lg:dark:bg-[#23232A] text-black dark:text-white"
+            : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1A1A20] hover:text-black dark:hover:text-white"
         }`
       }
     >
       <span className="text-2xl">{icon}</span>
-      <span className="font-medium">{label}</span>
+      <span className="hidden lg:block font-medium">{label}</span>
     </NavLink>
   );
 };
@@ -53,7 +54,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed left-0 top-0 w-64 h-screen bg-gray-50 dark:bg-[#111018] border-r border-gray-300 dark:border-[#3B0764] flex flex-col justify-between z-10">
+      <div className="fixed left-0 top-0 w-64 h-screen bg-gray-50 dark:bg-[#111018] border-r border-gray-300 dark:border-[#3B0764] hidden lg:flex flex-col justify-between z-10">
 
         <div>
           <div className="px-4 mt-26 flex flex-col gap-3">
@@ -78,8 +79,16 @@ const Navbar = () => {
 
       </div>
 
+      <div className="fixed bottom-0 left-0 right-0 h-15 bg-gray-50 dark:bg-[#111018] border-t border-gray-300 dark:border-[#3B0764] flex justify-around items-center lg:hidden z-20">
+        <SidebarItem icon={<IoIosHome />} label="Home" to="/" />
+        <SidebarItem icon={<CiSearch/>} label="Search" to=""/>
+        <SidebarItem icon={<MdAddBox />} label="Create" to="/Create" />
+        <SidebarItem icon={<MdHistoryToggleOff />} label="History" to="/History" />
+        <SidebarItem icon={<img src={user.avatar} className="w-7 h-7 rounded-full object-cover"/>} label="Profile" to={`/profile/${user.userName}`}/> 
+      </div>
+
       <header
-        className="fixed w-full top-0 left-0 right-0 h-20 bg-gray-50  dark:bg-[#111111] border-b border-gray-300 dark:border-[#3B0764] z-10 flex items-center justify-between px-10"
+        className="fixed w-full top-0 left-0 right-0 h-20 bg-gray-50  dark:bg-[#111111] border-b border-gray-300 dark:border-[#3B0764] z-10 hidden lg:flex items-center justify-between px-10"
       >
         <div className="h-20 flex justify-center items-center gap-2 px-2">
           <img

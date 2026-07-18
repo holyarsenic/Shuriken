@@ -27,14 +27,14 @@ const Home = () => {
 
   return (
     <>
-      <div className="min-h-screen mt-20 ml-0 lg:ml-64 pb-20 lg:pb-6 px-4 sm:px-6 lg:px-8 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
+      <div className="min-h-screen mt-5 lg:mt-24 ml-0 lg:ml-64 pb-20 lg:pb-6 px-3 md:px-6 lg:px-8 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
         <div className="flex gap-3 text-sm mb-6">
           <h4 className="px-4 py-2 text-lg sm:text-xl border-b-2 border-black dark:border-white">
             Recents
           </h4>
         </div>
 
-        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-6 space-y-6">
+        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6">
           {posts.map((post) => (
             <div
               key={post._id}
