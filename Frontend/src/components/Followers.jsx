@@ -38,7 +38,7 @@ const Followers = ({ userId, closeFollowersTab }) => {
   };
 
   return (
-    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-xs text-black dark:text-white flex items-center justify-center p-6 z-100">
+    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-xs text-black dark:text-white flex items-center justify-center p-6 z-5">
 
       <div className="relative w-150 max-h-100 bg-white dark:bg-[#2A2438] border border-gray-300 dark:border-[#3B3449] flex flex-col gap-4 items-center justify-center rounded-2xl p-6">
 

@@ -43,7 +43,7 @@ const History = () => {
   }
 
   return (
-    <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
+    <div className="min-h-screen ml-64 mt-20 px-6 py-6 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
       <h2 className="text-2xl font-semibold mb-6">
         Watch History
       </h2>

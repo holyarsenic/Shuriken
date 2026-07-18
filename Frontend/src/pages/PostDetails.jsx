@@ -56,7 +56,7 @@ const PostDetails = () => {
 
         <FaArrowLeftLong 
         onClick={() => navigate(-1)}
-        className="absolute top-8 text-5xl left-8 p-2 text-black bg-violet-300 dark:text-white dark:bg-[#2d2944] rounded-full"/>
+        className="absolute top-8 text-5xl left-8 p-2 text-gray-500 dark:text-white rounded-full cursor-pointer"/>
 
         <div className="w-155 h-155 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
           <img

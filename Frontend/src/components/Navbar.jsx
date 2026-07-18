@@ -53,7 +53,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed left-0 top-0 w-64 h-screen bg-white dark:bg-[#111018] border-r border-gray-300 dark:border-[#3B0764] flex flex-col justify-between">
+      <div className="fixed left-0 top-0 w-64 h-screen bg-gray-50 dark:bg-[#111018] border-r border-gray-300 dark:border-[#3B0764] flex flex-col justify-between z-10">
 
         <div>
           <div className="px-4 mt-26 flex flex-col gap-3">
@@ -79,7 +79,7 @@ const Navbar = () => {
       </div>
 
       <header
-        className="fixed w-full top-0 left-0 right-0 h-20 bg-white dark:bg-[#111111] border-b border-gray-300 dark:border-[#3B0764] z-10 flex items-center justify-between px-10"
+        className="fixed w-full top-0 left-0 right-0 h-20 bg-gray-50  dark:bg-[#111111] border-b border-gray-300 dark:border-[#3B0764] z-10 flex items-center justify-between px-10"
       >
         <div className="h-20 flex justify-center items-center gap-2 px-2">
           <img
@@ -94,7 +94,7 @@ const Navbar = () => {
 
         <SearchBar />
 
-        <div className="flex w-fit items-center justify-end gap-6">
+        <div className="flex w-fit items-center justify-end gap-6 z-10">
 
           <button className="p-1 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-500 transition cursor-pointer">
             <FiPlus
@@ -124,7 +124,7 @@ const Navbar = () => {
             </div>
 
             {profileOpen && (
-              <div className="absolute top-20 right-0 w-55 bg-white dark:bg-[#111018] border border-gray-300 dark:border-slate-700 rounded-md py-2 z-50 shadow-lg">
+              <div className="absolute top-20 right-0 w-55 bg-white dark:bg-[#111018] border border-gray-300 dark:border-slate-700 rounded-md py-2 z-15 shadow-lg">
 
                 <button
                   className="w-full text-left px-4 py-2 text-lg text-gray-700 dark:text-slate-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"

@@ -71,7 +71,7 @@ const EditProfile = ({ closeProfileEdit }) => {
   };
 
   return (
-    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center">
+    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center z-5">
 
       <div className="relative w-1/2 h-125 bg-white dark:bg-[#151320] border border-gray-300 dark:border-[#3B0764] rounded-2xl p-8 shadow-lg overflow-hidden">
 

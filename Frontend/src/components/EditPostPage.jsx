@@ -59,7 +59,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
   }
 
   return (
-    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center">
+    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center z-5">
 
       <div className="bg-white dark:bg-[#181622] border border-gray-300 dark:border-[#2A2438] rounded-2xl p-6 w-170 h-120 flex flex-col overflow-hidden">
 

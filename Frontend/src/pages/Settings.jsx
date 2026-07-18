@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { User } from "../context/user";
 import { useState } from "react";
 import { Theme } from "../context/theme";
+import { LuSun } from "react-icons/lu";
+import { BsFillMoonStarsFill } from "react-icons/bs";
 
 const Settings = () => {
 
@@ -227,16 +229,18 @@ const Settings = () => {
 
     {themeSetting && (
       <div className="flex-1 mt-20">
-        <div className="max-w-lg mx-auto bg-white dark:bg-[#14131C] border border-gray-300 dark:border-gray-800 rounded-xl p-8">
-          <h2 className="text-2xl font-semibold mb-2">Change Theme</h2>
-          <p className="text-violet-500 mt-3">
-            Switch to {theme === "dark"? "Light" : "Dark"} Mode.
-          </p>
+        <div className="flex items-center justify-between max-w-lg mx-auto bg-white dark:bg-[#14131C] border border-gray-300 dark:border-gray-800 rounded-xl p-8">
+          <div>
+            <h2 className="text-2xl font-semibold mb-2">Change Theme</h2>
+            <p className="text-violet-500 mt-3">
+              Switch to {theme === "dark"? "Light" : "Dark"} Mode.
+            </p>
+          </div>
           <button
-          onClick={toggleTheme}
-          className="w-full flex justify-between items-center px-6 py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800 mt-10"
-          >
-            {theme === "dark"? "Light" : "Dark"}
+                onClick={toggleTheme}
+                className="px-4 py-2 rounded-lg bg-violet-600 text-white"
+              >
+                {theme === "dark" ? <BsFillMoonStarsFill className="text-xl"/> : <LuSun className="text-xl"/>}
           </button>
         </div>
       </div>

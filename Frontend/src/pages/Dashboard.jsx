@@ -53,7 +53,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen ml-64 mt-20 p-6 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
+    <div className="min-h-screen ml-64 mt-20 p-6 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
       <div className="bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-5 max-w-8xl flex gap-10 justify-between items-start">
         <div className="bg-white border border-gray-300 dark:bg-[#181622] dark:border-[#2A2438] rounded-2xl p-6 w-full">
           <div className="w-full flex items-center justify-between">
@@ -162,11 +162,11 @@ const Dashboard = () => {
               key={post._id}
               className="bg-white border border-gray-300 dark:bg-[#181622] dark:border-[#2A2438] rounded-xl overflow-hidden flex h-56 justify-between"
             >
-              <div className="h-full bg-black">
+              <div className="h-full">
                 <img
                   src={post.postFile}
                   alt={post.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-xl"
                 />
               </div>
 
