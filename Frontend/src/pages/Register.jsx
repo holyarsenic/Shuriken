@@ -29,7 +29,7 @@ const Register = () => {
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gray-300 text-black dark:text-white dark:bg-[#14131C]">
 
-      <div className="bg-white dark:bg-violet-300/30 p-8 rounded-2xl shadow-lg w-full max-w-md">
+      <div className="bg-white dark:bg-violet-300/30 p-8 rounded-2xl shadow-lg w-full max-w-sm lg:max-w-md">
 
         <div className="flex justify-center mb-4">
           <div className="h-15 w-15 rounded-4xl bg-black flex justify-center overflow-hidden">
