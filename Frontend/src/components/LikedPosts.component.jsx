@@ -16,9 +16,9 @@ const LikedPostsComponent = ({ channelId }) => {
 
   if (loading) {
     return (
-       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
+       <div className="min-h-screen flex mt-10 lg:mt-0 lg:items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
-          <span className="w-10 h-10 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
+          <span className="w-7 h-7 lg:w-10 lg:h-10 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
         </div>
       </div>
     );
@@ -30,7 +30,7 @@ const LikedPostsComponent = ({ channelId }) => {
 
   return (
     <div>
-      <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6 mt-5 lg:mt-10">
+      <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6 mt-5 lg:mt-10 mb-20 ">
 
         {likedPosts?.map((post) => (
           <div
@@ -45,7 +45,7 @@ const LikedPostsComponent = ({ channelId }) => {
             />
 
             <div className="p-3 flex justify-between items-center">
-              <p className="text-black dark:text-white">
+              <p className="truncate text-black dark:text-white">
                 {post.post.title}
               </p>
 

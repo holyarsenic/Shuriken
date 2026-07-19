@@ -71,11 +71,11 @@ const EditProfile = ({ closeProfileEdit }) => {
   };
 
   return (
-    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center z-5">
+    <div className="fixed inset-0 ml-0 lg:mb-0 lg:ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center z-5">
 
-      <div className="relative w-180 h-125 bg-white dark:bg-[#151320] border border-gray-300 dark:border-[#3B0764] rounded-2xl p-8 shadow-lg overflow-hidden">
+      <div className="relative h-140 w-85 lg:w-180 lg:h-125 bg-white dark:bg-[#151320] border border-gray-300 dark:border-[#3B0764] rounded-2xl p-4 pb-8 lg:p-8 shadow-lg overflow-scroll lg:overflow-hidden">
 
-        <h1 className="text-2xl font-bold mb-6">
+        <h1 className="text-2xl font-bold mb-3 lg:mb-6">
           Edit Profile
         </h1>
 
@@ -87,9 +87,9 @@ const EditProfile = ({ closeProfileEdit }) => {
           <FaArrowLeftLong className="text-2xl text-black dark:text-white" />
         </button>
 
-        <div className="relative flex gap-6 h-80">
+        <div className="relative flex flex-col lg:flex-row gap-3 lg:gap-6 h-auto">
 
-          <label className="relative flex flex-col items-center justify-center cursor-pointer w-1/2 h-full rounded-full bg-gray-200 dark:bg-black overflow-hidden">
+          <label className="relative flex flex-col items-center justify-center cursor-pointer w-full lg:w-1/2 h-75 lg:h-80 rounded-full bg-gray-200 dark:bg-black overflow-hidden">
 
             {!preview && (
               <div className="absolute inset-0">
@@ -133,7 +133,7 @@ const EditProfile = ({ closeProfileEdit }) => {
             <RxCross1 className="text-3xl text-black dark:text-white" />
           </button>
 
-          <div className="w-1/2 flex flex-col justify-between">
+          <div className="w-full lg:w-1/2 flex flex-col justify-between">
 
             <div>
               <label>Full Name</label>

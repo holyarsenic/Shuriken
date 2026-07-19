@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState,useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaRegComment, FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -7,25 +7,37 @@ import { HomePage } from "../context/homePost.jsx";
 import { useNavigate } from "react-router-dom";
 import { HiDotsHorizontal } from "react-icons/hi";
 import Comments from "../components/Comments.component.jsx";
+import RespCommentBox from "../components/ResponsiveComponents/RespCommentBox.jsx";
 
 const PostDetails = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
   const { posts, fetchPosts } = HomePage();
-
   const { post, loading, fetchPostById, toggleLike, animate } = Post();
+
+  const [ commentBox, setCommentBox ] = useState(false);
 
   useEffect(() => {
     fetchPostById(postId);
     fetchPosts();
   }, [postId, fetchPostById, fetchPosts]);
 
+  useEffect(() => {
+    const handleClick = () => {
+      setCommentBox(false);
+    };
+
+    window.addEventListener("click", handleClick);
+
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
+
    if (loading) {
     return (
        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
-          <span className="w-10 h-10 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
+          <span className="w-7 h-7 lg:w-10 lg:h-10 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
         </div>
       </div>
     );
@@ -74,19 +86,19 @@ const PostDetails = () => {
 
           <div className="flex lg:hidden items-center gap-3 lmt-4 pb-5 border-b border-gray-300 dark:border-[#221E2C]">
 
-            <div className="flex items-center gap-2 bg-white border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
+            <div className="flex items-center gap-2 pl-3 pr-4 py-1.5">
               <button
                 onClick={() => toggleLike(post._id)}
                 className="transition cursor-pointer"
               >
                 {post.isLiked ? (
                   <FaHeart
-                    className={`text-lg text-rose-500 transition-all duration-300 ${
+                    className={`text-2xl text-rose-500 transition-all duration-300 ${
                       animate ? "scale-125" : "scale-100"
                     }`}
                   />
                 ) : (
-                  <FaRegHeart className="text-lg text-slate-500 dark:text-slate-300 hover:text-rose-400 transition" />
+                  <FaRegHeart className="text-2xl text-slate-500 dark:text-slate-300 hover:text-rose-400 transition" />
                 )}
               </button>
 
@@ -95,12 +107,17 @@ const PostDetails = () => {
               </p>
             </div>
 
-            <div className="flex items-center gap-2 bg-white border border-gray-300 dark:bg-[#17141F] dark:border-[#2A2438] rounded-full pl-3 pr-4 py-1.5">
+            <div className="flex items-center gap-2 pl-3 pr-4 py-1.5"
+            onClick={(e) => {
+               e.stopPropagation();
+              setCommentBox(true)}}
+            >
               <button className="cursor-pointer transition text-slate-500 dark:text-slate-300 hover:text-violet-400">
-                <FaRegComment className="text-lg" />
+                <FaRegComment className="text-2xl" />
               </button>
 
-              <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+              <p className="text-sm text-slate-700 dark:text-slate-300 font-medium"
+              >
                 {post.comments || 0}
               </p>
             </div>
@@ -115,11 +132,11 @@ const PostDetails = () => {
           >
             <img
               src={post.owner.avatar}
-              className="w-12 h-12 rounded-full object-cover"
+              className="w-7 h-7 lg:w-12 lg:h-12 rounded-full object-cover"
             />
 
             <div className="flex-1">
-              <h2 className="font-semibold text-sm text-black dark:text-white">
+              <h2 className="font-semibold text-xs lg:text-sm text-black dark:text-white">
                 {post.owner.fullName}
               </h2>
 
@@ -130,11 +147,11 @@ const PostDetails = () => {
           </div>
 
           <div className="mt-2 lg:mt-4">
-            <h1 className="text-lg font-bold tracking-tight text-black dark:text-white">
+            <h1 className="text-base lg:text-lg font-bold tracking-tight text-black dark:text-white">
               {post.title}
             </h1>
 
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 lg:mt-2">
+            <p className="text-xs lg:text-sm text-slate-600 dark:text-slate-400 mt-1 lg:mt-2">
               {post.description}
             </p>
           </div>
@@ -171,23 +188,24 @@ const PostDetails = () => {
                 <FaRegComment className="text-lg" />
               </button>
 
-              <p className="text-sm text-slate-700 dark:text-slate-300 font-medium">
+              <p className="text-sm text-slate-700 dark:text-slate-300 font-medium"
+              >
                 {post.comments || 0}
               </p>
             </div>
 
           </div>
 
-          <Comments postId={postId} />
+          <Comments postId={postId}/>
 
         </div>
       </div>
 
-      <h2 className="text-sm font-semibold text-black dark:text-white uppercase mt-10 mb-4">
+      <h2 className="text-sm font-semibold text-black dark:text-white uppercase mt-8 mb-2 ml-1 lg:mt-10 lg:mb-4">
         Related
       </h2>
 
-      <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6">
+      <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6 mb-16">
         {posts.map((post) => (
           <div
             key={post._id}
@@ -201,7 +219,7 @@ const PostDetails = () => {
             />
 
             <div className="p-3 flex justify-between items-center">
-              <p className="text-sm font-medium text-black dark:text-white">
+              <p className="truncate text-sm font-medium text-black dark:text-white">
                 {post.title}
               </p>
 
@@ -210,6 +228,15 @@ const PostDetails = () => {
           </div>
         ))}
       </div>
+
+
+      {
+        commentBox === true && (
+          <RespCommentBox 
+          postId={postId} 
+          closeComment={() => setCommentBox(false)}/>
+        )
+      }
     </div>
   );
 };

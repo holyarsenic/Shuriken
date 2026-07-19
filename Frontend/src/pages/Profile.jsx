@@ -64,7 +64,7 @@ const Profile = () => {
               </h1>
 
               <button
-                className="px-2 py-1 lg:px-5 lg:py-2 text-xs lg:text-base rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition text-white"
+                className="px-3 py-2 lg:px-5 lg:py-2 text-xs lg:text-base rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition text-white"
                 onClick={() => setEditProfile(true)}
               >
                 Edit Profile
@@ -149,7 +149,7 @@ const Profile = () => {
       </div>
 
       {activeTab === "posts" && (
-        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6 mt-5 lg:mt-10">
+        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6 mt-5 lg:mt-10 mb-20">
 
           {profile.myPosts.map((post) => (
             <div

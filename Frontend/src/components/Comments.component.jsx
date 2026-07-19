@@ -37,7 +37,7 @@ const Comments = ({ postId }) => {
   }
 
   return (
-    <div className="mt-1 flex flex-col flex-1 min-h-82 border border-gray-300 dark:border-gray-900 px-4 pt-5">
+    <div className="hidden mt-1 lg:flex flex-col flex-1 min-h-82 border border-gray-300 dark:border-gray-900 px-4 pt-5">
 
       <div className="flex items-center gap-3">
 
@@ -63,7 +63,7 @@ const Comments = ({ postId }) => {
 
       </div>
 
-      <div className="mt-5 pt-1 flex flex-col flex-1 max-h-70 overflow-scroll">
+      <div className="mt-5 pt-1 flex flex-col flex-1 max-h-60 overflow-scroll">
 
         {comments.length === 0 ? (
           <p className="text-sm text-gray-500 dark:text-slate-500 mt-5">

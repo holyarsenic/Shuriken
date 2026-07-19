@@ -38,15 +38,15 @@ const Following = ({ userId, closeFollowingTab }) => {
   };
 
   return (
-    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-xs text-black dark:text-white flex items-center justify-center p-6 z-5">
+    <div className="fixed inset-0 ml-0 lg:ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-xs text-black dark:text-white flex items-center justify-center p-3 lg:p-6 z-5">
 
       <div className="relative w-150 max-h-100 bg-white dark:bg-[#2A2438] flex flex-col gap-4 items-center justify-center rounded-2xl p-6 border border-gray-300 dark:border-[#3B3449]">
 
-        <h2 className="font-bold text-xl mb-6">
+        <h2 className="font-bold text-lg lg:text-xl mb-3 lg:mb-6">
           Following
         </h2>
 
-        <div className="w-full max-h-90 flex flex-col gap-4 items-center overflow-scroll">
+        <div className="w-full max-h-90 flex flex-col gap-2 lg:gap-4 items-center overflow-scroll">
 
           {followingData.length === 0 ? (
             <p className="text-gray-500 dark:text-gray-400">
@@ -56,7 +56,7 @@ const Following = ({ userId, closeFollowingTab }) => {
             followingData.map((user) => (
               <div
                 key={user.channel._id}
-                className="w-full mb-5 flex items-center justify-between"
+                className="w-full mb-2 lg:mb-5 flex items-center justify-between"
               >
                 <div
                   className="flex gap-3 items-center cursor-pointer"
@@ -66,15 +66,15 @@ const Following = ({ userId, closeFollowingTab }) => {
                 >
                   <img
                     src={user.channel.avatar}
-                    className="w-13 h-13 rounded-full object-cover"
+                    className="w-8 h-8 lg:w-13 lg:h-13 rounded-full object-cover"
                   />
 
                   <div className="flex flex-col">
-                    <span className="text-md text-black dark:text-white">
+                    <span className="text-sm lg:text-base text-black dark:text-white">
                       {user.channel.fullName}
                     </span>
 
-                    <span className="text-sm text-gray-500 dark:text-gray-300">
+                    <span className="text-xs lg:text-sm text-gray-500 dark:text-gray-300">
                       @{user.channel.userName}
                     </span>
                   </div>
@@ -82,7 +82,7 @@ const Following = ({ userId, closeFollowingTab }) => {
 
                 <button
                   onClick={() => handleFollow(user.channel._id)}
-                  className={`px-5 py-2 rounded-xl cursor-pointer text-white ${
+                  className={`px-3 py-2 lg:px-5 lg:py-2 rounded-xl cursor-pointer text-white ${
                     user.channel.isFollowed
                       ? "bg-[#58555e]"
                       : "bg-violet-500"
@@ -96,7 +96,7 @@ const Following = ({ userId, closeFollowingTab }) => {
         </div>
 
         <FaArrowLeftLong
-          className="absolute text-xl top-7 left-10 cursor-pointer text-black dark:text-white"
+          className="absolute text-xl top-8 left-7 lg:top-7 lg:left-10 cursor-pointer text-black dark:text-white"
           onClick={() => handleTabClosing()}
         />
 

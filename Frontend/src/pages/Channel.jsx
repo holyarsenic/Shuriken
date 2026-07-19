@@ -46,26 +46,26 @@ const Channel = () => {
   }
 
   return (
-    <div className="min-h-screen ml-64 mt-20 px-8 py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
-      <div className="border border-gray-300 dark:border-[#2A2438] rounded-2xl bg-white dark:bg-[#14141C] p-8">
+    <div className="min-h-screen ml-0 lg:ml-64 mt-10 lg:mt-20 px-4 py-4 lg:px-8 lg:py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
+      <div className="border border-gray-300 dark:border-[#2A2438] rounded-2xl bg-white dark:bg-[#14141C] p-4 lg:p-8">
 
-        <div className="flex items-center gap-10">
+        <div className="flex items-center gap-4 lg:gap-10">
           <img
             src={channel.avatar}
-            className="w-40 h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
+            className="w-20 h-20 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
           />
 
           <div className="flex-1">
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 lg:gap-5">
 
-              <h1 className="text-2xl font-medium">
+              <h1 className="text-sm lg:text-2xl font-medium">
                 @{channel.userName}
               </h1>
 
               <button
                 onClick={() => toggleFollow(channel._id)}
-                className={`px-5 py-2 rounded-xl cursor-pointer text-white ${
+                className={`px-3 py-2 lg:px-5 lg:py-2 text-xs lg:text-base rounded-xl cursor-pointer text-white ${
                   channel.isFollowed
                     ? "bg-[#58555e]"
                     : "bg-violet-500"
@@ -76,21 +76,21 @@ const Channel = () => {
 
             </div>
 
-            <div className="flex gap-10 mt-8">
+            <div className="flex gap-5 mt-4 lg:gap-10 lg:mt-8">
 
               <div>
-                <p className="text-2xl font-bold">{channel.totalPosts}</p>
-                <p className="text-slate-500 dark:text-slate-400">Posts</p>
+                <p className="text-lg lg:text-2xl font-bold">{channel.totalPosts}</p>
+                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">Posts</p>
               </div>
 
               <div
                 className="cursor-pointer"
                 onClick={() => setFollowersTab(true)}
               >
-                <p className="text-2xl font-bold">
+                <p className="text-lg lg:text-2xl font-bold">
                   {channel.followersCount}
                 </p>
-                <p className="text-slate-500 dark:text-slate-400">
+                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">
                   Followers
                 </p>
               </div>
@@ -99,23 +99,23 @@ const Channel = () => {
                 className="cursor-pointer"
                 onClick={() => setFollowingTab(true)}
               >
-                <p className="text-2xl font-bold">
+                <p className="text-lg lg:text-2xl font-bold">
                   {channel.followingCount}
                 </p>
-                <p className="text-slate-500 dark:text-slate-400">
+                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">
                   Following
                 </p>
               </div>
 
             </div>
 
-            <div className="mt-8">
+            <div className="mt-4 lg:mt-8">
 
-              <h2 className="text-xl font-semibold">
+              <h2 className="text-sm lg:text-xl font-semibold">
                 {channel.fullName}
               </h2>
 
-              <p className="text-slate-500 dark:text-slate-400 mt-2">
+              <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400 mt-2">
                 {channel.bio}
               </p>
 
@@ -126,13 +126,13 @@ const Channel = () => {
         </div>
       </div>
 
-      <div className="mt-10 border-t border-gray-300 dark:border-[#2A2438]" />
+      <div className="mt-5 lg:mt-10 border-t border-gray-300 dark:border-[#2A2438]" />
 
-      <div className="flex items-start gap-12 mt-6">
+      <div className="flex items-start gap-6 lg:gap-12 mt-3 lg:mt-6">
 
         <button
           onClick={() => setActiveTab("posts")}
-          className={`pb-3 font-semibold cursor-pointer ${
+          className={`pb-1 lg:pb-3 font-semibold cursor-pointer text-xs lg:text-base ${
             activeTab === "posts"
               ? "border-b-2 border-[#7C3AED]"
               : "text-slate-500 dark:text-slate-400"
@@ -143,7 +143,8 @@ const Channel = () => {
 
         <button
           onClick={() => setActiveTab("likedPosts")}
-          className={`pb-3 font-semibold cursor-pointer ${
+          className={`pb-1 lg:pb-3 font-semibold cursor-pointer 
+            text-xs lg:text-base ${
             activeTab === "likedPosts"
               ? "border-b-2 border-[#7C3AED]"
               : "text-slate-500 dark:text-slate-400"
@@ -155,7 +156,7 @@ const Channel = () => {
       </div>
 
       {activeTab === "posts" && (
-        <div className="columns-2 sm:columns-2 lg:columns-4 xl:columns-5 gap-6 space-y-6 mt-10">
+        <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-3 lg:gap-6 space-y-6 mt-5 lg:mt-10 mb-20">
 
           {channel.userPosts?.map((post) => (
             <div
@@ -168,7 +169,7 @@ const Channel = () => {
                 className="rounded-xl w-full object-cover"
               />
 
-              <div className="p-3 flex justify-between items-center">
+              <div className="truncate p-3 flex justify-between items-center">
                 <p>{post.title}</p>
 
                 <GoArrowUpRight className="cursor-pointer text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white" />
