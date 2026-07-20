@@ -6,20 +6,35 @@ import LikedPostsComponent from "../components/LikedPosts.component";
 import EditProfilePage from "../components/EditProfilePage";
 import Followers from "../components/Followers";
 import Following from "../components/Following";
+import { RiMenu3Fill } from "react-icons/ri";
+import { User } from "../context/user";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const Profile = () => {
   const navigate = useNavigate();
 
   const { fetchProfile, profile, loading } = ProfileData();
+  const { logOut } = User();
 
-  const [activeTab, setActiveTab] = useState("posts");
-  const [editProfile, setEditProfile] = useState(false);
-  const [followersTab, setFollowersTab] = useState(false);
-  const [followingTab, setFollowingTab] = useState(false);
+  const [ activeTab, setActiveTab ] = useState("posts");
+  const [ editProfile, setEditProfile ] = useState(false);
+  const [ followersTab, setFollowersTab ] = useState(false);
+  const [ followingTab, setFollowingTab ] = useState(false);
+  const [ respBar, setResBar ] =useState(false);
 
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
+
+  useEffect(() => {
+    const handleClick = () => {
+      setResBar(false);
+    };
+
+    window.addEventListener("click", handleClick);
+
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
 
   if (loading) {
     return (
@@ -44,6 +59,8 @@ const Profile = () => {
   function handlePostClick(PostId) {
     navigate(`/post/${PostId}`);
   }
+
+  
 
   return (
     <div className="min-h-screen ml-0 lg:ml-64 mt-10 lg:mt-20 px-4 py-4 lg:px-8 lg:py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
@@ -196,6 +213,48 @@ const Profile = () => {
           userId={profile._id}
           closeFollowingTab={() => setFollowingTab(false)}
         />
+      )}
+
+      <div className="fixed top-5 right-3 lg:hidden"
+      onClick={(e) => {
+        e.stopPropagation();
+        setResBar(true)}}
+      >
+          <RiMenu3Fill className="text-2xl text-black dark:text-white"/>
+      </div>
+
+      {respBar === true && (
+         <div className="fixed top-4 right-2 w-55 bg-white dark:bg-[#111018] border border-gray-300 dark:border-slate-700 rounded-md py-2 z-15"
+         onClick={(e) => e.stopPropagation()}
+         >
+
+                <FaArrowLeftLong
+                  className="ml-2 mt-2 mb-2 text-2xl text-gray-700 dark:text-slate-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"
+                  onClick={() => setResBar(false)}
+                />
+                
+                <button
+                  className="w-full text-left px-2 py-1 text-base text-gray-700 dark:text-slate-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"
+                  onClick={() => navigate(`/settings`)}
+                >
+                  Settings
+                </button>
+
+                <button
+                  className="w-full text-left px-2 py-1 text-base text-gray-700 dark:text-slate-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"
+                  onClick={() => navigate(`/dashboard`)}
+                >
+                 View  Dashboard
+                </button>
+
+                <button
+                  className="w-full text-left px-2 py-1 text-base cursor-pointer text-rose-500 hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"
+                  onClick={logOut}
+                >
+                  Log out
+                </button>
+
+              </div>
       )}
 
     </div>

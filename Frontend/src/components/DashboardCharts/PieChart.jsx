@@ -14,8 +14,10 @@ const COLORS = [
 const PieChartView = ({followers,following}) => {
 
     const data = [
-    { name: "Followers", value: followers },
-    { name: "Following", value: following },
+    { name: "Followers", 
+      value: followers },
+    { name: "Following", 
+      value: following },
   ];
 
   return (

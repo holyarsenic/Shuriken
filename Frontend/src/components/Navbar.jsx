@@ -133,7 +133,7 @@ const Navbar = () => {
             </div>
 
             {profileOpen && (
-              <div className="absolute top-20 right-0 w-55 bg-white dark:bg-[#111018] border border-gray-300 dark:border-slate-700 rounded-md py-2 z-15 shadow-lg">
+              <div className="absolute top-20 right-0 w-55 bg-white dark:bg-[#111018] border border-gray-300 dark:border-slate-700 rounded-md py-2 z-15">
 
                 <button
                   className="w-full text-left px-4 py-2 text-lg text-gray-700 dark:text-slate-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"
