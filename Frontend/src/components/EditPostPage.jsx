@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Post } from "../context/specificPost";
 import { EditPost } from "../context/editPost";
 import { DashboardPage } from "../context/dashboardStats";
+import { FaArrowLeft } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const EditPostPage = ({ postId, closeEdit }) => {
   const { post, loading, fetchPostById } = Post();
@@ -10,6 +12,8 @@ const EditPostPage = ({ postId, closeEdit }) => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPostById(postId);
@@ -59,17 +63,20 @@ const EditPostPage = ({ postId, closeEdit }) => {
   }
 
   return (
-    <div className="fixed inset-0 ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center z-5">
+    <div className="fixed inset-0 ml-0 lg:ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-sm text-black dark:text-white flex items-center justify-center z-5">
 
-      <div className="bg-white dark:bg-[#181622] border border-gray-300 dark:border-[#2A2438] rounded-2xl p-6 w-170 h-120 flex flex-col overflow-hidden">
+      <div className=" bg-white dark:bg-[#181622] border border-gray-300 dark:border-[#2A2438] rounded-2xl pt-4 pb-8 px-3 lg:p-6 w-full h-140 lg:w-170 lg:h-120 flex flex-col overflow-scroll lg:overflow-hidden">
 
-        <h2 className="text-2xl font-bold flex-1 text-black dark:text-white">
+       <FaArrowLeft className="fixed lg:hidden text-white text-xl mb-2"
+      onClick={() => navigate(-1)}
+      />
+        <h2 className="mt-6 text-lg lg:text-2xl font-bold flex-1 text-black dark:text-white">
           Edit Post
         </h2>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4 mt-4 lg:mt-0">
 
-          <div className="h-70 w-70 flex items-center justify-center overflow-hidden mb-5 bg-gray-100 dark:bg-black">
+          <div className="w-full lg:h-70 lg:w-70 flex items-center justify-center overflow-hidden mb-2 lg:mb-5 bg-gray-100 dark:bg-black">
             <img
               src={post.postFile}
               alt={post.title}
@@ -80,7 +87,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
           <div className="flex flex-col gap-4 flex-1">
 
             <div>
-              <label className="text-md text-black dark:text-white">
+              <label className="text-sm lg:text-base text-black dark:text-white">
                 Title
               </label>
 
@@ -94,7 +101,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
             </div>
 
             <div>
-              <label className="text-md text-black dark:text-white">
+              <label className="text-sm lg:text-base text-black dark:text-white">
                 Description
               </label>
 
@@ -112,11 +119,11 @@ const EditPostPage = ({ postId, closeEdit }) => {
 
         </div>
 
-        <div className="flex justify-between mt-6">
+        <div className="flex justify-between mt-3 lg:mt-6">
 
           <button
             onClick={deletingPost}
-            className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg"
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 lg:px-5 lg:py-2 rounded-lg text-sm lg:text-base"
           >
             Delete Post
           </button>
@@ -125,13 +132,13 @@ const EditPostPage = ({ postId, closeEdit }) => {
 
             <button
               onClick={closeEdit}
-              className="bg-gray-300 dark:bg-[#2A2438] text-black dark:text-white px-5 py-2 rounded-lg"
+              className="bg-gray-300 dark:bg-[#2A2438] text-black dark:text-white px-3 py-2 lg:px-5 lg:py-2 text-sm lg:text-base rounded-lg"
             >
               Cancel
             </button>
 
             <button
-              className="bg-violet-700 hover:bg-violet-800 text-white px-5 py-2 rounded-lg"
+              className="bg-violet-700 hover:bg-violet-800 text-white px-3 py-2 lg:px-5 lg:py-2 rounded-lg text-sm lg:text-base"
               onClick={saveChanges}
             >
               Save Changes
