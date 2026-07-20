@@ -229,7 +229,7 @@ const Profile = () => {
          >
 
                 <FaArrowLeftLong
-                  className="ml-2 mt-2 mb-2 text-2xl text-gray-700 dark:text-slate-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"
+                  className="ml-2 mt-2 mb-2 text-xl text-gray-700 dark:text-slate-300 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#221E2C] transition"
                   onClick={() => setResBar(false)}
                 />
                 
