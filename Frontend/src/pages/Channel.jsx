@@ -33,7 +33,7 @@ const Channel = () => {
 
   if (!channel) {
     return (
-      <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-white dark:bg-[#0B0A10]">
+      <div className="min-h-screen ml-0 lg:ml-64 mt-20 flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <p className="text-slate-500 dark:text-slate-400 text-sm">
           User not found
         </p>
@@ -52,14 +52,14 @@ const Channel = () => {
         <div className="flex items-center gap-4 lg:gap-10">
           <img
             src={channel.avatar}
-            className="w-20 h-20 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
+            className="w-15 h-15 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
           />
 
           <div className="flex-1">
 
             <div className="flex items-center gap-3 lg:gap-5">
 
-              <h1 className="text-sm lg:text-2xl font-medium">
+              <h1 className="text-xs lg:text-2xl font-medium">
                 @{channel.userName}
               </h1>
 
@@ -80,7 +80,7 @@ const Channel = () => {
 
               <div>
                 <p className="text-lg lg:text-2xl font-bold">{channel.totalPosts}</p>
-                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">Posts</p>
+                <p className="text-xs lg:text-base text-slate-500 dark:text-slate-400">Posts</p>
               </div>
 
               <div
@@ -90,7 +90,7 @@ const Channel = () => {
                 <p className="text-lg lg:text-2xl font-bold">
                   {channel.followersCount}
                 </p>
-                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">
+                <p className="text-xs lg:text-base text-slate-500 dark:text-slate-400">
                   Followers
                 </p>
               </div>
@@ -102,7 +102,7 @@ const Channel = () => {
                 <p className="text-lg lg:text-2xl font-bold">
                   {channel.followingCount}
                 </p>
-                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">
+                <p className="text-xs lg:text-base text-slate-500 dark:text-slate-400">
                   Following
                 </p>
               </div>
@@ -169,7 +169,7 @@ const Channel = () => {
                 className="rounded-xl w-full object-cover"
               />
 
-              <div className="truncate p-3 flex justify-between items-center">
+              <div className="text-xs lg:text-base truncate p-1 lg:p-3 flex justify-between items-center">
                 <p>{post.title}</p>
 
                 <GoArrowUpRight className="cursor-pointer text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white" />

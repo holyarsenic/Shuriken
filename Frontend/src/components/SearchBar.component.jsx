@@ -72,13 +72,13 @@ const SearchBar = () => {
   const searching = searchUser;
 
   return (
-    <div className="relative w-1/2 max-h-200 overflow-scroll flex items-center justify-center">
-      <CiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-xl text-gray-700 dark:text-white" />
+    <div className="relative w-full lg:w-1/2 h-screen lg:max-h-200 overflow-scroll flex lg:items-center justify-center px-6 py-5 lg:p-0">
+      <CiSearch className="absolute left-9 top-8 lg:left-4 lg:top-1/2 lg:-translate-y-1/2 text-xl text-gray-700 dark:text-white" />
     
         <input
           type="text"
           placeholder="Search..."
-          className="w-full h-11 rounded-full
+          className="w-full lg:w-full h-11 rounded-full
           bg-gray-200 dark:bg-[#151320]
           border border-gray-300 dark:border-white/60
           text-gray-900 dark:text-white
@@ -94,22 +94,22 @@ const SearchBar = () => {
 
         {
           (result.length > 0 || searching.length > 0) && (
-           <div className="fixed w-1/2 top-20 bg-[#2d2944] border border-[#3B0764] flex-col text-white rounded-xl items-center justify-center pt-10 pb-5 px-4 shadow-lg">
+           <div className="fixed w-full lg:w-1/2 top-20 bg-[#2d2944] border border-[#3B0764] flex-col text-white rounded-xl items-center justify-center pt-10 pb-5 px-4 shadow-lg">
             {
               searching.map((user) => (
                  <div key={user._id} className="text-white flex gap-3 items-center mb-5 cursor-pointer" 
                  onClick={() => handleChannelProfileClick(user.userName)}>
-                  <img src={user.avatar} className="w-13 h-13 rounded-full object-cover"/>
+                  <img src={user.avatar} className="w-7 h-7 lg:w-13 lg:h-13 rounded-full object-cover"/>
                   <div className="flex flex-col">
-                   <span className="text-md text-white">{user.fullName}</span>
-                   <span className="text-sm text-gray-300">@{user.userName}</span>
+                   <span className="text-sm lg:text-base text-white">{user.fullName}</span>
+                   <span className="text-xs lg:text-sm text-gray-300">@{user.userName}</span>
                   </div>
                 </div>  
               ))
             }
             {
               result.map((post) => (
-                <div key={post._id} className="text-white text-lg mb-2 ml-2 flex gap-2 items-center cursor-pointer hover:text-violet-400"
+                <div key={post._id} className="text-white text-sm lg:text-lg mb-2 ml-2 flex gap-2 items-center cursor-pointer hover:text-violet-400"
                 onClick={()=> handlePostView(post._id)}
                 >
                  <CiSearch/> {post.title}

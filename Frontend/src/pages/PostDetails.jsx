@@ -70,7 +70,7 @@ const PostDetails = () => {
         onClick={() => navigate(-1)}
         className="absolute left-4 top-4 lg:top-8 text-4xl lg:text-5xl lg:left-8 p-2 bg-violet-400 lg:bg-transparent backdrop-blur-2xl text-gray-500 dark:text-white rounded-full cursor-pointer"/>
 
-        <div className="h-86 w-86 lg:w-145 lg:h-145 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
+        <div className="h-86 w-full lg:w-145 lg:h-145 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
           <img
             src={post.postFile}
             alt={post.title}
@@ -218,8 +218,8 @@ const PostDetails = () => {
               className="rounded-xl w-full object-cover"
             />
 
-            <div className="p-3 flex justify-between items-center">
-              <p className="truncate text-sm font-medium text-black dark:text-white">
+            <div className="p-1 lg:p-3 flex justify-between items-center">
+              <p className="truncate text-xs lg:text-sm font-medium text-black dark:text-white">
                 {post.title}
               </p>
 

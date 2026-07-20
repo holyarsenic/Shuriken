@@ -11,6 +11,7 @@ import Settings from "./pages/Settings";
 import PostDetails from "./pages/PostDetails";
 import Profile from "./pages/Profile";
 import Channel from "./pages/Channel";
+import SearchBar from "./components/SearchBar.component";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/post/:postId" element={<PostDetails />} />
           <Route path="/profile/:username" element={<Profile />} />
           <Route path="/c/:channelUsername" element={<Channel/>} />
+          <Route path="/search" element={<SearchBar/>} />
         </Route>
       </Route>
     </Routes>

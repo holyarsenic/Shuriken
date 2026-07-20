@@ -48,7 +48,7 @@ const Profile = () => {
   
   if (!profile) {
     return (
-      <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-white dark:bg-[#0B0A10]">
+      <div className="min-h-screen ml-0 lg:ml-64 mt-20 flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <p className="text-slate-500 dark:text-slate-400 text-sm">
           Post not found
         </p>
@@ -69,7 +69,7 @@ const Profile = () => {
         <div className="flex items-center gap-4 lg:gap-10">
           <img
             src={profile.avatar}
-            className="w-20 h-20 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
+            className="w-15 h-15 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
           />
 
           <div className="flex-1">
@@ -93,7 +93,7 @@ const Profile = () => {
 
               <div>
                 <p className="text-lg lg:text-2xl font-bold">{profile.totalPosts}</p>
-                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">Posts</p>
+                <p className="text-xs lg:text-base text-slate-500 dark:text-slate-400">Posts</p>
               </div>
 
               <div
@@ -101,7 +101,7 @@ const Profile = () => {
                 className="cursor-pointer"
               >
                 <p className="text-lg lg:text-2xl font-bold">{profile.followersCount}</p>
-                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">
+                <p className="text-xs lg:text-base text-slate-500 dark:text-slate-400">
                   Followers
                 </p>
               </div>
@@ -111,7 +111,7 @@ const Profile = () => {
                 className="cursor-pointer"
               >
                 <p className="text-lg lg:text-2xl font-bold">{profile.followingCount}</p>
-                <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400">
+                <p className="text-xs lg:text-base text-slate-500 dark:text-slate-400">
                   Following
                 </p>
               </div>

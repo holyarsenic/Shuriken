@@ -53,6 +53,7 @@ const Register = () => {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
+              placeholder="Enter your full name"
             />
           </div>
 
@@ -69,6 +70,7 @@ const Register = () => {
               className="input-box dark:bg-[#0B0A10] dark:border-[#2A2438] dark:text-white"
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
+              placeholder="Choose a username"
               required
             />
           </div>
@@ -86,6 +88,7 @@ const Register = () => {
               className="input-box dark:bg-[#0B0A10] dark:border-[#2A2438] dark:text-white"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
               required
             />
           </div>
@@ -103,6 +106,7 @@ const Register = () => {
               className="input-box dark:bg-[#0B0A10] dark:border-[#2A2438] dark:text-white"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Create a password"
               required
             />
           </div>

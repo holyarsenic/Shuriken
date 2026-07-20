@@ -44,8 +44,8 @@ const LikedPostsComponent = ({ channelId }) => {
               className="rounded-xl w-full object-cover"
             />
 
-            <div className="p-3 flex justify-between items-center">
-              <p className="truncate text-black dark:text-white">
+            <div className="p-1 lg:p-3 flex justify-between items-center">
+              <p className="truncate text-xs lg:text-base text-black dark:text-white">
                 {post.post.title}
               </p>
 

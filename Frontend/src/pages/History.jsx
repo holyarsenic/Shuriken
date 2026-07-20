@@ -66,9 +66,9 @@ const History = () => {
                 className="w-full rounded-xl object-cover"
               />
 
-              <div className="flex items-center justify-between p-3">
+              <div className="flex items-center justify-between p-1 lg:p-3">
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">
+                  <p className="truncate text-xs lg:text-sm font-medium">
                     {post.title}
                   </p>
 

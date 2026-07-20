@@ -47,8 +47,8 @@ const Home = () => {
                 className="w-full rounded-xl object-cover"
               />
 
-              <div className="flex items-center justify-between p-3">
-                <p className="truncate text-sm font-medium">
+              <div className="flex items-center justify-between p-1 lg:p-3">
+                <p className="truncate text-xs lg:text-sm font-medium">
                   {post.title}
                 </p>
 
