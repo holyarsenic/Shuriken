@@ -17,7 +17,9 @@ export const HomeProvider = ({ children }) => {
 
       setPosts(res.data.data);
     } catch (error) {
-      console.log(error.response?.data || error.message);
+       if (error.response?.status !== 401) {
+        console.error(error.message);
+      }
       setPosts([]);
     } finally {
       setLoading(false);

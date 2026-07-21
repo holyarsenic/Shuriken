@@ -28,7 +28,9 @@ export const EditPostProvider = ({ children }) => {
 
     } catch(error){
 
-      console.log(error.message);
+      if (error.response?.status !== 401) {
+        console.error(error.message);
+      }
 
       return false;
 
@@ -55,7 +57,10 @@ export const EditPostProvider = ({ children }) => {
 
       return true;
     } catch(error){
-      console.log(error.message);
+      
+       if (error.response?.status !== 401) {
+        console.error(error.message);
+      }
 
       return false
     } finally {

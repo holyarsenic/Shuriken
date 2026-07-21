@@ -8,8 +8,10 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [message, setMessage] =useState("");
+   const [messageType, setMessageType] = useState(""); 
 
-  const { register } = User();
+  const { register, registerLoading } = User();
   const navigate = useNavigate();
 
   const Regsubmithandle = async (e) => {
@@ -18,11 +20,23 @@ const Register = () => {
     try {
       await register(fullName, userName, email, password);
 
-      alert("Registration successful");
+      setMessage("Registration successful")
+      setMessageType("success")
+
+       setTimeout(() => {
+        setMessage("");
+        setMessageType("");
+      }, 3000);
+
       navigate("/");
     } catch (err) {
-      console.log(err.response?.data || err.message);
-      alert("Registration failed");
+      setMessage(err.response?.data?.message || err.message);
+      setMessageType("error")
+
+      setTimeout(() => {
+        setMessage("");
+        setMessageType("")
+      }, 2000);
     }
   };
 
@@ -109,20 +123,23 @@ const Register = () => {
               placeholder="Create a password"
               required
             />
+
+            <p className= {`ml-1 text-red-400 text-xs mt-1 ${
+                  messageType === "success"
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}>{message}</p>
           </div>
 
           <div className="w-full flex flex-col gap-4 items-center justify-center">
 
-            <button className="w-full h-10 bg-[#111] dark:bg-violet-400 text-white rounded-md cursor-pointer">
-              Sign in
+            <button className="w-full h-10 bg-[#111] dark:bg-violet-400 text-white rounded-md cursor-pointer flex items-center justify-center">
+              {registerLoading ? (
+                <span className="w-5 h-5 lg:w-7 lg:h-7 rounded-full border border-white border-t-transparent animate-spin"></span>
+              ) : (
+                "Log in"
+              )}
             </button>
-
-            <h5 className="text-black dark:text-white">or</h5>
-
-            <img
-              src="https://thf.bing.com/th/id/ODF.cQGDzDdW-31GYqwCeCzTrw?w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2"
-              className="border-2 rounded-4xl p-1 bg-gray-50 shadow-sm cursor-pointer"
-            />
 
             <div className="mt-2 mb-2 w-full h-0.5 bg-gray-300"></div>
 

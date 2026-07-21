@@ -22,7 +22,7 @@ const EditProfile = ({ closeProfileEdit }) => {
   if (!profile) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0B0A10]">
-        <span className="w-10 h-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
+        <span className="w-10 h-10 rounded-full border-2 lg:border-4 border-slate-600 border-t-violet-500 animate-spin" />
       </div>
     );
   }

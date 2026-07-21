@@ -21,7 +21,9 @@ export const PostProvider = ({ children }) => {
 
             setPost(res.data.data);
           } catch (error) {
-            console.log(error.message);
+             if (error.response?.status !== 401) {
+              console.error(error.message);
+            }
             setPost(null);
           } finally {
             if (showLoading) {

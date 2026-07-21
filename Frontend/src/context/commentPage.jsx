@@ -18,7 +18,9 @@ export const CommentsProvider = ({children}) => {
 
       setComments(res.data.data.docs)
     } catch (error) {
-      console.log(error.message);
+       if (error.response?.status !== 401) {
+        console.error(error.message);
+      }
       setComments([])
     } finally {
       setLoading(false);
@@ -40,7 +42,9 @@ export const CommentsProvider = ({children}) => {
       ]);
 
     } catch (error) {
-      console.log(error.message);
+       if (error.response?.status !== 401) {
+        console.error(error.message);
+      }
     }
   };
 

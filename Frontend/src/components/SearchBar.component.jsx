@@ -29,8 +29,7 @@ const SearchBar = () => {
           {
             params: {
               query: search
-            },
-            withCredentials: true
+            }
           }
         );
 

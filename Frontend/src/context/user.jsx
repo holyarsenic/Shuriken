@@ -7,6 +7,8 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [registerLoading, setRegisterLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -22,7 +24,9 @@ export const UserProvider = ({ children }) => {
 
         setUser(res.data.data);
       } catch (error) {
-        console.log(error)
+        if (error.response?.status !== 401) {
+          console.error(error);
+        }
         setUser(null);
       } finally {
         setLoading(false);
@@ -33,31 +37,40 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await api.post(
-      "/users/login",
-      {
+    setLoginLoading(true);
+
+    try {
+      const res = await api.post("/users/login", {
         email,
         password,
-      },
-    );
+      });
 
-    setUser(res.data.data.user);
-
-    return res.data;
+      setUser(res.data.data.user);
+      return res.data;
+    } finally {
+      setLoginLoading(false);
+    }
   };
 
   const register = async (fullName, userName, email, password) => {
-    const res = await api.post(
-      "/users/register",
-      {
-        fullName,
-        userName,
-        email,
-        password,
-      }
-    );
+    setRegisterLoading(true);
 
-    return res.data;
+    try{
+      const res = await api.post(
+        "/users/register",
+        {
+          fullName,
+          userName,
+          email,
+          password,
+        }
+      );
+      setUser(res.data)
+      return res.data
+    }
+    finally{
+      setRegisterLoading(false)
+    }
   };
 
   const logOut = async () => {
@@ -102,7 +115,9 @@ export const UserProvider = ({ children }) => {
         user,
         loading,
         login,
+        loginLoading,
         register,
+        registerLoading,
         logOut,
         changePassword
       }}

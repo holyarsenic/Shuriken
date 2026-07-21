@@ -23,7 +23,9 @@ export const ChannelProvider = ({ children }) => {
         setChannel(res.data.data);
 
       } catch(error) {
-        console.log(error);
+         if (error.response?.status !== 401) {
+          console.error(error.message);
+        }
         setChannel(null);
 
       } finally {
@@ -49,7 +51,9 @@ export const ChannelProvider = ({ children }) => {
       await fetchChannelId(channel.userName, false);
 
     } catch(error) {
-      console.log(error);
+       if (error.response?.status !== 401) {
+        console.error(error.message);
+      }
     }
   };
 

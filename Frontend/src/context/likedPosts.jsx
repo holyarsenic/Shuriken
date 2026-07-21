@@ -17,7 +17,9 @@ export const LikedPostProvider = ({ children }) => {
 
       setLikedPosts(res.data.data);
     } catch (error) {
-      console.log(error.message);
+       if (error.response?.status !== 401) {
+        console.error(error.message);
+      }
       setLikedPosts(null);
     } finally {
       setLoading(false);

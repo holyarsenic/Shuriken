@@ -70,7 +70,7 @@ const RespCommentBox = ({ postId, closeComment }) => {
           {loading ? (
             <div className="h-full w-full flex mt-10 justify-center">
               <div className="flex">
-                <span className="w-7 h-7 rounded-full border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
+                <span className="w-7 h-7 rounded-full border-2 lg:border-4 border-slate-300 dark:border-slate-600 border-t-violet-500 dark:border-t-violet-500 animate-spin" />
               </div>
             </div>
           ):(<div className="pt-1 flex flex-col flex-1 max-h-80 pb-4 overflow-scroll">
