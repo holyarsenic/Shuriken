@@ -133,7 +133,9 @@ const Register = () => {
 
           <div className="w-full flex flex-col gap-4 items-center justify-center">
 
-            <button className="w-full h-10 bg-[#111] dark:bg-violet-400 text-white rounded-md cursor-pointer flex items-center justify-center">
+            <button 
+            disabled={registerLoading}
+            className="w-full h-10 bg-[#111] dark:bg-violet-400 text-white rounded-md cursor-pointer flex items-center justify-center">
               {registerLoading ? (
                 <span className="w-5 h-5 lg:w-7 lg:h-7 rounded-full border border-white border-t-transparent animate-spin"></span>
               ) : (

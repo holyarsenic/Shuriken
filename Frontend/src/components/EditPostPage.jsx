@@ -38,7 +38,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
     }
   };
 
-  if (loading || deleting || editing) {
+  if (loading) {
     return (
         <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <div className="flex">
@@ -120,9 +120,14 @@ const EditPostPage = ({ postId, closeEdit }) => {
 
           <button
             onClick={deletingPost}
-            className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 lg:px-5 lg:py-2 rounded-lg text-sm lg:text-base"
+            disabled={deleting}
+            className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 lg:px-5 lg:py-2 rounded-lg text-sm lg:text-base flex items-center justify-center"
           >
-            Delete Post
+            {deleting ? (
+                <span className="w-5 h-5 lg:w-7 lg:h-7 rounded-full border border-white border-t-transparent animate-spin"></span>
+              ) : (
+                "Delete Post"
+              )}
           </button>
 
           <div className="flex gap-3">
@@ -135,10 +140,15 @@ const EditPostPage = ({ postId, closeEdit }) => {
             </button>
 
             <button
-              className="bg-violet-700 hover:bg-violet-800 text-white px-3 py-2 lg:px-5 lg:py-2 rounded-lg text-sm lg:text-base"
+              className="bg-violet-700 hover:bg-violet-800 text-white px-3 py-2 lg:px-5 lg:py-2 rounded-lg text-sm lg:text-base flex items-center justify-center"
               onClick={saveChanges}
+              disabled={editing}
             >
-              Save Changes
+              {editing ? (
+                <span className="w-5 h-5 lg:w-7 lg:h-7 rounded-full border border-white border-t-transparent animate-spin"></span>
+              ) : (
+                "Save Changes"
+              )}
             </button>
 
           </div>

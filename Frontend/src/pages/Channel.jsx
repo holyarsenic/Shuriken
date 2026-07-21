@@ -23,11 +23,13 @@ const Channel = () => {
   useEffect(() => {
     fetchChannelId(channelUsername);
     fetchProfile(false)
-  }, [fetchProfile,channelUsername, fetchChannelId]);
+  }, [fetchProfile, channelUsername, fetchChannelId]);
 
-  useEffect(() => {if(profile?._id === channel?._id) {
-    navigate(`/profile/${profile.userName}`)
-  }}, [profile,channel,navigate])
+  useEffect(() => {
+    if (profile && channel && profile._id === channel._id) {
+      navigate(`/profile/${profile.userName}`);
+    }
+  }, [profile, channel, navigate]);
 
   if (loading) {
     return (

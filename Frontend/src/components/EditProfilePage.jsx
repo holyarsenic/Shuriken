@@ -12,6 +12,7 @@ const EditProfile = ({ closeProfileEdit }) => {
   const [bio, setBio] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!profile) {
@@ -28,6 +29,8 @@ const EditProfile = ({ closeProfileEdit }) => {
   }
 
   const updateProfile = async () => {
+
+    setLoading(true)
     try {
       const formData = new FormData();
 
@@ -49,14 +52,15 @@ const EditProfile = ({ closeProfileEdit }) => {
         }
       );
 
-      alert("Profile updated successfully!");
-
       closeProfileEdit();
+      fetchProfile(false);
     } catch (error) {
-      console.log(
+      alert(
         "Update failed:",
         error.response?.data || error.message
       );
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -165,6 +169,7 @@ const EditProfile = ({ closeProfileEdit }) => {
                 rows="4"
                 defaultValue={profile.bio}
                 onChange={(e) => setBio(e.target.value)}
+                maxLength={50}
                 placeholder="Enter your Bio."
                 className="resize-none w-full mt-2 p-3 bg-gray-100 dark:bg-black rounded-lg border border-gray-300 dark:border-[#2A2438] outline-none"
               />
@@ -172,9 +177,14 @@ const EditProfile = ({ closeProfileEdit }) => {
 
             <button
               onClick={updateProfile}
-              className="w-full my-2 py-3 rounded-xl bg-violet-800 text-white cursor-pointer"
+              disabled={loading}
+              className="w-full my-2 py-3 rounded-xl bg-violet-800 text-white cursor-pointer flex items-center justify-center"
             >
-              Save Changes
+              {loading ? (
+                <span className="w-5 h-5 lg:w-7 lg:h-7 rounded-full border border-white border-t-transparent animate-spin"></span>
+              ) : (
+                "Save Changes"
+              )}
             </button>
 
           </div>

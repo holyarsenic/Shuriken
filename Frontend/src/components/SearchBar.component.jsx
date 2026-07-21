@@ -36,7 +36,9 @@ const SearchBar = () => {
         setSearchUser(res.data.data);
         
       } catch (error) {
-        console.log(error.message);
+        if (error.response?.status !== 401) {
+          console.error(error.message);
+        }
       }
     };
 
@@ -48,7 +50,8 @@ const SearchBar = () => {
     fetchPosts();
   },[fetchPosts])
 
-  const result = typeof search === "string" && search.trim()
+  const result = typeof search === "string" && 
+  search.trim()
     ? posts.filter((post) =>
         post.title
           ?.toLowerCase()

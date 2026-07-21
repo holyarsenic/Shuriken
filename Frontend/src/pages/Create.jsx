@@ -1,13 +1,43 @@
 import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import api from "../api/axios";
+import { RxCross2 } from "react-icons/rx";
 
 const Create = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
 
   const publishPost = async () => {
+
+      if (!title.trim()) {
+        setMessage("Title is required");
+        setTimeout(() => {
+          setMessage(null)
+        },3000);
+        return;
+      }
+
+      if (!description.trim()) {
+        setMessage("Description is required");
+         setTimeout(() => {
+          setMessage(null)
+        },3000);
+        return;
+      }
+
+      if (!file) {
+        setMessage("Please select an image");
+         setTimeout(() => {
+          setMessage(null)
+        },3000);
+        return;
+      }
+
+    setLoading(true)
+
     try {
       const formData = new FormData();
 
@@ -15,7 +45,7 @@ const Create = () => {
       formData.append("description", description);
       formData.append("postFile", file);
 
-      const res = await api.post(
+      await api.post(
         `/posts/`,
         formData,
         {
@@ -25,13 +55,25 @@ const Create = () => {
         }
       );
 
-      console.log("Upload success:", res.data);
       setTitle("");
       setDescription("");
       setFile(null);
-      alert("Post published successfully!");
+
+      setMessage("Post published successfully!");
+
+      setTimeout(() => {
+        setMessage(null)
+      },3000);
+
     } catch (error) {
-      console.log("Upload failed:", error.message);
+      setMessage(error.response?.data?.message)
+
+       setTimeout(() => {
+        setMessage(null);
+      }, 2000);
+
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -110,15 +152,33 @@ const Create = () => {
 
             <button
               onClick={publishPost}
+              disabled={loading}
               className="w-full py-3 rounded-xl bg-violet-800 mt-2 text-white font-medium cursor-pointer hover:bg-violet-700"
             >
-              Publish Post
+              {loading ? (
+                <span className="w-5 h-5 lg:w-7 lg:h-7 rounded-full border border-white border-t-transparent animate-spin"></span>
+              ) : (
+                "Publish Post"
+              )}
             </button>
 
           </div>
 
         </div>
       </div>
+
+        {message && (
+          <div
+            className="fixed top-5 right-5 lg:top-25 lg:right-50 z-50 px-5 py-3 rounded-lg shadow-lg text-black bg-white flex items-center gap-3"
+          >
+            <span>{message}</span>
+            <button
+              onClick={() => setMessage(null)}
+            >
+              <RxCross2 className="font-bold text-lg"/>
+            </button>
+          </div>
+        )}
     </div>
   );
 };
