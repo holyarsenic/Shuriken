@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import LikedPostsComponent from "../components/LikedPosts.component";
 import Followers from "../components/Followers";
 import Following from "../components/Following";
+import { FaArrowLeft } from "react-icons/fa";
 
 const Channel = () => {
   const navigate = useNavigate();
@@ -47,6 +48,11 @@ const Channel = () => {
 
   return (
     <div className="min-h-screen ml-0 lg:ml-64 mt-10 lg:mt-20 px-4 py-4 lg:px-8 lg:py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
+
+      <FaArrowLeft className="fixed top-4 left-3 lg:hidden text-white text-xl"
+            onClick={() => navigate(-1)}
+            />
+
       <div className="border border-gray-300 dark:border-[#2A2438] rounded-2xl bg-white dark:bg-[#14141C] p-4 lg:p-8">
 
         <div className="flex items-center gap-4 lg:gap-10">

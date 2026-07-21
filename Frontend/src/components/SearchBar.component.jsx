@@ -72,7 +72,7 @@ const SearchBar = () => {
   const searching = searchUser;
 
   return (
-    <div className="relative w-full lg:w-1/2 h-screen lg:max-h-200 overflow-scroll flex lg:items-center justify-center px-6 py-5 lg:p-0">
+    <div className="relative w-full lg:w-1/2 max-h-screen lg:max-h-200 overflow-scroll flex lg:items-center justify-center px-6 py-5 lg:p-0">
       <CiSearch className="absolute left-9 top-8 lg:left-4 lg:top-1/2 lg:-translate-y-1/2 text-xl text-gray-700 dark:text-white" />
     
         <input

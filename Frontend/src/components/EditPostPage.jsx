@@ -3,7 +3,6 @@ import { Post } from "../context/specificPost";
 import { EditPost } from "../context/editPost";
 import { DashboardPage } from "../context/dashboardStats";
 import { FaArrowLeft } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 
 const EditPostPage = ({ postId, closeEdit }) => {
   const { post, loading, fetchPostById } = Post();
@@ -12,8 +11,6 @@ const EditPostPage = ({ postId, closeEdit }) => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPostById(postId);
@@ -68,7 +65,7 @@ const EditPostPage = ({ postId, closeEdit }) => {
       <div className=" bg-white dark:bg-[#181622] border border-gray-300 dark:border-[#2A2438] rounded-2xl pt-4 pb-8 px-3 lg:p-6 w-full h-140 lg:w-170 lg:h-120 flex flex-col overflow-scroll lg:overflow-hidden">
 
        <FaArrowLeft className="fixed lg:hidden text-white text-xl mb-2"
-      onClick={() => navigate(-1)}
+      onClick={closeEdit}
       />
         <h2 className="mt-6 text-lg lg:text-2xl font-bold flex-1 text-black dark:text-white">
           Edit Post

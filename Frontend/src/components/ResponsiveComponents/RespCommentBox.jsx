@@ -52,7 +52,7 @@ const RespCommentBox = ({ postId, closeComment }) => {
             />
 
             <button
-              className="px-5 py-2.5 rounded-full bg-violet-600 hover:bg-violet-500 active:bg-violet-700 transition text-white cursor-pointer"
+              className="px-3 py-2 rounded-full bg-violet-600 hover:bg-violet-500 active:bg-violet-700 transition text-white cursor-pointer"
               onClick={() => handleComment(postId, content)}
             >
               <PiPaperPlaneTiltFill className="text-lg" />

@@ -39,7 +39,7 @@ const Home = () => {
             <div
               key={post._id}
               onClick={() => handlePostClick(post._id)}
-              className="overflow-hidden rounded-xl cursor-pointer transition-transform hover:scale-[1.02]"
+              className=" overflow-hidden rounded-xl cursor-pointer transition-transform hover:scale-[1.02]"
             >
               <img
                 src={post.postFile}
