@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import { GoArrowUpRight } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +12,8 @@ const History = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:8000/api/v1/users/history",
+        const res = await api.get(
+          "/users/history",
           { withCredentials: true }
         );
 

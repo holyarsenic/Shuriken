@@ -1,5 +1,5 @@
 import { createContext,useContext,useState,useCallback } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 const ProfileContext = createContext();
 
@@ -15,10 +15,7 @@ export const ProfileProvider =({ children })=>{
       }
 
   try {
-    const res = await axios.get("http://localhost:8000/api/v1/users/my-profile",
-      {
-        withCredentials: true,
-      }
+    const res = await api.get("/users/my-profile"
     )
     setProfile(res.data.data)
   } catch (error) {

@@ -1,5 +1,5 @@
 import { useState, useContext, createContext, useCallback } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 const ChannelContext = createContext();
 
@@ -16,11 +16,8 @@ export const ChannelProvider = ({ children }) => {
       }
 
       try {
-        const res = await axios.get(
-          `http://localhost:8000/api/v1/users/c/${channelUsername}`,
-          {
-            withCredentials: true
-          }
+        const res = await api.get(
+          `/users/c/${channelUsername}`
         );
 
         setChannel(res.data.data);
@@ -41,8 +38,8 @@ export const ChannelProvider = ({ children }) => {
 
   const toggleFollow = async (channelId) => {
     try {
-      await axios.post(
-        `http://localhost:8000/api/v1/follows/c/${channelId}`,
+      await api.post(
+        `/follows/c/${channelId}`,
         {},
         {
           withCredentials: true

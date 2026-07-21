@@ -1,5 +1,5 @@
 import { useState, createContext, useContext, useCallback } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 const CommentsContext = createContext();
 
@@ -13,10 +13,7 @@ export const CommentsProvider = ({children}) => {
     setLoading(true)
 
     try {
-      const res = await axios.get(`http://localhost:8000/api/v1/comments/${postId}`,
-        {
-        withCredentials: true,
-        }
+      const res = await api.get(`/comments/${postId}`
       );
 
       setComments(res.data.data.docs)
@@ -30,13 +27,10 @@ export const CommentsProvider = ({children}) => {
 
    const addComment = async (postId, content) => {
     try {
-      const res = await axios.post(
-        `http://localhost:8000/api/v1/comments/${postId}`,
+      const res = await api.post(
+        `/comments/${postId}`,
         {
           content,
-        },
-        {
-          withCredentials: true,
         }
       );
 
@@ -52,11 +46,8 @@ export const CommentsProvider = ({children}) => {
 
   const deleteComment = async (commentId) => {
   try {
-    await axios.delete(
-      `http://localhost:8000/api/v1/comments/c/${commentId}`,
-      {
-        withCredentials: true,
-      }
+    await api.delete(
+      `/comments/c/${commentId}`
     );
   } catch (err) {
     console.log(err);

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState , useCallback} from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 const PostContext = createContext();
 
@@ -15,9 +15,8 @@ export const PostProvider = ({ children }) => {
           }
 
           try {
-            const res = await axios.get(
-              `http://localhost:8000/api/v1/posts/${postId}`,
-              { withCredentials: true }
+            const res = await api.get(
+              `/posts/${postId}`
             );
 
             setPost(res.data.data);
@@ -33,10 +32,9 @@ export const PostProvider = ({ children }) => {
 
         const toggleLike = async (postId) => {
         try {
-          const res = await axios.post(
-            `http://localhost:8000/api/v1/likes/toggle/v/${postId}`,
-            {},
-            { withCredentials: true } 
+          const res = await api.post(
+            `/likes/toggle/v/${postId}`,
+            {}
           );
 
           const { isLiked } = res.data.data;

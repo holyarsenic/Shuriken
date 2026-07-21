@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import axios from "axios";
+import api from "../api/axios";
 
 const Create = () => {
   const [title, setTitle] = useState("");
@@ -15,14 +15,13 @@ const Create = () => {
       formData.append("description", description);
       formData.append("postFile", file);
 
-      const res = await axios.post(
-        `http://localhost:8000/api/v1/posts/`,
+      const res = await api.post(
+        `/posts/`,
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-          withCredentials: true,
         }
       );
 

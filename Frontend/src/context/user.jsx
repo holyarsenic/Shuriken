@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const UserContext = createContext();
@@ -16,11 +16,8 @@ export const UserProvider = ({ children }) => {
       setLoading(true)
 
       try {
-        const res = await axios.get(
-          "http://localhost:8000/api/v1/users/current-user",
-          {
-            withCredentials: true,
-          }
+        const res = await api.get(
+          "/users/current-user",
         );
 
         setUser(res.data.data);
@@ -36,15 +33,12 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const res = await axios.post(
-      "http://localhost:8000/api/v1/users/login",
+    const res = await api.post(
+      "/users/login",
       {
         email,
         password,
       },
-      {
-        withCredentials: true,
-      }
     );
 
     setUser(res.data.data.user);
@@ -53,16 +47,13 @@ export const UserProvider = ({ children }) => {
   };
 
   const register = async (fullName, userName, email, password) => {
-    const res = await axios.post(
-      "http://localhost:8000/api/v1/users/register",
+    const res = await api.post(
+      "/users/register",
       {
         fullName,
         userName,
         email,
         password,
-      },
-      {
-        withCredentials: true,
       }
     );
 
@@ -74,12 +65,9 @@ export const UserProvider = ({ children }) => {
     setLoading(true);
 
     try {
-      await axios.post(
-      "http://localhost:8000/api/v1/users/logout",
-      {},
-      {
-        withCredentials: true,
-      }
+      await api.post(
+      "/users/logout",
+      {}
     );
 
     setUser(null);
@@ -96,15 +84,12 @@ export const UserProvider = ({ children }) => {
     newPassword,
     confirmNewPassword
   ) => {
-    const res = await axios.post(
-      "http://localhost:8000/api/v1/users/change-password",
+    const res = await api.post(
+      "/users/change-password",
       {
         oldPassword,
         newPassword,
         confirmNewPassword,
-      },
-      {
-        withCredentials: true,
       }
     );
 

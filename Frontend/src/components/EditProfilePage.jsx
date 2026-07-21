@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import axios from "axios";
+import api from "../api/axios";
 import { ProfileData } from "../context/userProfile";
 
 const EditProfile = ({ closeProfileEdit }) => {
@@ -39,14 +39,13 @@ const EditProfile = ({ closeProfileEdit }) => {
         formData.append("avatar", file);
       }
 
-      await axios.patch(
-        "http://localhost:8000/api/v1/users/update-profile",
+      await api.patch(
+        "/users/update-profile",
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
+          }
         }
       );
 

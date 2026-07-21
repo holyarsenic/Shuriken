@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 
 const EditPostContext = createContext();
@@ -18,11 +18,8 @@ export const EditPostProvider = ({ children }) => {
 
     try {
 
-      await axios.delete(
-        `http://localhost:8000/api/v1/posts/${postId}`,
-        {
-          withCredentials:true
-        }
+      await api.delete(
+        `/posts/${postId}`
       );
 
 
@@ -48,15 +45,12 @@ export const EditPostProvider = ({ children }) => {
     setEditing(true);
     try {
 
-      await axios.patch(
-        `http://localhost:8000/api/v1/posts/${postId}`,
+      await api.patch(
+        `/posts/${postId}`,
         {
         title,
         description,
-      },
-        {
-          withCredentials:true,
-        }
+      }
       );
 
       return true;

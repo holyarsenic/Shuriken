@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 const HomeContext = createContext();
 
@@ -11,11 +11,8 @@ export const HomeProvider = ({ children }) => {
     setLoading(true);
 
     try {
-      const res = await axios.get(
-        "http://localhost:8000/api/v1/posts",
-        {
-          withCredentials: true,
-        }
+      const res = await api.get(
+        "/posts"
       );
 
       setPosts(res.data.data);

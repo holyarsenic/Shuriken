@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 
 const FollowListContext = createContext();
@@ -14,11 +14,8 @@ export const FollowListProvider = ({ children }) => {
   const fetchFollowers = useCallback(async(userId)=>{
     try {
 
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/follows/c/${userId}`,
-        {
-          withCredentials:true,
-        }
+      const res = await api.get(
+        `/follows/c/${userId}`
       );
 
       setFollowersData(res.data.data)
@@ -33,11 +30,8 @@ export const FollowListProvider = ({ children }) => {
   const fetchFollowing = useCallback(async(userId)=>{
     try {
 
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/follows/u/${userId}`,
-        {
-          withCredentials:true,
-        }
+      const res = await api.get(
+        `/follows/u/${userId}`,
       );
       
       setFollowingData(res.data.data)
@@ -50,12 +44,9 @@ export const FollowListProvider = ({ children }) => {
 
    const toggleFollowFromList = async (channelId) => {
     try {
-      await axios.post(
-        `http://localhost:8000/api/v1/follows/c/${channelId}`,
-        {},
-        {
-          withCredentials: true
-        }
+      await api.post(
+        `/follows/c/${channelId}`,
+        {}
       );
 
     } catch(error) {

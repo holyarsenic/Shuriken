@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback } from "react";
-import axios from "axios";
+import api from "../api/axios";
 
 const DashboardContext = createContext();
 
@@ -13,11 +13,8 @@ export const DashboardProvider = ({children}) => {
     setStatsLoading(true);
 
     try {
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/dashboard/stats`,
-        {
-          withCredentials: true,
-        }
+      const res = await api.get(
+        `/dashboard/stats`
       );
 
       setDashboardStats(res.data.data);
@@ -33,11 +30,8 @@ export const DashboardProvider = ({children}) => {
     setPostsLoading(true);
 
     try {
-      const res = await axios.get(
-        `http://localhost:8000/api/v1/dashboard/Post`,
-        {
-          withCredentials: true,
-        }
+      const res = await api.get(
+        `/dashboard/Post`
       );
 
       setDashboardPosts(res.data.data);

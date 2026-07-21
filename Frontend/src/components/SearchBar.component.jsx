@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { CiSearch } from "react-icons/ci";
 import { HomePage } from "../context/homePost";
-import axios from "axios";
+import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
@@ -24,8 +24,8 @@ const SearchBar = () => {
 
 
       try {
-        const res = await axios.get(
-          "http://localhost:8000/api/v1/posts/search",
+        const res = await api.get(
+          "/posts/search",
           {
             params: {
               query: search
