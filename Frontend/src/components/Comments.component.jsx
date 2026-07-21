@@ -2,9 +2,10 @@ import { UseComments } from "../context/commentPage";
 import { ProfileData } from "../context/userProfile";
 import { useState, useEffect } from "react";
 import { Post } from "../context/specificPost";
+import { RxCross2 } from "react-icons/rx";
 
 const Comments = ({ postId }) => {
-  const { loading, comments, fetchComments, addComment } = UseComments();
+  const { loading, comments, fetchComments, addComment, deleteComment } = UseComments();
   const { profile, fetchProfile } = ProfileData();
   const { fetchPostById } = Post()
 
@@ -26,6 +27,13 @@ const Comments = ({ postId }) => {
     fetchPostById(postId,false);
   }
 
+   const handleDelete = async (commentId) => {
+    await deleteComment(commentId);
+    await fetchComments(postId);
+    await fetchPostById(postId, false);
+  };
+
+
   if (loading) {
     return (
        <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#0B0A10]">
@@ -37,7 +45,7 @@ const Comments = ({ postId }) => {
   }
 
   return (
-    <div className="hidden mt-1 lg:flex flex-col flex-1 min-h-82 border border-gray-300 dark:border-gray-900 px-4 pt-5">
+    <div className="hidden mt-1 lg:flex flex-col flex-1 min-h-82 border border-gray-300 dark:border-gray-900 px-4 pt-5 pb-4">
 
       <div className="flex items-center gap-3">
 
@@ -95,16 +103,19 @@ const Comments = ({ postId }) => {
                 </p>
 
                 <div className="flex items-center gap-4 mt-1.5">
-                  <button className="text-xs text-gray-500 dark:text-slate-500 hover:text-black dark:hover:text-white font-medium transition">
-                    Reply
-                  </button>
-
                   <button className="text-xs text-gray-500 dark:text-slate-500 hover:text-rose-400 font-medium transition">
                     Like
                   </button>
                 </div>
-
               </div>
+                 {comment.owner._id === profile?._id && (
+                       <button
+                         onClick={() => handleDelete(comment._id)}
+                         className="text-xs text-red-500 hover:text-red-600"
+                       >
+                        <RxCross2 className="text-lg text-black dark:text-white"/>
+                        </button>
+                 )}
 
             </div>
           ))

@@ -71,7 +71,7 @@ const Settings = () => {
           passwordSetting || themeSetting ? "hidden lg:block" : "block"
         }`}
       >
-      <FaArrowLeft className="block lg:hidden text-white text-xl mb-2"
+      <FaArrowLeft className="block lg:hidden text-black dark:text-white  text-xl mb-2"
       onClick={() => navigate(-1)}
       />
       <h1 className="text-xl lg:text-3xl font-bold mb-2">Settings</h1>

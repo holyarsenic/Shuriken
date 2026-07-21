@@ -59,7 +59,7 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen ml-0 lg:ml-64 mt-4 lg:mt-20 p-3 lg:p-6 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
 
-      <FaArrowLeft className="block lg:hidden text-white text-xl mb-4"
+      <FaArrowLeft className="block lg:hidden text-black dark:text-white text-xl mb-4"
       onClick={() => navigate(-1)}
       />
 

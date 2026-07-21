@@ -7,12 +7,14 @@ import LikedPostsComponent from "../components/LikedPosts.component";
 import Followers from "../components/Followers";
 import Following from "../components/Following";
 import { FaArrowLeft } from "react-icons/fa";
+import { ProfileData } from "../context/userProfile";
 
 const Channel = () => {
   const navigate = useNavigate();
   const { channelUsername } = useParams();
 
   const { loading, fetchChannelId, channel, toggleFollow } = ChannelData();
+  const { fetchProfile, profile } = ProfileData();
 
   const [activeTab, setActiveTab] = useState("posts");
   const [followersTab, setFollowersTab] = useState(false);
@@ -20,7 +22,12 @@ const Channel = () => {
 
   useEffect(() => {
     fetchChannelId(channelUsername);
-  }, [channelUsername, fetchChannelId]);
+    fetchProfile(false)
+  }, [fetchProfile,channelUsername, fetchChannelId]);
+
+  useEffect(() => {if(profile?._id === channel?._id) {
+    navigate(`/profile/${profile.userName}`)
+  }}, [profile,channel,navigate])
 
   if (loading) {
     return (
@@ -49,7 +56,7 @@ const Channel = () => {
   return (
     <div className="min-h-screen ml-0 lg:ml-64 mt-10 lg:mt-20 px-4 py-4 lg:px-8 lg:py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
 
-      <FaArrowLeft className="fixed top-4 left-3 lg:hidden text-white text-xl"
+      <FaArrowLeft className="fixed top-4 left-3 lg:hidden text-black dark:text-white text-xl"
             onClick={() => navigate(-1)}
             />
 

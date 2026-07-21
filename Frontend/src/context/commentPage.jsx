@@ -50,9 +50,22 @@ export const CommentsProvider = ({children}) => {
     }
   };
 
+  const deleteComment = async (commentId) => {
+  try {
+    await axios.delete(
+      `http://localhost:8000/api/v1/comments/c/${commentId}`,
+      {
+        withCredentials: true,
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
   return (
     <CommentsContext.Provider 
-    value={{ loading, comments, fetchComments, addComment }}>
+    value={{ loading, comments, fetchComments, addComment, deleteComment }}>
       {children}
     </CommentsContext.Provider>
   )
