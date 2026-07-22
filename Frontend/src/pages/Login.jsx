@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../context/user.jsx";
 import { Link } from "react-router-dom";
+import Logo from "../assets/Logo.jpeg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +35,7 @@ const Login = () => {
 
         <div className="flex justify-center mb-4">
           <div className='h-12 w-12 lg:h-15 lg:w-15 rounded-4xl bg-black flex justify-center overflow-hidden'>
-            <img className='object-cover' src="./src/assets/Logo.jpeg" />
+            <img className='object-cover' src={Logo} alt="Logo" />
           </div>
         </div>
 

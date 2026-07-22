@@ -2,6 +2,7 @@ import { User } from "../context/user.jsx";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/Logo.jpeg";
 
 const Register = () => {
   const [userName, setUserName] = useState("");
@@ -47,7 +48,7 @@ const Register = () => {
 
         <div className="flex justify-center mb-4">
           <div className="h-15 w-15 rounded-4xl bg-black flex justify-center overflow-hidden">
-            <img className="object-cover" src="./src/assets/Logo.jpeg" />
+            <img className="object-cover" src={Logo} alt="Logo"  />
           </div>
         </div>
 
