@@ -76,7 +76,7 @@ const Profile = () => {
 
             <div className="flex items-center gap-3 lg:gap-5">
 
-              <h1 className="text-sm lg:text-2xl font-medium">
+              <h1 className="text-base lg:text-2xl font-medium">
                 @{profile.userName}
               </h1>
 
