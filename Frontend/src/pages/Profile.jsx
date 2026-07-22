@@ -72,7 +72,7 @@ const Profile = () => {
             className="w-15 h-15 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
           />
 
-          <div className="flex-1">
+          <div className="flex-1 overflow-hidden">
 
             <div className="flex items-center gap-3 lg:gap-5">
 
