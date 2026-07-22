@@ -100,7 +100,8 @@ const loginUser = asyncHandler( async (req, res) => {
   //sending cookies
   const options = {
     httpOnly: true,
-    secure: true //not modifyable by frontend only by server
+    secure: true ,//not modifyable by frontend only by server
+    sameSite: "none"
   }
 
   return res
@@ -135,7 +136,8 @@ const logOut = asyncHandler( async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: "none"
     }
 
     return res
