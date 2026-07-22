@@ -84,7 +84,7 @@ const publishAPost = asyncHandler(async (req, res) => {
     const newPost = await Post.create({
         title,
         description,
-        postFile: postFile.url,
+        postFile: postFile.secure_url,
         owner: req.user?._id,
         isPublished: true
     })

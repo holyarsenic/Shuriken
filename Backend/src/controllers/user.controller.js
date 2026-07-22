@@ -224,7 +224,7 @@ const updateProfile = asyncHandler(async (req, res) => {
         const avatar = await uploadOnCloudnary(avatarLocalPath);
 
 
-        if (!avatar.url) {
+        if (!avatar.secure_url) {
             throw new ApiError(400, "Error while uploading avatar");
         }
 
@@ -240,7 +240,7 @@ const updateProfile = asyncHandler(async (req, res) => {
         }
 
 
-        avatarUrl = avatar.url;
+        avatarUrl = avatar.secure_url;
     }
 
 
