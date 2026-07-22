@@ -14,7 +14,10 @@ import { useNavigate } from "react-router-dom"
 import { User } from "../context/user"
 import SearchBar from "./SearchBar.component"
 import { Theme } from "../context/theme"
-import { CiSearch } from "react-icons/ci";
+import { GoHome } from "react-icons/go";
+import { IoIosSearch } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
+import { LiaHistorySolid } from "react-icons/lia";
 
 const SidebarItem = ({ icon, label, to }) => {
   return (
@@ -79,11 +82,11 @@ const Navbar = () => {
 
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 h-10 bg-gray-50 dark:bg-[#111018] border-t border-gray-300 dark:border-[#3B0764] flex justify-around items-center lg:hidden z-20">
-        <SidebarItem icon={<IoIosHome />} label="Home" to="/" />
-        <SidebarItem icon={<CiSearch/>} label="Search" to="/search"/>
-        <SidebarItem icon={<MdAddBox />} label="Create" to="/Create" />
-        <SidebarItem icon={<MdHistoryToggleOff />} label="History" to="/History" />
+      <div className="fixed bottom-0 left-0 right-0 h-12 bg-gray-50 dark:bg-[#111018] border-t border-gray-300 dark:border-[#3B0764] flex justify-around items-center lg:hidden z-20">
+        <SidebarItem icon={<GoHome />} label="Home" to="/" />
+        <SidebarItem icon={<IoIosSearch/>} label="Search" to="/search"/>
+        <SidebarItem icon={<IoMdAdd />} label="Create" to="/Create" />
+        <SidebarItem icon={<LiaHistorySolid />} label="History" to="/History" />
         <SidebarItem icon={<img src={user.avatar} className="w-7 h-7 rounded-full object-cover"/>} label="Profile" to={`/profile/${user.userName}`}/> 
       </div>
 

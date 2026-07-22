@@ -147,7 +147,7 @@ const Channel = () => {
 
         <button
           onClick={() => setActiveTab("posts")}
-          className={`pb-1 lg:pb-3 font-semibold cursor-pointer text-xs lg:text-base ${
+          className={`pb-1 lg:pb-3 font-semibold cursor-pointer text-sm lg:text-base ${
             activeTab === "posts"
               ? "border-b-2 border-[#7C3AED]"
               : "text-slate-500 dark:text-slate-400"
@@ -159,7 +159,7 @@ const Channel = () => {
         <button
           onClick={() => setActiveTab("likedPosts")}
           className={`pb-1 lg:pb-3 font-semibold cursor-pointer 
-            text-xs lg:text-base ${
+            text-sm lg:text-base ${
             activeTab === "likedPosts"
               ? "border-b-2 border-[#7C3AED]"
               : "text-slate-500 dark:text-slate-400"

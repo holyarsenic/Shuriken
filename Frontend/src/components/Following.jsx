@@ -40,7 +40,7 @@ const Following = ({ userId, closeFollowingTab }) => {
   return (
     <div className="fixed inset-0 ml-0 lg:ml-64 bg-black/2 dark:bg-[#0B0A10]/10 backdrop-blur-xs text-black dark:text-white flex items-center justify-center p-3 lg:p-6 z-5">
 
-      <div className="relative w-150 max-h-100 bg-white dark:bg-[#2A2438] flex flex-col gap-4 items-center justify-center rounded-2xl p-6 border border-gray-300 dark:border-[#3B3449]">
+      <div className="relative w-150 max-h-100 bg-white dark:bg-[#2A2438] flex flex-col gap-4 items-center justify-center rounded-xl lg:rounded-2xl p-6 border border-gray-300 dark:border-[#3B3449]">
 
         <h2 className="font-bold text-lg lg:text-xl mb-3 lg:mb-6">
           Following
@@ -82,7 +82,7 @@ const Following = ({ userId, closeFollowingTab }) => {
 
                 <button
                   onClick={() => handleFollow(user.channel._id)}
-                  className={`px-3 py-2 lg:px-5 lg:py-2 rounded-xl cursor-pointer text-white ${
+                  className={`px-3 py-2 lg:px-5 lg:py-2 rounded-xl cursor-pointer text-white text-xs lg:text-base ${
                     user.channel.isFollowed
                       ? "bg-[#58555e]"
                       : "bg-violet-500"
