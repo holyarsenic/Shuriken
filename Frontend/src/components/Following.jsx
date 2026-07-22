@@ -50,7 +50,7 @@ const Following = ({ userId, closeFollowingTab }) => {
 
           {followingData.length === 0 ? (
             <p className="text-gray-500 dark:text-gray-400">
-              No following users
+              No following
             </p>
           ) : (
             followingData.map((user) => (

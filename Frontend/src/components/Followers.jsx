@@ -48,7 +48,7 @@ const Followers = ({ userId, closeFollowersTab }) => {
 
           {followersData.length === 0 ? (
             <p className="text-gray-500 dark:text-gray-400">
-              No follow users
+              No followers
             </p>
           ) : (
             followersData.map((user) => (
