@@ -31,7 +31,7 @@ const SidebarItem = ({ icon, label, to }) => {
         }`
       }
     >
-      <span className="text-2xl">{icon}</span>
+      <span className="text-3xl lg:text-2xl">{icon}</span>
       <span className="hidden lg:block font-medium">{label}</span>
     </NavLink>
   );
