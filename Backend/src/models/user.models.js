@@ -30,7 +30,7 @@ const userSchema = new Schema(
     },
      avatar:{
       type: String,
-      default: "https://i.pinimg.com/736x/cd/63/af/cd63afd8681787eef6a56fb0e929996d.jpg"
+      default: "https://i.pinimg.com/736x/f5/47/d8/f547d800625af9056d62efe8969aeea0.jpg"
     },
     watchHistory:[{
       type:Schema.Types.ObjectId,
