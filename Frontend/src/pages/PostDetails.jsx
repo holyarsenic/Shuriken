@@ -45,7 +45,7 @@ const PostDetails = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen ml-64 mt-20 flex items-center justify-center bg-white dark:bg-[#0B0A10]">
+      <div className="min-h-screen ml-0 lg:ml-64 mt-0 lg:mt-20 flex items-center justify-center bg-white dark:bg-[#0B0A10]">
         <p className="text-slate-500 dark:text-slate-400 text-sm">
           Post not found
         </p>
@@ -68,7 +68,7 @@ const PostDetails = () => {
 
         <FaArrowLeftLong 
         onClick={() => navigate(-1)}
-        className="absolute left-4 top-4 lg:top-8 text-4xl lg:text-5xl lg:left-8 p-2 bg-violet-400 lg:bg-transparent backdrop-blur-2xl text-gray-500 dark:text-white rounded-full cursor-pointer"/>
+        className="absolute left-4 top-4 lg:top-8 text-4xl lg:text-5xl lg:left-8 p-2 bg-violet-400 lg:bg-transparent backdrop-blur-2xl text-white dark:text-white rounded-full cursor-pointer"/>
 
         <div className="h-86 w-full lg:w-145 lg:h-145 flex items-center justify-center overflow-hidden bg-gray-200 border border-gray-300 dark:bg-[#0E0D13] dark:border-[#211D2C] rounded-xl">
           <img
@@ -78,13 +78,13 @@ const PostDetails = () => {
           />
         </div>
 
-        <div className="lg:w-1/2 flex flex-col">
+        <div className="w-full lg:w-1/2 flex flex-col">
 
           <div className="lg:hidden flex mb-2 ml-2 lg:mt-4 text-sm text-slate-500 font-medium">
             <span>{post.views || 0} views</span>
           </div>
 
-          <div className="flex lg:hidden items-center gap-3 lmt-4 pb-5 border-b border-gray-300 dark:border-[#221E2C]">
+          <div className=" flex lg:hidden items-center gap-3 mt-1 lg:mt-4 pb-3 lg:pb-5 border-b border-gray-300 dark:border-[#221E2C]">
 
             <div className="flex items-center gap-2 pl-3 pr-4 py-1.5">
               <button
@@ -125,7 +125,7 @@ const PostDetails = () => {
           </div>
 
           <div
-            className="flex items-center gap-3 pb-4 border-b border-gray-300 dark:border-[#221E2C] cursor-pointer"
+            className="flex items-center gap-3 p-2 border-b border-gray-300 dark:border-[#221E2C] cursor-pointer"
             onClick={() => {
               handleChannelProfileClick(post.owner.userName);
             }}

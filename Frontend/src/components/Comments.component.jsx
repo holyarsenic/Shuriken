@@ -45,7 +45,7 @@ const Comments = ({ postId }) => {
   }
 
   return (
-    <div className="hidden mt-1 lg:flex flex-col flex-1 min-h-82 border border-gray-300 dark:border-gray-900 px-4 pt-5 pb-4">
+    <div className="hidden mt-1 lg:flex flex-col flex-1 min-h-82 border border-gray-300 dark:border-gray-900 px-4 pt-5 pb-1">
 
       <div className="flex items-center gap-3">
 

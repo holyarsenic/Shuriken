@@ -37,7 +37,7 @@ const RespCommentBox = ({ postId, closeComment }) => {
   };
 
   return (
-    <div className="fixed top-40 left-1 right-1 bottom-0 flex mt-1 lg:hidden flex-col flex-1 h-full border border-gray-300 dark:border-gray-900 bg-white rounded-t-3xl dark:bg-[#0B0A10] px-4 pt-3 pb-5 transition-all ease-in-out"
+    <div className="fixed top-40 left-1 right-1 bottom-0 flex mt-4 lg:hidden flex-col flex-1 h-full border border-gray-300 dark:border-gray-900 bg-white rounded-t-3xl dark:bg-[#0B0A10] px-4 pt-3 pb-5 transition-all ease-in-out"
     onClick={(e) => e.stopPropagation()}
     >
 
