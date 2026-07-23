@@ -84,7 +84,7 @@ const Register = () => {
               type="text"
               className="input-box dark:bg-[#0B0A10] dark:border-[#2A2438] dark:text-white"
               value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={(e) => setUserName(e.target.value.replace(/\s/g, ""))}
               placeholder="Choose a username"
               required
             />

@@ -34,6 +34,10 @@ const registerUser = asyncHandler( async (req, res) => {
     throw new ApiError( 400, "All fields are required")
   }
 
+  if (/\s/.test(userName)) {
+    throw new ApiError(400, "Username cannot contain spaces");
+    }
+
   //finding user if its already exist in database
 
      const existedUser = await User.findOne({
