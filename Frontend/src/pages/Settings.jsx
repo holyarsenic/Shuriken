@@ -131,20 +131,29 @@ const Settings = () => {
           Contact
         </h2>
 
-        <button className="w-full flex justify-between items-center px-3 py-2 lg:px-6 lg:py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800">
+        <a href="https://www.linkedin.com/in/rohankt4/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full flex justify-between items-center px-3 py-2 lg:px-6 lg:py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800">
           <FaLinkedin className="text-sm lg:text-lg" />
           <IoIosArrowForward className="text-gray-500 text-2xl" />
-        </button>
+        </a>
 
-        <button className="w-full flex justify-between items-center px-3 py-2 lg:px-6 lg:py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800">
+        <a href="https://x.com/Rohan7986" 
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full flex justify-between items-center px-3 py-2 lg:px-6 lg:py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800">
           <FaXTwitter className="text-sm lg:text-lg" />
           <IoIosArrowForward className="text-gray-500 text-2xl" />
-        </button>
+        </a>
 
-        <button className="w-full flex justify-between items-center px-3 py-2 lg:px-6 lg:py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800">
+        <a href="https://github.com/holyarsenic" 
+        target="_blank"
+        rel="noopener noreferrer"
+        className="w-full flex justify-between items-center px-3 py-2 lg:px-6 lg:py-4 hover:bg-gray-100 dark:hover:bg-[#1D1C27] transition border-b border-gray-300 dark:border-gray-800">
           <FaGithub className="text-sm lg:text-lg" />
           <IoIosArrowForward className="text-gray-500 text-2xl" />
-        </button>
+        </a>
       </div>
 
       <div className="bg-white dark:bg-[#14131C] rounded-xl border border-gray-300 dark:border-gray-800 mb-6">
