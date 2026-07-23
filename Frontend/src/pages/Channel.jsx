@@ -19,6 +19,7 @@ const Channel = () => {
   const [activeTab, setActiveTab] = useState("posts");
   const [followersTab, setFollowersTab] = useState(false);
   const [followingTab, setFollowingTab] = useState(false);
+  const [showProfilePic, setShowProfilePIc] = useState(false);
 
   useEffect(() => {
     fetchChannelId(channelUsername);
@@ -88,6 +89,7 @@ const Channel = () => {
           <img
             src={channel.avatar}
             className="w-15 h-15 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
+            onClick={() => setShowProfilePIc(true)}
           />
 
           <div className="flex-1">
@@ -244,6 +246,25 @@ const Channel = () => {
           closeFollowingTab={() => setFollowingTab(false)}
         />
       )}
+
+      {showProfilePic && (
+          <div
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center px-6"
+            onClick={() => setShowProfilePIc(false)}>
+              
+            <FaArrowLeft 
+            onClick={() => setShowProfilePIc(false)}
+            className="absolute top-5 left-5 text-white text-xl cursor-pointer" />
+            
+            <img
+              src={channel.avatar}
+              alt={channel.fullName}
+              onClick={(e) => e.stopPropagation()}
+              className="
+                w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-105 lg:h-105 rounded-full object-cover border-2 border-white/20
+                shadow-2xl"/>
+          </div>
+        )}
 
     </div>
   );
