@@ -189,6 +189,10 @@ const deleteComment = asyncHandler(async (req, res) => {
 
     await Comment.findByIdAndDelete(commentId)
 
+     await Post.findByIdAndUpdate(comment.post, {
+        $inc: { comments: -1 }
+    });
+
     return res
     .status(200)
     .json(
