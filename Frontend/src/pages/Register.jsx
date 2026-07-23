@@ -29,7 +29,7 @@ const Register = () => {
         setMessageType("");
       }, 3000);
 
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       setMessage(err.response?.data?.message || err.message);
       setMessageType("error")
