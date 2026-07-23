@@ -24,7 +24,7 @@ const SidebarItem = ({ icon, label, to }) => {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex items-center justify-center lg:justify-start gap-4 w-full px-5 py-3 lg:rounded-xl transition-all duration-300 ${
+        `flex items-center justify-center lg:justify-start gap-4 w-full lg:px-5 lg:py-3 lg:rounded-xl transition-all duration-300 ${
           isActive
             ? "lg:bg-gray-200 lg:dark:bg-[#23232A] text-black dark:text-white"
             : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#1A1A20] hover:text-black dark:hover:text-white"
@@ -82,7 +82,7 @@ const Navbar = () => {
 
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 h-12 bg-gray-50 dark:bg-[#111018] border-t border-gray-300 dark:border-[#3B0764] flex justify-around items-center lg:hidden z-20">
+      <div className="fixed bottom-0 left-0 right-0 h-12 bg-gray-50 dark:bg-[#111018] border-t border-gray-300 dark:border-[#3B0764] flex justify-between items-center lg:hidden z-20">
         <SidebarItem icon={<GoHome />} label="Home" to="/" />
         <SidebarItem icon={<IoIosSearch/>} label="Search" to="/search"/>
         <SidebarItem icon={<IoMdAdd />} label="Create" to="/Create" />
