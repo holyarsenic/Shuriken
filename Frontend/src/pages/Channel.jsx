@@ -64,6 +64,26 @@ const Channel = () => {
 
       <div className="border border-gray-300 dark:border-[#2A2438] rounded-2xl bg-white dark:bg-[#14141C] p-4 lg:p-8">
 
+
+         <div className="flex lg:hidden mb-4 items-center justify-between">
+
+              <h1 className="text-base lg:text-2xl font-medium">
+                @{channel.userName}
+              </h1>
+
+              <button
+                onClick={() => toggleFollow(channel._id)}
+                className={`px-3 py-2 text-xs rounded-xl cursor-pointer text-white ${
+                  channel.isFollowed
+                    ? "bg-[#58555e]"
+                    : "bg-violet-500"
+                }`}
+              >
+                {channel.isFollowed ? "Following" : "Follow"}
+              </button>
+
+         </div>
+
         <div className="flex items-center gap-4 lg:gap-10">
           <img
             src={channel.avatar}
@@ -72,15 +92,15 @@ const Channel = () => {
 
           <div className="flex-1">
 
-            <div className="flex items-center gap-3 lg:gap-5">
+            <div className="items-center hidden lg:flex gap-5">
 
-              <h1 className="text-xs lg:text-2xl font-medium">
+              <h1 className="text-2xl font-medium">
                 @{channel.userName}
               </h1>
 
               <button
                 onClick={() => toggleFollow(channel._id)}
-                className={`px-3 py-2 lg:px-5 lg:py-2 text-xs lg:text-base rounded-xl cursor-pointer text-white ${
+                className={`px-5 py-2 text-base rounded-xl cursor-pointer text-white ${
                   channel.isFollowed
                     ? "bg-[#58555e]"
                     : "bg-violet-500"
@@ -124,21 +144,33 @@ const Channel = () => {
 
             </div>
 
-            <div className="mt-4 lg:mt-8">
+            <div className="hidden lg:block mt-8">
 
-              <h2 className="text-sm lg:text-xl font-semibold">
+              <h2 className="text-xl font-semibold">
                 {channel.fullName}
               </h2>
 
-              <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400 mt-2">
+              <p className="text-base text-slate-500 dark:text-slate-400 mt-2">
                 {channel.bio}
               </p>
 
             </div>
 
           </div>
+        </div>
+
+        <div className="mt-2 block lg:hidden">
+
+              <h2 className="text-sm  font-semibold">
+                {channel.fullName}
+              </h2>
+
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                {channel.bio}
+              </p>
 
         </div>
+
       </div>
 
       <div className="mt-5 lg:mt-10 border-t border-gray-300 dark:border-[#2A2438]" />

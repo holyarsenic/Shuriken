@@ -66,6 +66,21 @@ const Profile = () => {
     <div className="min-h-screen ml-0 lg:ml-64 mt-10 lg:mt-20 px-4 py-4 lg:px-8 lg:py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
       <div className="border border-gray-300 dark:border-[#2A2438] rounded-2xl bg-white dark:bg-[#14141C] p-4 lg:p-8">
 
+        <div className="flex lg:hidden mb-4 items-center justify-between">
+
+              <h1 className="text-base lg:text-2xl font-medium">
+                @{profile.userName}
+              </h1>
+
+              <button
+                className="px-3 py-2 text-xs rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition text-white"
+                onClick={() => setEditProfile(true)}
+              >
+                Edit Profile
+              </button>
+
+        </div>
+
         <div className="flex items-center gap-4 lg:gap-10">
           <img
             src={profile.avatar}
@@ -74,14 +89,14 @@ const Profile = () => {
 
           <div className="flex-1 overflow-hidden">
 
-            <div className="flex items-center gap-3 lg:gap-5">
+            <div className="items-center hidden lg:flex gap-5">
 
-              <h1 className="text-base lg:text-2xl font-medium">
+              <h1 className="text-2xl font-medium">
                 @{profile.userName}
               </h1>
 
               <button
-                className="px-3 py-2 lg:px-5 lg:py-2 text-xs lg:text-base rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition text-white"
+                className="px-5 py-2 text-base rounded-xl bg-[#6D28D9] hover:bg-[#7C3AED] transition text-white"
                 onClick={() => setEditProfile(true)}
               >
                 Edit Profile
@@ -118,13 +133,13 @@ const Profile = () => {
 
             </div>
 
-            <div className="mt-4 lg:mt-8">
+            <div className="hidden lg:block mt-8">
 
-              <h2 className="text-sm lg:text-xl font-semibold">
+              <h2 className="text-xl font-semibold">
                 {profile.fullName}
               </h2>
 
-              <p className="text-sm lg:text-base text-slate-500 dark:text-slate-400 mt-2">
+              <p className="text-base text-slate-500 dark:text-slate-400 mt-2">
                 {profile.bio}
               </p>
 
@@ -133,6 +148,19 @@ const Profile = () => {
           </div>
 
         </div>
+
+        <div className="mt-2 block lg:hidden">
+
+              <h2 className="text-sm font-semibold">
+                {profile.fullName}
+              </h2>
+
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                {profile.bio}
+              </p>
+
+        </div>
+
       </div>
 
       <div className="mt-5 lg:mt-10 border-t border-gray-300 dark:border-[#2A2438]" />
