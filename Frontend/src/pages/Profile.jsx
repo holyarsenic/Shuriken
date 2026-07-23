@@ -9,6 +9,7 @@ import Following from "../components/Following";
 import { RiMenu3Fill } from "react-icons/ri";
 import { User } from "../context/user";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowLeft } from "react-icons/fa";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const Profile = () => {
   const [ followersTab, setFollowersTab ] = useState(false);
   const [ followingTab, setFollowingTab ] = useState(false);
   const [ respBar, setResBar ] =useState(false);
+  const [showProfilePic, setShowProfilePIc] = useState(false);
 
   useEffect(() => {
     fetchProfile();
@@ -85,6 +87,7 @@ const Profile = () => {
           <img
             src={profile.avatar}
             className="w-15 h-15 lg:w-40 lg:h-40 rounded-full object-cover border border-gray-300 dark:border-gray-800"
+            onClick={() => setShowProfilePIc(true)}
           />
 
           <div className="flex-1 overflow-hidden">
@@ -283,6 +286,25 @@ const Profile = () => {
                 </button>
 
               </div>
+      )}
+
+      {showProfilePic && (
+          <div
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center px-6"
+            onClick={() => setShowProfilePIc(false)}>
+                    
+            <FaArrowLeft 
+            onClick={() => setShowProfilePIc(false)}
+            className="absolute top-5 left-5 text-white text-xl cursor-pointer" />
+                  
+            <img
+            src={profile.avatar}
+            alt={profile.fullName}
+            onClick={(e) => e.stopPropagation()}
+            className="
+            w-60 h-60 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-105 lg:h-105 rounded-full object-cover border-2 border-white/20
+            shadow-2xl"/>
+          </div>
       )}
 
     </div>
