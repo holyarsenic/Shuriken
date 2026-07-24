@@ -7,6 +7,12 @@ export const ThemeProvider = ({ children }) => {
     localStorage.getItem("theme") || "light"
   );
 
+  const meta = document.querySelector('meta[name="theme-color"]');
+
+  if (meta) {
+    meta.content = theme === "dark" ? "#111018" : "#f9fafb";
+  }
+  
   useEffect(() => {
     const html = document.documentElement;
 
