@@ -22,7 +22,7 @@ export default defineConfig({
         description: "Shuriken - A Progressive Web App",
         theme_color: "#111018",
         background_color: "#111018",
-        display: "standalone",
+        display: "fullscreen",
         orientation: "portrait",
         scope: "/",
         start_url: "/",
