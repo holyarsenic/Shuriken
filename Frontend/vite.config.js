@@ -21,7 +21,7 @@ export default defineConfig({
         short_name: "Shuriken",
         description: "Shuriken - A Progressive Web App",
         theme_color: "#0f172a",
-        background_color: "#ffffff",
+        background_color: "bg-gray-50 dark:bg-[#111018]",
         display: "standalone",
         orientation: "portrait",
         scope: "/",
