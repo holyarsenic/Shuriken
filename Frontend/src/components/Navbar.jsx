@@ -82,7 +82,7 @@ const Navbar = () => {
 
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 h-12 bg-gray-50 dark:bg-[#111018] border-t border-gray-300 dark:border-gray-800 flex justify-between items-center lg:hidden z-20">
+      <div className="fixed bottom-0 left-0 right-0 h-12 bg-gray-50 dark:bg-[#111018] flex justify-between items-center lg:hidden z-20">
         <SidebarItem icon={<GoHome />} label="Home" to="/" />
         <SidebarItem icon={<IoIosSearch/>} label="Search" to="/search"/>
         <SidebarItem icon={<IoMdAdd />} label="Create" to="/Create" />
