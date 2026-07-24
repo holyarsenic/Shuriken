@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Analytics } from "@vercel/analytics/react";
 import './index.css'
 import App from './App.jsx'
+import { registerSW } from "virtual:pwa-register";
 
 import { UserProvider } from './context/user.jsx'
 import { PostProvider } from './context/specificPost.jsx'
@@ -16,6 +17,10 @@ import { DashboardProvider } from './context/dashboardStats.jsx'
 import { EditPostProvider } from './context/editPost.jsx'
 import { FollowListProvider } from './context/followList.jsx'
 import { ThemeProvider } from './context/theme.jsx'
+
+registerSW({
+  immediate: true,
+});
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
