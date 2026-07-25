@@ -450,6 +450,27 @@ const getUserChannelProfile = asyncHandler(async(req, res) => {
     )
 })
 
+const refreshAccessToken = asyncHandler(async (req, res) => {
+  const incomingRefreshToken = req.cookies.refreshToken;
+  if (!incomingRefreshToken) throw new ApiError(401, "Unauthorized request");
+
+  const decoded = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET);
+  const user = await User.findById(decoded._id);
+
+  if (!user || incomingRefreshToken !== user.refreshToken) {
+    throw new ApiError(401, "Invalid or expired refresh token");
+  }
+
+  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id);
+
+  const options = { httpOnly: true, secure: true, sameSite: "none" };
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(new ApiResponse(200, {}, "Access token refreshed"));
+});
+
 const getWatchHistory = asyncHandler(async(req, res) => {
     const user = await User.aggregate([
         {
@@ -514,5 +535,6 @@ export {
     updateProfile,
     getMyProfile,
     getUserChannelProfile,
+    refreshAccessToken,
     getWatchHistory
 }
