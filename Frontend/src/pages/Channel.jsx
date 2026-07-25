@@ -57,7 +57,7 @@ const Channel = () => {
   }
 
   return (
-    <div className="min-h-screen ml-0 lg:ml-64 mt-10 lg:mt-20 px-4 py-4 lg:px-8 lg:py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
+    <div className="min-h-screen ml-0 lg:ml-64 mt-0 lg:mt-20 px-4 py-14 lg:px-8 lg:py-8 bg-white text-black dark:bg-[#0B0A10] dark:text-white">
 
       <FaArrowLeft className="fixed top-4 left-3 lg:hidden text-black dark:text-white text-xl"
             onClick={() => navigate(-1)}
