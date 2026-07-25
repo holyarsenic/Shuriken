@@ -11,9 +11,20 @@ import {PostView} from "../models/postView.models.js";
 
 
 const getAllPosts = asyncHandler(async (req, res) => {
-    const { page = 1, limit = 20 } = req.query;
+    const { page = 1, limit = 30 } = req.query;
 
     const posts = await Post.aggregate([
+        {
+            $sort: {
+                createdAt: -1
+            }
+        },
+        {
+            $skip: (page - 1) * limit
+        },
+        {
+            $limit: Number(limit)
+        },
         {
             $lookup: {
                 from: "users",
@@ -34,17 +45,6 @@ const getAllPosts = asyncHandler(async (req, res) => {
                     avatar: "$owner.avatar"
                 }
             }
-        },
-        {
-            $sort: {
-                createdAt: -1
-            }
-        },
-        {
-            $skip: (page - 1) * limit
-        },
-        {
-            $limit: Number(limit)
         }
     ]);
 
