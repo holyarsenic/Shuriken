@@ -8,7 +8,6 @@ import {
     getMyProfile,
     getUserChannelProfile, 
     getWatchHistory, 
-    refreshAccessToken,
     updateProfile
 } from "../controllers/user.controller.js";
 import {upload} from "../middlewares/multer.middleware.js"
@@ -41,7 +40,5 @@ router.route("/update-profile").patch(verifyJWT, upload.single("avatar"), update
 router.route("/my-profile").get(verifyJWT, getMyProfile)
 router.route("/c/:username").get(verifyJWT, getUserChannelProfile)
 router.route("/history").get(verifyJWT, getWatchHistory)
-
-router.route("/refresh-token").post(refreshAccessToken);
 
 export default router

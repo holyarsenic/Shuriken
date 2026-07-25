@@ -5,16 +5,5 @@ const api = axios.create({
   withCredentials: true,
 });
 
-api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response?.status === 401 && !error.config._retry) {
-      error.config._retry = true;
-      await api.post("/users/refresh-token");
-      return api(error.config);
-    }
-    return Promise.reject(error);
-  }
-);
 
 export default api;
