@@ -8,25 +8,43 @@ const api = axios.create({
 let refreshing = null;
 
 api.interceptors.response.use(
-  (res) => res,
-  async (error) => {
-    if (error.response?.status === 401 && !error.config._retry) {
-      error.config._retry = true;
+  (response) => response,
 
-      if (!refreshing) {
-        refreshing = api.post("/users/refresh-token").finally(() => {
-          refreshing = null;
-        });
-      }
+  async (error) => {
+    const originalRequest = error.config;
+
+    // Don't refresh for these endpoints
+    if (
+      originalRequest.url === "/users/login" ||
+      originalRequest.url === "/users/register" ||
+      originalRequest.url === "/users/change-password" ||
+      originalRequest.url === "/users/refresh-token"
+    ) {
+      throw error;
+    }
+
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
 
       try {
+        if (!refreshing) {
+          refreshing = api.post("/users/refresh-token");
+        }
+
         await refreshing;
-        return api(error.config);
-      } catch (e) {
-        return Promise.reject(e);
+
+        return api(originalRequest);
+      } catch (err) {
+        throw console.log(err);
+      } finally {
+        refreshing = null;
       }
     }
-    return Promise.reject(error);
+
+    throw error;
   }
 );
 
