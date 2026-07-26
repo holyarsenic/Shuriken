@@ -64,7 +64,7 @@ const Settings = () => {
   };
 
  return (
-  <div className="min-h-screen w-auto ml-0 lg:ml-64 mt-2 lg:mt-20 bg-white dark:bg-[#0B0A10] text-black dark:text-white p-2 lg:px-8 lg:py-8 flex gap-5">
+  <div className="min-h-screen w-auto ml-0 lg:ml-64 mt-0 lg:mt-20 pt-3 bg-white dark:bg-[#0B0A10] text-black dark:text-white p-2 lg:px-8 lg:py-8 flex gap-5">
 
     <div
         className={`min-w-full lg:min-w-2xl lg:border-r lg:border-gray-300 lg:dark:border-[#3B0764] p-2 lg:pr-8 mb-10 lg:mb-0 ${

@@ -80,13 +80,13 @@ const Create = () => {
   return (
     <div className="h-screen w-auto ml-0 lg:ml-64 bg-white dark:bg-[#0B0A10] text-black dark:text-white flex items-center justify-center">
 
-      <div className="w-full h-full lg:h-auto max-w-5xl lg:w-1/2 bg-white dark:bg-[#151320] rounded-2xl lg:mr-50 border border-gray-300 dark:border-[#3B0764] p-5 lg:p-8">
+      <div className="w-full h-full lg:h-auto max-w-5xl lg:w-1/2 bg-white dark:bg-[#151320] lg:rounded-2xl lg:mr-50 border border-gray-300 dark:border-[#3B0764] p-5 lg:p-8">
 
         <h1 className="text-xl lg:text-2xl font-bold mb-6">
           Create Post
         </h1>
 
-        <div className="flex flex-col lg:flex-row gap-6 h-auto lg:h-82">
+        <div className="flex flex-col lg:flex-row gap-6 h-full lg:h-82">
 
           <label className="relative flex flex-col items-center justify-center cursor-pointer w-full h-45 lg:w-1/2 lg:h-full text-black dark:text-white rounded-xl bg-gray-100 dark:bg-[#0B0A10] overflow-hidden border border-gray-300 dark:border-[#1B1728]">
 
@@ -119,7 +119,7 @@ const Create = () => {
             )}
           </label>
 
-          <div className="w-full lg:w-1/2 h-full flex flex-col justify-between">
+          <div className="w-full lg:w-1/2 h-full flex flex-col gap-4 lg:gap-0 lg:justify-between">
 
             <div>
               <label className="text-md">
