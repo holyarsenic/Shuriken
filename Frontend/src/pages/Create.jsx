@@ -88,7 +88,7 @@ const Create = () => {
 
         <div className="flex flex-col lg:flex-row gap-6 h-full lg:h-82">
 
-          <label className="relative flex flex-col items-center justify-center cursor-pointer w-full h-60 lg:w-1/2 lg:h-full text-black dark:text-white rounded-xl bg-gray-100 dark:bg-[#0B0A10] overflow-hidden border border-gray-300 dark:border-[#1B1728]">
+          <label className="relative flex flex-col items-center justify-center cursor-pointer w-full h-2/3 lg:w-1/2 lg:h-full text-black dark:text-white rounded-xl bg-gray-100 dark:bg-[#0B0A10] overflow-hidden border border-gray-300 dark:border-[#1B1728]">
 
             <FiPlus className="text-4xl" />
             <span className="text-sm mt-2">Upload Image</span>
