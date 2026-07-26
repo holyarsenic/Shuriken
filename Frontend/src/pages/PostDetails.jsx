@@ -62,7 +62,7 @@ const PostDetails = () => {
   }
 
   return (
-    <div className="min-h-screen ml-0 lg:ml-64 mt-4 lg:mt-18 bg-white text-black dark:bg-[#0B0A10] dark:text-white p-2 lg:p-5">
+    <div className="min-h-screen ml-0 lg:ml-64 mt-0 lg:mt-18 pt-5 bg-white text-black dark:bg-[#0B0A10] dark:text-white p-2 lg:p-5">
 
       <div className="relative bg-white border border-gray-300 dark:bg-[#121018]/80 dark:border-[#2A2438] rounded-2xl p-2 lg:p-5 max-w-8xl flex flex-col lg:flex-row gap-3 lg:gap-10 items-start">
 
