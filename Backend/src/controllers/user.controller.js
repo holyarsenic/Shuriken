@@ -110,21 +110,29 @@ const loginUser = asyncHandler( async (req, res) => {
   )
 
   //sending cookies
-  const options = {
-    httpOnly: true,
-    secure: true ,//not modifyable by frontend only by server
-    sameSite: "none"
-  }
+   const accessOptions = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 24 * 60 * 60 * 1000,
+        }
+
+   const refreshOptions = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 10 * 24 * 60 * 60 * 1000,
+        }
 
   return res
   .status(200)
-  .cookie("accessToken", accessToken, options)
-  .cookie("refreshToken", refreshToken, options)
+  .cookie("accessToken", accessToken, accessOptions)
+  .cookie("refreshToken", refreshToken, refreshOptions)
   .json(
     new ApiResponse(
       200,
       {
-        user: loggedInUser, accessToken, refreshToken
+        user: loggedInUser
       },
       "User Logged in Successfully"
     )
@@ -146,20 +154,27 @@ const logOut = asyncHandler( async (req, res) => {
         }
     )
 
-    const options = {
-        httpOnly: true,
-        secure: true,
-    }
+     const accessOptions = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        }
+
+        const refreshOptions = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        }
 
     return res
     .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
+    .clearCookie("accessToken", accessOptions)
+    .clearCookie("refreshToken", refreshOptions)
     .json(new ApiResponse(200, {}, "User logged Out"))
 });
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+    const incomingRefreshToken = req.cookies.refreshToken
 
     if (!incomingRefreshToken) {
         throw new ApiError(401, "unauthorized request")
@@ -182,18 +197,26 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             
         }
     
-        const options = {
+        const accessOptions = {
             httpOnly: true,
             secure: true,
-            sameSite: "none"
+            sameSite: "none",
+            maxAge: 24 * 60 * 60 * 1000,
+        }
+
+        const refreshOptions = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 10 * 24 * 60 * 60 * 1000,
         }
     
         const {accessToken, refreshToken} = await generateAccessAndRefreshToken(user._id)
     
         return res
         .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
+        .cookie("accessToken", accessToken, accessOptions)
+        .cookie("refreshToken", refreshToken, refreshOptions)
         .json(
             new ApiResponse(
                 200, 
