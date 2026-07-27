@@ -48,9 +48,17 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(400, "Username cannot contain spaces");
       }
 
+      if (/\s/.test(userName)) {
+        throw new ApiError(400, "Username cannot contain spaces");
+      }
+
       if (/\s/.test(password)) {
         throw new ApiError(400, "Password cannot contain spaces");
       }
+
+      if (userName.length > 20) {
+        throw new ApiError(400, "Username cannot be that long");
+        }
 
       if (password.length < 8) {
         throw new ApiError(400, "Password must be at least 8 characters long");

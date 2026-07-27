@@ -86,7 +86,7 @@ const Followers = ({ userId, closeFollowersTab }) => {
                       : "bg-violet-500"
                   }`}
                 >
-                  {user.follower.isFollowed ? "Following" : "Follow"}
+                  {user.follower.isFollowed ? "Following" : "Follow Back"}
                 </button>
               </div>
             ))
