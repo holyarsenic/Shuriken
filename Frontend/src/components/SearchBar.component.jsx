@@ -74,7 +74,7 @@ const SearchBar = () => {
   const searching = searchUser;
 
   return (
-    <div className="relative w-full lg:w-1/2 max-h-screen lg:max-h-200 overflow-scroll flex lg:items-center justify-center px-6 py-5 lg:p-0">
+    <div className="relative w-full lg:w-1/2 max-h-100 lg:max-h-200 flex lg:items-center justify-center px-6 py-5 lg:p-0">
       <CiSearch className="absolute left-9 top-8 lg:left-4 lg:top-1/2 lg:-translate-y-1/2 text-xl text-gray-700 dark:text-white" />
     
         <input
@@ -96,10 +96,10 @@ const SearchBar = () => {
 
         {
           (result.length > 0 || searching.length > 0) && (
-           <div className="fixed w-full lg:w-1/2 top-20 bg-[#2d2944] border border-[#3B0764] flex-col text-white rounded-xl items-center justify-center pt-10 pb-5 px-4 shadow-lg">
+           <div className="fixed w-full lg:w-1/2 max-h-100 lg:max-h-150 overflow-scroll top-20 bg-[#2d2944] border border-[#3B0764] flex flex-col gap-4 text-white rounded-xl p-4 lg:pt-10 lg:pb-5 lg:px-4 shadow-lg">
             {
               searching.map((user) => (
-                 <div key={user._id} className="text-white flex gap-3 items-center mb-5 cursor-pointer" 
+                 <div key={user._id} className="text-white flex gap-3 items-center cursor-pointer" 
                  onClick={() => handleChannelProfileClick(user.userName)}>
                   <img src={user.avatar} className="w-7 h-7 lg:w-13 lg:h-13 rounded-full object-cover"/>
                   <div className="flex flex-col">
