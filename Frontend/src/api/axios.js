@@ -38,7 +38,8 @@ api.interceptors.response.use(
 
         return api(originalRequest);
       } catch (err) {
-        throw console.log(err);
+          console.error(err);
+          throw err;
       } finally {
         refreshing = null;
       }
