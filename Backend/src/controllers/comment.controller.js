@@ -1,6 +1,8 @@
 import mongoose, {isValidObjectId} from "mongoose"
 import {Comment} from "../models/comment.models.js"
 import { Post } from "../models/post.models.js"
+import { Notification } from "../models/notification.models.js";
+import sendPushNotification from "../utils/sendNotification.js";
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asynchandler.js"
@@ -156,6 +158,31 @@ const addComment = asyncHandler(async (req, res) => {
     await Post.findByIdAndUpdate(postId, {
             $inc: { comments: 1 }
         });
+
+
+      if (post.owner.toString() !== req.user._id.toString()) {
+            await Notification.create({
+                receiver: post.owner,
+                sender: req.user._id,
+                type: "comment",
+                title: "New Comment",
+                body: `${req.user.userName} commented on your Post.`,
+                data: {
+                    postId: post._id,
+                    commentId: comment._id
+                }
+            });
+
+             await sendPushNotification({
+                receiverId: post.owner,
+                title: "New Comment",
+                body: `${req.user.userName} commented on your Post.`,
+                data: {
+                    postId: post._id,
+                    commentId: comment._id
+                }
+            });
+        }
 
     return res
     .status(201)

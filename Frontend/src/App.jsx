@@ -12,8 +12,15 @@ import PostDetails from "./pages/PostDetails";
 import Profile from "./pages/Profile";
 import Channel from "./pages/Channel";
 import SearchBar from "./components/SearchBar.component";
+import { requestNotificationPermission } from "./utils/NotificationService";
+import { useEffect } from "react";
 
 const App = () => {
+
+   useEffect(() => {
+    requestNotificationPermission();
+  }, []);
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
