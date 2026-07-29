@@ -6,12 +6,12 @@ importScripts("https://www.gstatic.com/firebasejs/12.0.0/firebase-app-compat.js"
 importScripts("https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging-compat.js");
 
 firebase.initializeApp({
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyC0sp7plaDIL3ZzY4hMMnvaSLNlMFbVeJk",
+  authDomain: "shuriken-6a18a.firebaseapp.com",
+  projectId: "shuriken-6a18a",
+  storageBucket: "shuriken-6a18a.firebasestorage.app",
+  messagingSenderId: "223640584906",
+  appId: "1:223640584906:web:1ac854da929b346206ea33",
 });
 
 const messaging = firebase.messaging();
