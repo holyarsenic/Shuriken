@@ -1,9 +1,12 @@
 /* global importScripts, firebase */
 
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"
+);
 
-
-importScripts("https://www.gstatic.com/firebasejs/12.0.0/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging-compat.js");
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"
+);
 
 firebase.initializeApp({
   apiKey: "AIzaSyC0sp7plaDIL3ZzY4hMMnvaSLNlMFbVeJk",
@@ -17,13 +20,12 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  console.log("Background message:", payload);
-
   self.registration.showNotification(
-    payload.notification.title,
+    payload.data?.title || "Shuriken",
     {
-      body: payload.notification.body,
-      icon: "/shuriken-192x192.png", 
+      body: payload.data?.body || "",
+      icon: "/shuriken-192x192.png",
     }
   );
+
 });

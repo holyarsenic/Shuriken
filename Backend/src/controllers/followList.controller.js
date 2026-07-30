@@ -58,7 +58,7 @@ const toggleFollow = asyncHandler(async (req, res) => {
         accountTheyAreFollowing: channelId
     })
 
-    if (channelId === req.user?._id.toString()) {
+    if (channelId !== req.user?._id.toString()) {
 
         await Notification.create({
             receiver: channel._id,
