@@ -1,6 +1,8 @@
 import mongoose, { isValidObjectId } from "mongoose"
 import { User } from "../models/user.models.js"
 import { Follow } from "../models/followList.models.js"
+import { Notification } from "../models/notification.models.js";
+import sendPushNotification from "../utils/sendNotification.js";
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { asyncHandler } from "../utils/asynchandler.js"
@@ -55,6 +57,30 @@ const toggleFollow = asyncHandler(async (req, res) => {
         accFollower: req.user?._id,
         accountTheyAreFollowing: channelId
     })
+
+    if (channelId !== req.user?._id.toString()) {
+
+        await Notification.create({
+            receiver: channel._id,
+            sender: req.user._id,
+            type: "follow",
+            title: "New Follower",
+            body: `${req.user.userName} started following you.`,
+            data: {
+                followId: follow._id
+            }
+        });
+
+        await sendPushNotification({
+            receiverId: channel._id,
+            title: "New Follower",
+            body: `${req.user.userName} started following you.`,
+            data: {
+                followId: follow._id
+            }
+        });
+
+    }
 
     return res
     .status(200)

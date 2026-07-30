@@ -1,6 +1,9 @@
 import mongoose, {isValidObjectId} from "mongoose"
 import {Like} from "../models/like.models.js"
 import {Post} from "../models/post.models.js"
+import { Notification } from "../models/notification.models.js"
+import sendPushNotification from "../utils/sendNotification.js";
+import { Comment } from "../models/comment.models.js"
 import {ApiError} from "../utils/ApiError.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {asyncHandler} from "../utils/asynchandler.js"
@@ -42,6 +45,34 @@ import {asyncHandler} from "../utils/asynchandler.js"
     await Post.findByIdAndUpdate(postId, {
         $inc: { likes: 1 }
     });
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+        throw new ApiError(404, "Post not found");
+    }
+
+    if (post.owner.toString() !== req.user._id.toString()) {
+        await Notification.create({
+            receiver: post.owner,
+            sender: req.user._id,
+            type: "like",
+            title: "New Like",
+            body: `${req.user.userName} liked your post.`,
+            data: {
+                postId: post._id
+            }
+        });
+
+        await sendPushNotification({
+            receiverId: post.owner,
+            title: "New Like",
+            body: `${req.user.userName} liked your post.`,
+            data: {
+                postId: post._id
+            }
+    });
+    }
 
     return res.status(200).json(
         new ApiResponse(200, {isLiked: true}, "Post liked successfully")
@@ -90,6 +121,29 @@ const toggleCommentLike = asyncHandler(async (req, res) => {
         comment: commentId,
         likedBy: req.user?._id
     })
+
+    if (comment.owner.toString() !== req.user._id.toString()) {
+        await Notification.create({
+            receiver: comment.owner,
+            sender: req.user._id,
+            type: "like",
+            title: "New Like",
+            body: `${req.user.userName} liked your comment.`,
+            data: {
+                commentId: comment._id
+            }
+        });
+
+        await sendPushNotification({
+            receiverId: comment.owner,
+            title: "New Like",
+            body: `${req.user.userName} liked your comment.`,
+            data: {
+                commentId: comment._id
+            }
+        });
+    }
+
 
     return res
     .status(200)

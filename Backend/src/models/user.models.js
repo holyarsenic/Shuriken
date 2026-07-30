@@ -12,6 +12,7 @@ const userSchema = new Schema(
       trim: true,
       index: true
     },
+
      email:{
       type: String,
       required: true,
@@ -19,30 +20,41 @@ const userSchema = new Schema(
       lowercase: true,
       trim: true
     },
+    
      fullName:{
       type: String,
       required: true,
       trim: true,
       index: true
     },
+    
     bio:{
       type: String
     },
+
      avatar:{
       type: String,
       default: "https://i.pinimg.com/736x/f5/47/d8/f547d800625af9056d62efe8969aeea0.jpg"
     },
+
     watchHistory:[{
       type:Schema.Types.ObjectId,
       ref:"Post"
     }],
+
     password:{
       type:String,
       required:[true, "Password is required"]
     },
+
     refreshToken:{
       type: String
-    }
+    },
+
+    fcmToken: {
+        type: String,
+        default: ""
+    },
 },{timestamps:true}
 );
 
