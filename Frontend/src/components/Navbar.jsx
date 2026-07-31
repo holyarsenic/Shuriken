@@ -7,6 +7,7 @@ import {
 } from "react-icons/md"
 import { FiPlus } from "react-icons/fi"
 import { IoSettingsSharp } from "react-icons/io5"
+import { IoMdNotificationsOutline } from "react-icons/io";
 import { SlArrowDown } from "react-icons/sl"
 import { NavLink } from "react-router-dom"
 import logo from "../assets/Logo.jpeg"
@@ -18,6 +19,7 @@ import { GoHome } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { LiaHistorySolid } from "react-icons/lia";
+import NotificationPage from "./NotificationPage"
 
 const SidebarItem = ({ icon, label, to }) => {
   return (
@@ -39,6 +41,7 @@ const SidebarItem = ({ icon, label, to }) => {
 
 const Navbar = () => {
   const [ profileOpen, setProfileOpen ] = useState(false)
+  const [ notificationOpen, setNotificationOpen ] = useState(false)
 
   const { theme, toggleTheme } = Theme()
   const { user, logOut } = User()
@@ -115,6 +118,16 @@ const Navbar = () => {
             />
           </button>
 
+          <button className="p-1 rounded-xl transition cursor-pointer">
+            <IoMdNotificationsOutline
+              className="text-3xl text-gray-700 dark:text-slate-300"
+              onClick={(e) => {
+                e.stopPropagation();
+                setNotificationOpen((prev) => !prev);
+              }}
+            />
+          </button>
+
           <div className="relative">
             <div
               className="flex items-center gap-3 cursor-pointer rounded-xl px-3 py-2"
@@ -160,6 +173,10 @@ const Navbar = () => {
                 </button>
 
               </div>
+            )}
+
+            {notificationOpen && (
+              <NotificationPage cancelButton={() => setNotificationOpen(false)} />
             )}
           </div>
 
