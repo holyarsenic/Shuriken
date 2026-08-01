@@ -11,7 +11,6 @@ export const NotificationProvider = ({ children }) => {
     try {
       const res = await api.get("/notification/");
       setNotifications(res.data.data);
-      console.log("Fetched notifications:", res.data.data);
     } catch (error) {
       if (error.response?.status !== 401) {
         console.error(error.message);

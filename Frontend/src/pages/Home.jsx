@@ -1,15 +1,31 @@
 import { GoArrowUpRight } from "react-icons/go";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HomePage } from "../context/homePost";
+import NotificationPage from "../components/NotificationPage";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { Notification } from "../context/notification";
 
 const Home = () => {
   const { posts, loading, fetchPosts } = HomePage();
+   const {notifications, fetchNotifications} = Notification();
+
   const navigate = useNavigate();
+
+   const [ notificationOpen, setNotificationOpen ] = useState(false)
 
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
+
+  
+  useEffect(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
+
+  const unreadNotifications = notifications.filter(
+    (notification) => !notification.isRead
+  );
 
   if (loading) {
     return (
@@ -27,7 +43,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="min-h-screen mt-0 lg:mt-21 ml-0 lg:ml-64 pt-10 pb-20 lg:pb-6 px-3 md:px-6 lg:px-8 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
+      <div className="min-h-screen mt-0 lg:mt-21 ml-0 lg:ml-64 pt-6 pb-20 lg:pb-6 px-3 md:px-6 lg:px-8 bg-gray-50 text-black dark:bg-[#0B0A10] dark:text-white">
         <div className="flex gap-3 text-sm mb-6">
           <h4 className="px-4 py-2 text-lg sm:text-xl border-b-2 border-black dark:border-white">
             Recents
@@ -57,6 +73,24 @@ const Home = () => {
             </div>
           ))}
         </div>
+
+        <button className="fixed top-10 right-10 lg:hidden rounded-xl transition cursor-pointer">
+            <IoMdNotificationsOutline
+              className="relative text-3xl text-gray-700 dark:text-slate-300"
+              onClick={(e) => {
+              e.stopPropagation();
+              setNotificationOpen((prev) => !prev);
+              }}
+              />
+
+              {unreadNotifications.length > 0 && (
+                <span className="absolute top-0 right-0 w-3 h-3 rounded-full bg-violet-500"></span>
+              )}
+        </button>
+
+         {notificationOpen && (
+              <NotificationPage cancelButton={() => setNotificationOpen(false)} />
+            )}
       </div>
     </>
   );

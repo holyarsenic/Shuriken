@@ -19,7 +19,8 @@ import { GoHome } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { LiaHistorySolid } from "react-icons/lia";
-import NotificationPage from "./NotificationPage"
+import NotificationPage from "./NotificationPage";
+import { Notification } from "../context/notification";
 
 const SidebarItem = ({ icon, label, to }) => {
   return (
@@ -44,6 +45,7 @@ const Navbar = () => {
   const [ notificationOpen, setNotificationOpen ] = useState(false)
 
   const { theme, toggleTheme } = Theme()
+  const { notifications, fetchNotifications } = Notification();
   const { user, logOut } = User()
 
   useEffect(() => {
@@ -56,7 +58,15 @@ const Navbar = () => {
     return () => window.removeEventListener("click", handleClick);
   }, []);
 
+  useEffect(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
+
   const navigate = useNavigate();
+
+  const unreadNotifications = notifications.filter(
+    (notification) => !notification.isRead
+  );
 
   return (
     <>
@@ -92,7 +102,7 @@ const Navbar = () => {
         <SidebarItem icon={<LiaHistorySolid />} label="History" to="/History" />
         <SidebarItem icon={<img src={user.avatar} className="w-7 h-7 rounded-full object-cover"/>} label="Profile" to={`/profile/${user.userName}`}/> 
       </div>
-
+      
       <header
         className="fixed w-full top-0 left-0 right-0 h-20 bg-gray-50  dark:bg-[#111111] border-b border-gray-300 dark:border-[#3B0764] z-10 hidden lg:flex items-center justify-between px-10"
       >
@@ -118,14 +128,17 @@ const Navbar = () => {
             />
           </button>
 
-          <button className="p-1 rounded-xl transition cursor-pointer">
+          <button className="relative rounded-xl transition cursor-pointer">
             <IoMdNotificationsOutline
-              className="text-3xl text-gray-700 dark:text-slate-300"
+              className=" text-3xl text-gray-700 dark:text-slate-300"
               onClick={(e) => {
                 e.stopPropagation();
                 setNotificationOpen((prev) => !prev);
               }}
             />
+              { unreadNotifications.length > 0 && (
+                <span className="absolute top-0 right-0 w-3 h-3 rounded-full bg-violet-500"></span>
+              )}
           </button>
 
           <div className="relative">
