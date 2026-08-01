@@ -30,7 +30,7 @@ const NotificationPage = ({ cancelButton }) => {
 
 
   return (
-    <div className="fixed top-0 right-0 lg:top-20 lg:right-20 h-screen lg:h-120 w-full lg:w-96 overflow-y-auto lg:rounded-xl bg-white dark:bg-[#0B0A10] lg:dark:bg-[#2d2944] px-4 pt-7 pb-20 lg:p-6 lg:shadow-2xl">
+    <div className="fixed top-0 right-0 lg:top-20 lg:right-20 h-screen lg:h-120 w-full lg:w-96 overflow-y-auto lg:rounded-xl bg-white dark:bg-[#151320] lg:dark:bg-[#2d2944] px-4 pt-7 pb-20 lg:p-6 lg:shadow-2xl">
       <div className="mb-6 flex items-center justify-between">
         <FaArrowLeftLong
           className="cursor-pointer text-2xl text-gray-600 dark:text-white"
@@ -72,7 +72,7 @@ const NotificationPage = ({ cancelButton }) => {
                 }
               }}
               className={`cursor-pointer rounded-lg
-               ${notification.isRead ? "bg-white lg:dark:bg-[#2d2944] dark:bg-[#0B0A10]" : " hover:scale-101 bg-gray-200 dark:bg-[#4A415C] dark:hover:scale-101"} p-2 transition`}
+               ${notification.isRead ? "bg-white lg:dark:bg-[#2d2944] dark:bg-[#151320]" : " hover:scale-101 bg-gray-200 dark:bg-[#4A415C] dark:hover:scale-101"} p-2 transition`}
             >
               <div className="flex items-start justify-between gap-4">
                 <img src={notification.sender.avatar} alt="Sender Avatar" className="h-10 w-10 rounded-full" />
