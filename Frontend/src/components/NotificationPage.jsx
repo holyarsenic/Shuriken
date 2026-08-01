@@ -1,10 +1,112 @@
+import { useEffect } from "react";
+import Logo from "../assets/Logo.jpeg"
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { Notification } from "../context/notification";
+import { IoMdTrash } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
-const NotificationPage = () => {
+const NotificationPage = ({ cancelButton }) => {
+  const {
+    notifications,
+    fetchNotifications,
+    markAsRead,
+    markAllAsRead,
+    deleteNotification,
+  } = Notification();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchNotifications();
+  }, [fetchNotifications]);
+
+  function handleNotificationClick(notificationPostId) {
+    navigate(`/post/${notificationPostId}`);
+  }
+
+  function handleNotificationUserClick(notificationUserId) {
+    navigate(`/c/${notificationUserId}`);
+  }
+
+
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <div className="fixed top-20 right-20 h-120 w-96 overflow-y-auto rounded-xl bg-[#2d2944] p-6 shadow-2xl">
+      <div className="mb-6 flex items-center justify-between">
+        <FaArrowLeftLong
+          className="cursor-pointer text-2xl text-white"
+          onClick={() => {
+            markAllAsRead();
+            cancelButton();
+          }}
+        />
 
-export default NotificationPage
+        <h1 className="text-2xl font-bold text-white">Notifications</h1>
+      </div>
+
+      {notifications.length === 0 ? (
+       <div className={`cursor-pointer rounded-lg bg-[#4A415C] p-2 transition`}>
+          <div className="flex items-start justify-between gap-4">
+            <img src={Logo} alt="Sender Avatar" className="h-7 w-7 rounded-full" />
+            <div className="flex-1">
+              <h3 className="font-semibold text-white">
+                Hey!
+              </h3>
+
+              <p className="mt-1 text-sm text-gray-300">
+                Welcome to the Shuriken! This is your first notification. You can manage your notifications here.
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-2">
+          {notifications.map((notification) => (
+            <div
+              key={notification._id}
+              onClick={() => {
+                markAsRead(notification._id);
+                if(notification.type === "like" || notification.type === "comment") {
+                  handleNotificationClick(notification.data.postId);
+                } else if(notification.type === "follow") {
+                  handleNotificationUserClick(notification.sender.userName);
+                }
+              }}
+              className={`cursor-pointer rounded-lg
+               ${notification.isRead ? "bg-[#2d2944]" : " hover:scale-101 bg-[#4A415C] dark:hover:scale-101"} p-2 transition`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <img src={notification.sender.avatar} alt="Sender Avatar" className="h-10 w-10 rounded-full" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-white">
+                    {notification.title}
+                  </h3>
+
+                  <p className="mt-1 text-sm text-gray-300">
+                    {notification.body}
+                  </p>
+
+                  <p className="mt-2 block text-xs text-gray-400">
+                   {new Date(notification.createdAt).toLocaleTimeString([], {
+                      hour: "numeric",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+
+                  <IoMdTrash onClick={(e) => {
+                    e.stopPropagation();
+                    deleteNotification(notification._id);
+                    fetchNotifications()
+                  }}
+                  className="text-2xl font-medium text-white"/>
+
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default NotificationPage;

@@ -17,6 +17,7 @@ import { DashboardProvider } from './context/dashboardStats.jsx'
 import { EditPostProvider } from './context/editPost.jsx'
 import { FollowListProvider } from './context/followList.jsx'
 import { ThemeProvider } from './context/theme.jsx'
+import { NotificationProvider } from './context/notification.jsx'
 
 registerSW({
   immediate: true,
@@ -27,26 +28,28 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
     <ThemeProvider>
           <UserProvider>
-            <HomeProvider>
-              <PostProvider>
-                <CommentsProvider>
-                  <ProfileProvider>
-                        <DashboardProvider>
-                          <EditPostProvider>
-                            <ChannelProvider>
-                              <FollowListProvider>
-                                <LikedPostProvider>
-                                              <App />
-                                              <Analytics />
-                                </LikedPostProvider>
-                            </FollowListProvider>
-                            </ChannelProvider>
-                          </EditPostProvider>
-                        </DashboardProvider>
-                  </ProfileProvider>
-                </CommentsProvider>
-              </PostProvider>
-            </HomeProvider>
+            <NotificationProvider>
+                      <HomeProvider>
+                        <PostProvider>
+                          <CommentsProvider>
+                            <ProfileProvider>
+                                  <DashboardProvider>
+                                    <EditPostProvider>
+                                      <ChannelProvider>
+                                        <FollowListProvider>
+                                          <LikedPostProvider>
+                                                        <App />
+                                                        <Analytics />
+                                          </LikedPostProvider>
+                                      </FollowListProvider>
+                                      </ChannelProvider>
+                                    </EditPostProvider>
+                                  </DashboardProvider>
+                            </ProfileProvider>
+                          </CommentsProvider>
+                        </PostProvider>
+                      </HomeProvider>
+            </NotificationProvider>
           </UserProvider>
       </ThemeProvider>
     </BrowserRouter>
