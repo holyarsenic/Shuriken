@@ -2,7 +2,9 @@
 
 > Full-stack social media platform for image discovery and community interaction.
 
-![GitHub stars](https://img.shields.io/github/stars/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![GitHub forks](https://img.shields.io/github/forks/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![GitHub issues](https://img.shields.io/github/issues/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![Last commit](https://img.shields.io/github/last-commit/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![npm version](https://img.shields.io/npm/v/backend?style=for-the-badge&logo=npm&logoColor=white) ![npm downloads](https://img.shields.io/npm/dm/backend?style=for-the-badge&logo=npm&logoColor=white) ![License](https://img.shields.io/badge/license-ISC-green?style=for-the-badge)
+<img src="https://img.shields.io/badge/GitHub_stars-3B0764?style=for-the-badge&logo=github&logoColor=white&labelColor=0a0a0a" alt="stars"/> <img src="https://img.shields.io/github/forks/holyarsenic/Shuriken?style=for-the-badge&logo=github&logoColor=white&labelColor=0a0a0a&color=3B0764" alt="forks"/> <img src="https://img.shields.io/github/issues/holyarsenic/Shuriken?style=for-the-badge&logo=github&logoColor=white&labelColor=0a0a0a&color=3B0764" alt="issues"/> <img src="https://img.shields.io/github/last-commit/holyarsenic/Shuriken?style=for-the-badge&logo=github&logoColor=white&labelColor=0a0a0a&color=3B0764" alt="last commit"/>
+
+<img src="https://img.shields.io/npm/v/backend?style=for-the-badge&logo=npm&logoColor=white&labelColor=0a0a0a&color=3B0764" alt="npm version"/> <img src="https://img.shields.io/npm/dm/backend?style=for-the-badge&logo=npm&logoColor=white&labelColor=0a0a0a&color=3B0764" alt="npm downloads"/> <img src="https://img.shields.io/badge/license-ISC-3B0764?style=for-the-badge&labelColor=0a0a0a" alt="license"/>
 
 ## Table of Contents
 
