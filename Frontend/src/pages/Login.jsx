@@ -70,7 +70,6 @@ const Login = () => {
             />
             <div className="w-full flex justify-between">
               <p className=" ml-1 text-red-400 text-xs mt-1">{message}</p>
-              <h5 className="flex flex-row-reverse text-xs mt-1 cursor-pointer text-violet-300">Forgot your password</h5>
             </div>
           </div>
 
