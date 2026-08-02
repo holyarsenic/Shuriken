@@ -1,10 +1,10 @@
 # Shuriken
 
-> A full-stack social media platform API and frontend built with Express and React.
+> Full-stack social media platform for image discovery and community interaction.
 
-![GitHub stars](https://img.shields.io/github/stars/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![GitHub forks](https://img.shields.io/github/forks/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![GitHub issues](https://img.shields.io/github/issues/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![Last commit](https://img.shields.io/github/last-commit/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![npm version](https://img.shields.io/npm/v/backend?style=for-the-badge&logo=npm&logoColor=white) ![License](https://img.shields.io/badge/license-ISC-green?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![GitHub forks](https://img.shields.io/github/forks/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![GitHub issues](https://img.shields.io/github/issues/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![Last commit](https://img.shields.io/github/last-commit/holyarsenic/Shuriken?style=for-the-badge&logo=github) ![npm version](https://img.shields.io/npm/v/backend?style=for-the-badge&logo=npm&logoColor=white) ![npm downloads](https://img.shields.io/npm/dm/backend?style=for-the-badge&logo=npm&logoColor=white) ![License](https://img.shields.io/badge/license-ISC-green?style=for-the-badge)
 
-## 📑 Table of Contents
+## Table of Contents
 
 - [Description](#description)
 - [Key Features](#key-features)
@@ -23,24 +23,22 @@
 
 ## Description
 
-Shuriken is a full-stack web application for content creation and social interaction. It addresses the core requirements of a modern community platform by providing structured endpoints for user profiles, posts, comments, likes, followers, and user dashboard analytics. The backend exposes a REST API while the client provides a responsive user interface.
-
-The backend architecture is powered by Express.js and MongoDB using Mongoose for data modeling. Middleware handles CORS, JSON payloads, cookie parsing, and static file serving, while modular route modules direct traffic to dedicated handlers under the `/api/v1` base route. On the client side, React and React Router manage rendering and application flow, utilizing modular React Context providers to manage state across distinct domains like posts, user channels, and comments.
+Shuriken is a full-stack social media application engineered for content creation and community engagement. It powers structured web services to manage user profiles, image posts, comments, likes, follower relationships, real-time push notifications, and user dashboard analytics — delivered through both a RESTful API backend and a reactive client-side interface.
 
 ## Key Features
 
-- **User and Profile Management** — Provides backend route handling and React Context providers for user authentication, profiles, and channels.
-- **Post Creation and Editing** — Supports creating, editing, and displaying post feeds supported by dedicated backend post routes and context state.
-- **Comments and Likes Engine** — Implements API routes and context state to allow users to comment on posts and like content.
-- **Follower Relationship System** — Tracks social connections and follow lists through dedicated API endpoints and frontend providers.
-- **Dashboard Analytics** — Aggregates user metrics and dashboard statistics for display on the client UI.
-- **Express and MongoDB Stack** — Utilizes Express.js middleware and Mongoose database connections to deliver a structured RESTful API.
+- **Modular Express REST API** — Exposes structured backend endpoints under `/api/v1` for users, follow lists, posts, comments, likes, notifications, and dashboard data.
+- **MongoDB Data Persistence** — Uses Mongoose to connect to MongoDB for schema modeling and structured data storage.
+- **React Context State Architecture** — Manages client-side domain state using React Context providers for profiles, posts, comments, likes, and analytics.
+- **Middleware Request Processing** — Configures Express middleware for cookie parsing, CORS support, static file serving, and JSON body parsing.
+- **Multipart File Upload Support** — Utilizes Multer middleware on the backend to handle image and file uploads for media content.
+- **Real-Time Push Notifications** — Firebase Cloud Messaging (FCM) integration delivers live notifications to users, backed by a dedicated service worker
 
 ## Use Cases
 
-- Launching a modern social network or media-sharing web application.
-- Studying a modular full-stack architecture built with Express.js REST APIs and React Context.
-- Developing a base starter platform with pre-configured social interactions and state management.
+- Deploying a self-hosted social networking platform with user profile and post discovery features.
+- Serving as a full-stack reference architecture for Express and React application development.
+- Building community platforms with modular state management and dashboard metrics.
 
 ## Tech Stack
 
@@ -54,11 +52,10 @@ A high-level view of how the main pieces fit together:
 
 ```mermaid
 flowchart TD
-    User["User / Browser"]
-    API["Express API"]
-    User --> API
-    DB[("MongoDB")]
-    API --> DB
+    User["👤 User / Browser"]
+    API["⚙️ Express API"]
+    DB[("🗄️ MongoDB")]
+    FCM["🛰️ Firebase Cloud Messaging"] 
 ```
 
 ## Quick Start
@@ -84,6 +81,7 @@ cookie-parser: ^1.4.7
 cors: ^2.8.6
 dotenv: ^17.4.2
 express: ^5.2.1
+firebase-admin: ^14.2.0
 jsonwebtoken: ^9.0.3
 mongoose: ^9.7.1
 mongoose-aggregate-paginate-v2: ^1.1.4
@@ -109,6 +107,7 @@ multer: ^2.2.0
 │       │   ├── dashboard.controller.js
 │       │   ├── followList.controller.js
 │       │   ├── like.controller.js
+│       │   ├── notification.controller.js
 │       │   ├── post.controller.js
 │       │   └── user.controller.js
 │       ├── db
@@ -121,6 +120,7 @@ multer: ^2.2.0
 │       │   ├── comment.models.js
 │       │   ├── followList.models.js
 │       │   ├── like.models.js
+│       │   ├── notification.models.js
 │       │   ├── post.models.js
 │       │   ├── postView.models.js
 │       │   └── user.models.js
@@ -129,20 +129,27 @@ multer: ^2.2.0
 │       │   ├── dashboard.routes.js
 │       │   ├── followList.routes.js
 │       │   ├── like.routes.js
+│       │   ├── notification.routes.js
 │       │   ├── post.routes.js
 │       │   └── user.routes.js
 │       └── utils
 │           ├── ApiError.js
 │           ├── ApiResponse.js
 │           ├── asynchandler.js
-│           └── cloudnary.js
+│           ├── cloudnary.js
+│           ├── firebase.config.js
+│           └── sendNotification.js
 └── Frontend
     ├── eslint.config.js
+    ├── firebase.js
     ├── index.html
     ├── package.json
     ├── public
     │   ├── favicon.svg
-    │   └── icons.svg
+    │   ├── firebase-messaging-sw.js
+    │   ├── icons.svg
+    │   ├── shuriken-192x192.png
+    │   └── shuriken-512x512.png
     ├── src
     │   ├── App.jsx
     │   ├── api
@@ -160,6 +167,7 @@ multer: ^2.2.0
     │   │   ├── Following.jsx
     │   │   ├── LikedPosts.component.jsx
     │   │   ├── Navbar.jsx
+    │   │   ├── NotificationPage.jsx
     │   │   ├── ResponsiveComponents
     │   │   │   └── RespCommentBox.jsx
     │   │   └── SearchBar.component.jsx
@@ -171,6 +179,7 @@ multer: ^2.2.0
     │   │   ├── followList.jsx
     │   │   ├── homePost.jsx
     │   │   ├── likedPosts.jsx
+    │   │   ├── notification.jsx
     │   │   ├── specificPost.jsx
     │   │   ├── theme.jsx
     │   │   ├── user.jsx
@@ -180,17 +189,19 @@ multer: ^2.2.0
     │   │   ├── NavbarLayout.jsx
     │   │   └── ProtectedRoute.jsx
     │   ├── main.jsx
-    │   └── pages
-    │       ├── Channel.jsx
-    │       ├── Create.jsx
-    │       ├── Dashboard.jsx
-    │       ├── History.jsx
-    │       ├── Home.jsx
-    │       ├── Login.jsx
-    │       ├── PostDetails.jsx
-    │       ├── Profile.jsx
-    │       ├── Register.jsx
-    │       └── Settings.jsx
+    │   ├── pages
+    │   │   ├── Channel.jsx
+    │   │   ├── Create.jsx
+    │   │   ├── Dashboard.jsx
+    │   │   ├── History.jsx
+    │   │   ├── Home.jsx
+    │   │   ├── Login.jsx
+    │   │   ├── PostDetails.jsx
+    │   │   ├── Profile.jsx
+    │   │   ├── Register.jsx
+    │   │   └── Settings.jsx
+    │   └── utils
+    │       └── NotificationService.js
     ├── vercel.json
     └── vite.config.js
 ```
@@ -204,13 +215,10 @@ multer: ^2.2.0
 
 ## Deployment
 
-### Vercel
-
-This project is configured for [Vercel](https://vercel.com). Push to the connected branch or run `vercel` locally.
+Frontend Vercel — Vite-built React app
+Render (Backend)
 
 ## Contributors
-
-Thanks to everyone who has contributed to this project:
 
 <p align="left">
 <a href="https://github.com/holyarsenic" title="holyarsenic"><img src="https://avatars.githubusercontent.com/u/253408897?v=4&s=64" width="64" height="64" alt="holyarsenic" style="border-radius:50%" /></a>
@@ -218,7 +226,7 @@ Thanks to everyone who has contributed to this project:
 
 [See the full list of contributors →](https://github.com/holyarsenic/Shuriken/graphs/contributors)
 
-## Contributing
+## 👥 Contributing
 
 Contributions are welcome! Here's the standard flow:
 
@@ -231,9 +239,8 @@ Contributions are welcome! Here's the standard flow:
 
 Please follow the existing code style and include tests for new behavior where applicable.
 
-## 📜 License
+## License
 
 This project is licensed under the **ISC** License.
 
 ---
-
