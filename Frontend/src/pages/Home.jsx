@@ -76,7 +76,7 @@ const Home = () => {
 
         <button className="fixed top-10 right-10 lg:hidden rounded-xl transition cursor-pointer">
             <IoMdNotificationsOutline
-              className="relative text-3xl text-gray-700 dark:text-slate-300"
+              className="relative text-3xl text-gray-700 dark:text-white"
               onClick={(e) => {
               e.stopPropagation();
               setNotificationOpen((prev) => !prev);

@@ -46,7 +46,9 @@ const NotificationPage = ({ cancelButton }) => {
       {notifications.length === 0 ? (
        <div className={`cursor-pointer rounded-lg bg-gray-300 dark:bg-[#4A415C] p-2 transition`}>
           <div className="flex items-start justify-between gap-4">
-            <img src={Logo} alt="Sender Avatar" className="h-7 w-7 rounded-full" />
+            <div className="h-10 w-10 rounded-full overflow-hidden bg-black flex items-center justify-center">
+              <img src={Logo} alt="Sender Avatar" className="h-8 w-8 object-cover rounded-full" />
+            </div>
             <div className="flex-1">
               <h3 className="font-semibold text-gray-600 dark:text-white">
                 Hey!
