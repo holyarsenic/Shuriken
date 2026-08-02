@@ -5,9 +5,6 @@ const sendPushNotification = async ({ receiverId, title, body, data = {} }) => {
 
     const user = await User.findById(receiverId);
 
-    console.log("Receiver:", receiverId);
-    console.log("FCM Token:", user?.fcmToken);
-
     if (!user?.fcmToken) {
         console.log("No token found");
         return;
